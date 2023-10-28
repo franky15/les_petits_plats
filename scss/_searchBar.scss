@@ -1,0 +1,80 @@
+.containerLogo{
+
+    height: 25.26px; 
+    width: 207px; 
+    position: relative;
+    top: 51px;
+    left: 69px;
+
+}
+.containerTitre{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+    top: 200px;
+    //left: 275px;
+   // border: solid red;
+
+    h1{
+        visibility: hidden;
+    }
+    img{
+
+        position: relative;
+        top: -41px;
+        //left: 69px;
+    }
+    .searchBarContainer{
+
+        width: 954px;
+        height: 72px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: white;
+        border-radius: 5px;
+        padding-left: 30px;
+        padding-right: 10px;
+
+        //border: solid yellow;
+        
+        &__input{
+
+            width: 90%;
+            height: 85%;
+            border: solid white;
+
+        }
+        &__delete{
+
+            opacity: 0.5;
+            margin-right: 30px;
+
+            .btnDelete{
+
+                font-size: 24px;
+                
+            }
+
+        }
+        &__button{
+
+           
+            width: 8%;
+            height: 90%;
+            background-color: black;
+            border-radius: 5px;
+
+            i{
+                font-size: 45px;
+                color: white;
+            }
+        }
+
+    }
+    
+
+}

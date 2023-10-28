@@ -1,3 +1,92 @@
+header {
+  background-image: url("../scss/../assets/images/Maskgroup.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 667px;
+}
 
+main {
+  background-color: lightgrey;
+  border: solid red;
+}
+
+.containerLogo {
+  height: 25.26px;
+  width: 207px;
+  position: relative;
+  top: 51px;
+  left: 69px;
+}
+
+.containerTitre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 200px;
+}
+.containerTitre h1 {
+  visibility: hidden;
+}
+.containerTitre img {
+  position: relative;
+  top: -41px;
+}
+.containerTitre .searchBarContainer {
+  width: 954px;
+  height: 72px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding-left: 30px;
+  padding-right: 10px;
+}
+.containerTitre .searchBarContainer__input {
+  width: 90%;
+  height: 85%;
+  border: solid white;
+}
+.containerTitre .searchBarContainer__delete {
+  opacity: 0.5;
+  margin-right: 30px;
+}
+.containerTitre .searchBarContainer__delete .btnDelete {
+  font-size: 24px;
+}
+.containerTitre .searchBarContainer__button {
+  width: 8%;
+  height: 90%;
+  background-color: black;
+  border-radius: 5px;
+}
+.containerTitre .searchBarContainer__button i {
+  font-size: 45px;
+  color: white;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+  border: solid yellow;
+}
+.filters__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  border: solid blue;
+}
+.filters__container--filter {
+  width: 30%;
+  border: solid green;
+}
+.filters__numberRecette {
+  border: solid black;
+}
 
 /*# sourceMappingURL=style.css.map */
