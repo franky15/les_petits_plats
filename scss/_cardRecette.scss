@@ -1,0 +1,102 @@
+
+.recetteContainerSection{
+
+
+    //height: 329px;
+    //border: solid yellow;
+};
+.containerArticleRecette{
+
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+   // border: solid black;
+
+    .containerArticleRecette__article{
+
+        width: 30%;
+        //height: 731px;
+        border-radius: 21px;
+        background-color: white;
+        margin-bottom: 50px;
+       // border: solid yellow;
+    }
+    .imgContainer{
+
+        height: 300px;//253px;
+        border-top-left-radius: 21px; 
+        border-top-right-radius: 21px;
+        position: relative;
+        //border: solid red;
+
+        &__time{
+
+            width: 63px;
+            height: 26px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            font-size: small;
+            background-color: $colorPatille;
+            position: absolute;
+            top: 0; 
+            right: 0;
+            margin-right: 15px;
+            margin-top: 25px;
+
+
+        }
+    }
+
+    .recetteContainerSection{
+
+        width: 95%;
+        margin: auto;
+        //border: solid blue;
+
+        .recetteContainer__description{
+
+            max-height: 70px; 
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ingredientColumnsContainer{
+
+            display: flex;
+            margin-bottom: 50px;
+            //border: solid orange;
+    
+            .ingredientContainer{
+        
+                width: 50%;
+                //border: solid black;
+
+                &__child{
+
+                    .ingredients{
+
+                        position: relative;
+                        top: -15px;
+                       // border: solid yellow;
+                     }
+                    .ingredientsMesure{
+
+                        position: relative;
+                        top: -30px;
+                       color: gray;
+                      // border: solid yellow;
+                    }
+                }
+            }
+           
+        }
+
+    }
+    
+
+};
+

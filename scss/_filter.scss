@@ -1,3 +1,4 @@
+
 .filters{
 
     display: flex;
@@ -5,8 +6,11 @@
     align-items: center;
     width: 90%;
     margin: auto;
+    padding-top: 30px;
+    margin-bottom: 30px;
     
     border: solid yellow;
+
 
     &__container{
 
@@ -14,17 +18,184 @@
         justify-content: space-between;
         align-items: center;
         width: 60%;
+        border-radius: 11px;
 
-        border: solid blue;
+       // border: solid blue;
 
         &--filter{
 
             width: 30%;
-            border: solid green;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 11px;
+            background-color: white;
+
+           // border: solid green;
+
+            .recettesBtn{
+
+                width: 100%;
+                height: 60px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                border-radius: 11px;
+                background-color: white;
+                border: solid white;
+
+                .titleBtnMain{
+
+                    width: 75%;
+                    text-align: start;
+                    font-size: $fontsizeGlobale;
+
+                   // border: solid black;
+                }
+                .arrow{
+
+                    font-size: $fontsizeGlobale;
+                   // border: solid black;
+                }
+            }
+            ul{
+                //formatage de notre ul
+                width: 100%;
+                margin: 0; 
+                padding: 0; 
+                list-style: none; 
+                   
+                //border: solid yellow;
+
+                li{
+
+                    width: 86%;
+                    margin: auto;
+                    margin-bottom: 20px;
+                    //border: solid black;
+                    
+                }
+                .optionBar{
+
+                    display: flex;
+                    justify-content: space-between;
+                    //opacity: 0.7;
+                    border-radius: 5px;
+                    border: solid grey 2px;
+
+                    &__input{
+
+                        width: 90%;
+                        height: 30px;
+                        color: grey;
+                        border: solid 0px white;
+                    }
+                    //désactivation de l'apparution des bordures bleues lorsqu'on est focus sur l'input
+                    input:focus {
+                        outline: none; 
+                    }
+                    &__delete{
+
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                        padding-right: 10px;
+                        color: grey;
+                    }
+                    &__icon{
+
+                        width: 10%;
+                        display: flex;
+                        align-items: center;
+                        padding-right: 10px;
+                        color: grey;
+                       // border: solid red;
+                    }
+                }
+                button{
+
+                    width: 100%;
+                    height: 30px;
+                    text-align: start;
+                    padding-left: 0;
+                    background-color: white;
+                    border: solid white;
+                }
+
+            }
         }
     }
     &__numberRecette{
 
-        border: solid black;
+        width: 400;
+        font-size: 24px;
+        //border: solid black;
+    }
+
+   
+}
+
+.sectionTag{
+
+    width: 90%;
+    display: flex;
+    margin: auto;
+    margin-bottom: 50px;
+    border: solid red;
+
+    .keywordsTag{
+
+        width: 18%;
+        margin-right: 50px;
+       
+       
+        .keywordContainer{
+
+            // width: 18%;//195px;
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #FFD15B;
+            border-radius: 11px;
+           
+
+            &__btn{
+
+                width: 75%;
+                text-align: start;
+                padding-left: 10px;
+            
+                font-size: $fontsizeGlobale ;
+                background-color: #FFD15B;
+                //border: solid black;
+
+
+            }
+            &__delete{
+
+                margin-right: 13px;
+                font-size: $fontsizeGlobale ;
+                
+
+            }  
+
+        
+        }
+
+       
+
+        
+    }
+
+    ul{
+           
+        margin: 0; 
+        padding: 0; 
+        list-style: none; 
+       // border: solid black;
+
+       
     }
 }

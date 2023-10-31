@@ -16,13 +16,13 @@
     <header >
        
         <p class="containerLogo">
-            <img src="./assets/images/logo.svg" alt="logo du site des petits plats" class="containerLogo__logo" />
+            <img src="./assets/logo/logo.svg" alt="logo du site des petits plats" class="containerLogo__logo" />
         </p>
     
         <div class="containerTitre">
 
             <h1 class="containerTitre__h1" >Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses </h1>
-            <img class="containerTitre__img" src="./assets/images/titreH1.svg" alt="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses" title="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses" style="height: 132px; width: 890px;"/>
+            <img class="containerTitre__img" src="./assets/nav/titreH1.svg" alt="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses" title="Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses" style="height: 132px; width: 890px;"/>
            
             <div class="searchBarContainer">
                
@@ -33,21 +33,56 @@
 
     <main>
 
-        <section class="filters" >
+        <section  >
 
-            <div class="filters__container">
+            <div class="filters">
 
-                
+                <div class="filters__container">
+
+                     <!--
+                    <div class="filters__container--filter">
+
+                        <button class="recettesBtn" >
+                    
+                            <span class="titleBtnMain"  > Ingrédients </span>
+                            <span class="arrow arrowDown" > <i class="fa-solid fa-chevron-down"></i> </span>
+                            <span class="arrow arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
+                        
+                        </button>
+
+                        <ul  class="listeUlContainer"  >
+                            
+                            
+                        </ul>
+                    -->
+                    
+                    </div>
+
+                </div>
+
+                <p class="filters__numberRecette">
+                    le nombre de recettes est
+                </p>
 
             </div>
 
-            <p class="filters__numberRecette">
-                le nombre de recettes est
-            </p>
-            
+            <section class="sectionTag">
+
+                <div class="sectionTag__searchBar keywordsTag">
+
+                </div>
+                
+                <ul class="keywordsTag__listFilter keywordsTag">
+
+                </ul>
+
+            </section>
+
         </section>
 
         <section  class="containerArticleRecette" >
+            
+            
          
         </section>
 
@@ -57,5 +92,8 @@
     <script  type="module" src="./scripts/components/searchBar.js "></script>
     <script  type="module" src="./scripts/components/cardRecette.js"></script>
     <script  type="module" src="./scripts/components/filters.js"></script>
+    
+
+
 </body>
 </html>

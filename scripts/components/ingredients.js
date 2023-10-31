@@ -1,4 +1,4 @@
-
+/*
 //creation de la cardRecetteFunction
 export const cardRecetteFunction = () => {
 
@@ -17,10 +17,10 @@ export const cardRecetteFunction = () => {
 
             <ul  class="listeUlContainer" style="display: block;" >
                       
-                <li class="optionBar populariteElement"  role='option'>  
+                <li class="optionBar "  role='option'>  
                 
-                    <input class="populariteElement__input ${"Ingredients"} " type="text" >
-                    <span class="populariteElement__icon"> <i class="fa-solid fa-x btnDelete"></i> </span>
+                    <input class="optionBar__input ${"Ingredients"} " type="text" >
+                    <span class="populariteElement__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
 
                 </li>
                 <li class="optionLi ${ "Ingredients" }" style="display: block;" role='option'>  
@@ -64,4 +64,4 @@ export const cardRecetteFunction = () => {
 	labelClickData();
 	
 };
-cardRecetteFunction();
+cardRecetteFunction();*/
