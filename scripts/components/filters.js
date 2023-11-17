@@ -27,30 +27,7 @@ async  function createFilterFunction(){
 
 	let listFilters = [ "ingredients", "appareils", "ustensiles" ];
     
-	//constitution des listes pour les filtres
-	let ingredientsList = listdatas.map( item => item.ingredients[0].ingredient);
-	let applianceList = listdatas.map( item => item.appliance);
 	
-    let ustencils = listdatas.map( item => item.ustensils );
-    
-    let ustencilsList=[];
-    //fusion de l'ensemble de listes en une seule grosse liste
-    for(let u=0; u<ustencils.length; u++){
-
-        let ustencilsCurrent = ustencils[u];
-        ustencilsList.push(ustencilsCurrent);
-
-    }
-	console.log("**ingredientsList");
-	console.log(ingredientsList);
-
-	console.log("***appliance");
-	console.log(applianceList);
-
-	console.log("***ustencils");
-	console.log(ustencils);
-
-
 
 	/********************* gestion des filtres ******************************* */
 
@@ -106,6 +83,8 @@ async  function createFilterFunction(){
 	//liste des titres des filtres
 	let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
 	
+	
+
 	//fonction d'itération du filtre
 	const iterationFilter = () => {
 

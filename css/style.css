@@ -135,7 +135,7 @@ main {
   color: white;
 }
 
-.filters {
+.filtersSection .filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,14 +145,14 @@ main {
   margin-bottom: 30px;
   border: solid yellow;
 }
-.filters__container {
+.filtersSection .filters__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 60%;
   border-radius: 11px;
 }
-.filters__container--filter {
+.filtersSection .filters__container--filter {
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -160,7 +160,7 @@ main {
   border-radius: 11px;
   background-color: white;
 }
-.filters__container--filter .recettesBtn {
+.filtersSection .filters__container--filter .recettesBtn {
   width: 100%;
   height: 60px;
   display: flex;
@@ -170,55 +170,55 @@ main {
   background-color: white;
   border: solid white;
 }
-.filters__container--filter .recettesBtn .titleBtnMain {
+.filtersSection .filters__container--filter .recettesBtn .titleBtnMain {
   width: 75%;
   text-align: start;
   font-size: 18px;
 }
-.filters__container--filter .recettesBtn .arrow {
+.filtersSection .filters__container--filter .recettesBtn .arrow {
   font-size: 18px;
 }
-.filters__container--filter ul {
+.filtersSection .filters__container--filter ul {
   width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.filters__container--filter ul li {
+.filtersSection .filters__container--filter ul li {
   width: 86%;
   margin: auto;
   margin-bottom: 20px;
 }
-.filters__container--filter ul .optionBar {
+.filtersSection .filters__container--filter ul .optionBar {
   display: flex;
   justify-content: space-between;
   border-radius: 5px;
   border: solid grey 2px;
 }
-.filters__container--filter ul .optionBar__input {
+.filtersSection .filters__container--filter ul .optionBar__input {
   width: 90%;
   height: 30px;
   color: grey;
   border: solid 0px white;
 }
-.filters__container--filter ul .optionBar input:focus {
+.filtersSection .filters__container--filter ul .optionBar input:focus {
   outline: none;
 }
-.filters__container--filter ul .optionBar__delete {
+.filtersSection .filters__container--filter ul .optionBar__delete {
   display: flex;
   align-items: center;
   font-size: 12px;
   padding-right: 10px;
   color: grey;
 }
-.filters__container--filter ul .optionBar__icon {
+.filtersSection .filters__container--filter ul .optionBar__icon {
   width: 10%;
   display: flex;
   align-items: center;
   padding-right: 10px;
   color: grey;
 }
-.filters__container--filter ul button {
+.filtersSection .filters__container--filter ul button {
   width: 100%;
   height: 30px;
   text-align: start;
@@ -226,23 +226,22 @@ main {
   background-color: white;
   border: solid white;
 }
-.filters__numberRecette {
+.filtersSection .filters__numberRecette {
   width: 400;
   font-size: 24px;
 }
-
-.sectionTag {
+.filtersSection .sectionTag {
   width: 90%;
   display: flex;
   margin: auto;
   margin-bottom: 50px;
   border: solid red;
 }
-.sectionTag .keywordsTag {
+.filtersSection .sectionTag .keywordsTag {
   width: 18%;
   margin-right: 50px;
 }
-.sectionTag .keywordsTag .keywordContainer {
+.filtersSection .sectionTag .keywordsTag .keywordContainer {
   height: 60px;
   display: flex;
   justify-content: space-around;
@@ -251,18 +250,18 @@ main {
   background-color: #FFD15B;
   border-radius: 11px;
 }
-.sectionTag .keywordsTag .keywordContainer__btn {
+.filtersSection .sectionTag .keywordsTag .keywordContainer__btn {
   width: 75%;
   text-align: start;
   padding-left: 10px;
   font-size: 18px;
   background-color: #FFD15B;
 }
-.sectionTag .keywordsTag .keywordContainer__delete {
+.filtersSection .sectionTag .keywordsTag .keywordContainer__delete {
   margin-right: 13px;
   font-size: 18px;
 }
-.sectionTag ul {
+.filtersSection .sectionTag ul {
   margin: 0;
   padding: 0;
   list-style: none;

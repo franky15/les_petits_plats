@@ -2,8 +2,9 @@
 //récupération de la fonction
 import getDatas from "../manageDatas.js";
 
+
 //fonction asynchrone pemettant d'utiliser ou de récupérer la data 
-async function getDatasFunction() {
+export async function getDatasFunction() {
 
 	let listdatas;
 
@@ -172,13 +173,133 @@ async function getDatasFunction() {
  
 	};
 
-	for(let i=0; i<=listdatas.length; i++){
+	////////////////////////////////////
+	
+	
+	let listkeywords = [ "ingredientsListFilter", "applianceListFilter", "descriptionListFilter", "ustencilsListFilter", "listAllKeyWordFinal"];
+	let listkeywordsLocalStorage = [];
+
+	//récupération des listes de données du local storage
+	for( let l=0; l<listkeywords.length; l++){
+
+		let listkeywordsCurrent = listkeywords[l];
+		// Récupération la chaîne JSON depuis le local storage en utilisant la clé
+		const listkeywordsCurrentJSON = localStorage.getItem(`${listkeywordsCurrent}`);
+
+		// Convertion la chaîne JSON en objet JavaScript
+		//let listeFusionnee = JSON.parse(listkeywordsCurrentJSON);
+
+		listkeywordsLocalStorage.push( JSON.parse(listkeywordsCurrentJSON) );
+	}
+	console.log(listkeywordsLocalStorage)
+
+
+	////////////////////////////////////
+	
+	for(let i=0; i<listdatas.length; i++){
 
 		let recetteCurrent = listdatas[i];
 
 		articleCreateFunction(recetteCurrent);
 
 	}
+
+
+	//searchBarFunction();
+	//gestion de la value de la searchbar
+	const inputSearch = document.querySelector(".inputSearch");
+	console.log(inputSearch);
+	
+
+	inputSearch.addEventListener( "input", (e)=> {
+
+		
+
+		let valInput = e.target.value;
+		// console.log(valInput);
+
+		inputSearch.setAttribute("value" , `${valInput}`);
+
+		//stockage de valInput dans le local storage
+
+		localStorage.setItem("valInput", valInput);
+		
+		let valInputLocalStorage = localStorage.getItem("valInput");
+		console.log(valInputLocalStorage);
+
+		let listResultSearchBar = listdatas.filter( item => item.name.includes(`${valInputLocalStorage}`) );
+		console.log(listResultSearchBar)
+		
+		if(valInputLocalStorage && listResultSearchBar[0]){
+
+			// Suppression de tous les enfants de la section
+			while (containerArticleRecette.firstChild) {
+				containerArticleRecette.removeChild(containerArticleRecette.firstChild);
+			}
+
+			/*
+			//"Limonade de Coco"
+			let listResultSearchBar = listdatas.filter( item => item.name.includes(`${valInputLocalStorage}`) );
+			console.log(listResultSearchBar)*/
+
+			for(let i=0; i<listResultSearchBar.length; i++){
+
+				let recetteCurrent = listdatas[i];
+		
+				articleCreateFunction(recetteCurrent);
+		
+			}
+		}else{
+
+			for(let i=0; i<listdatas.length; i++){
+
+				let recetteCurrent = listdatas[i];
+		
+				articleCreateFunction(recetteCurrent);
+		
+			}
+
+		}
+
+		
+		
+
+	});
+
+	//fermeture de la searchbar
+
+	const deleteValueInput = () => {
+
+		//fonction de suppression du contenu de la search bar 
+		const btnDelete = document.querySelector(".btnDelete");
+		const inputSearch = document.querySelector(".inputSearch");
+
+		btnDelete.addEventListener("click", ()=>{
+
+			inputSearch.value = "";
+			// Supprimez la clé du local storage
+			localStorage.removeItem("valInput");
+
+			//////////////
+			for(let i=0; i<listdatas.length; i++){
+
+				let recetteCurrent = listdatas[i];
+		
+				articleCreateFunction(recetteCurrent);
+		
+			}
+
+			////////////
+
+			console.log("click sur le bouton de suppression");
+		});
+
+	};
+	deleteValueInput();
+
+
+	
+
 
 }
 

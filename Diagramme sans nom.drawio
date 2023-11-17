@@ -1,0 +1,218 @@
+<mxfile host="app.diagrams.net" modified="2023-11-17T02:24:54.985Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="NWH49WGNrstmsTXYxbr7" version="22.1.2" type="device">
+  <diagram name="Page-1" id="rh9mKg3WAd4YH7uBUaNb">
+    <mxGraphModel dx="1423" dy="761" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7a7G8fhtYwobDoml4G5z-1" value="inputSearchBar" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="90" y="250" width="150" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="7a7G8fhtYwobDoml4G5z-2" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="250" as="sourcePoint" />
+            <mxPoint x="300" y="214" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7a7G8fhtYwobDoml4G5z-3" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="240" y="400" as="sourcePoint" />
+            <mxPoint x="320" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7a7G8fhtYwobDoml4G5z-4" value="searchBar &amp;lt; 3" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="299" y="136" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="7a7G8fhtYwobDoml4G5z-5" value="searchBar &amp;gt; 3&lt;br&gt;ou&amp;nbsp;&lt;br&gt;mot clé dans filtres" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="320" y="360" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-1" value="&lt;font color=&quot;#ff0000&quot;&gt;Aucun déclenchement de recherche&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="459" y="130" width="87" height="87" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-2" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="379" y="216" as="sourcePoint" />
+            <mxPoint x="459" y="216" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-4" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="399.5" as="sourcePoint" />
+            <mxPoint x="480" y="399.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-5" value="Déclenchement de la recherche" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="480" y="350" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-6" value="" style="endArrow=classic;html=1;rounded=0;entryX=-0.067;entryY=0.989;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" parent="1" source="Q4cqywjzNLYdNPYM8HAM-5" target="Q4cqywjzNLYdNPYM8HAM-7" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="360" as="sourcePoint" />
+            <mxPoint x="640" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-7" value="Valeur champ non correspondante avec mot clé de la description, titre, ingredients,&lt;br&gt;appareils,&lt;br&gt;ustensiles" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="640" y="200" width="130" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-8" value="Déclenchement de la recherche" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="640" y="480" width="90" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=1;exitDx=0;exitDy=0;" parent="1" source="Q4cqywjzNLYdNPYM8HAM-5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="440" as="sourcePoint" />
+            <mxPoint x="640" y="480.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-10" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="330" as="sourcePoint" />
+            <mxPoint x="800" y="330.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-12" value="&lt;font color=&quot;#ff0000&quot;&gt;Aucun résultat de recherche proposition des mots clés à rechercher&lt;/font&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="800" y="160" width="170" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-13" value="Mise à jour des résultats de recherche" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="810" y="450" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-15" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="480" as="sourcePoint" />
+            <mxPoint x="810" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-16" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="730" y="570" as="sourcePoint" />
+            <mxPoint x="810" y="610.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-17" value="Mise à jour des valeurs des listes déroulantes." style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="810" y="610" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-19" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="449.5" as="sourcePoint" />
+            <mxPoint x="970" y="449.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-20" value="Apparition mot clé sous forme de tag après recherche en dessous du champ et disparition des mots clés de la liste déroulante qui ne correspondent pas à la frappe" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="970" y="390" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-28" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="890" y="610" as="sourcePoint" />
+            <mxPoint x="970" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-29" value="Apparition mot clé sous forme de tag&amp;nbsp; en dessous des filtres après choix dans liste déroulante&amp;nbsp;&amp;nbsp;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="970" y="610" width="105" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-31" value="Mise à jour des résultats de recherche" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="1153" y="609" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-32" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1075" y="610" as="sourcePoint" />
+            <mxPoint x="1155" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-33" value="&lt;b&gt;Cas d&#39;utilisation du filtre&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="580" y="10" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-34" value="&lt;b&gt;Fiche d&#39;investigation de fonctionnalités&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="480" y="790" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-49" value="&lt;b&gt;Fonctionnalité de&amp;nbsp; recherche avec le champ&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="130" y="950" width="450" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-51" value="&lt;b&gt;Objectif&lt;/b&gt;: entrer un mot clé dans le champ et obtenir un tag en dessous de ce champ après avoir validé ce mots clé et mis à jour du contenu de la page&lt;br&gt;.&lt;br&gt;&lt;br&gt;&lt;b&gt;Cas 1:&lt;/b&gt; l&#39;utilisateur commence à écrire dans le champ tant qu&#39;il n&#39;a pas atteint 3 caractère dans ce champ la recherche ne se déclenche&amp;nbsp; pas&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;b&gt;Cas 2 :&lt;/b&gt; l&#39;utilisateur entre&amp;nbsp; 3 caractères ou plus, la recherche se déclenche, les recettes qui correspondent au mot clé s&#39;affichent au fur et à mesure qu&#39;il rentre des caractères. Après validation du mot clé ce dernier s&#39;agrège sous forme de tag en dessous du champ recherche et les listes déroulantes sont également mises à jour avec les mots clé qui correspondent au mot clé entrés dans le champ de recherche.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Q4cqywjzNLYdNPYM8HAM-49" vertex="1">
+          <mxGeometry y="30" width="450" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-56" value="&lt;b&gt;Fonctionnalité de&amp;nbsp; recherche avec les listes déroulantes&lt;/b&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="950" width="450" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-57" value="&lt;b&gt;Objectif&lt;/b&gt;: sélectionner un mot clé dans la liste déroulante et obtenir un tag en dessous de chaque liste déroulante et mise à jour du contenu de la page.&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Cas 1 :&lt;/b&gt;&amp;nbsp;l&#39;utilisateur n&#39;a pas utiliser le champ recherche il sélectionne directement un mot clé dans la liste, on obtient un l&#39;apparition d&#39;un tag en dessous de cette liste et la page se met à jour uniquement avec les recettes qui correspondent au mot clé choisit.&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;Cas 2 : &lt;/b&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;après la validation du mot clé dans le champ les listes déroulantes se mettent également à jour en fonction du mot clé&amp;nbsp; du champ de recherche et l&#39;utilisateur peut également avoir les même scénario qu&#39;au cas 1 ci dessus.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Q4cqywjzNLYdNPYM8HAM-56" vertex="1">
+          <mxGeometry y="30" width="450" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-58" value="&lt;b&gt;Annexes&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="480" y="1450" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-59" value="Utilisateur écrit dans le champ de recherche" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="1520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-60" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="280" y="1549.5" as="sourcePoint" />
+            <mxPoint x="370" y="1549.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-61" value="Nombre de caractères &amp;lt; 3" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="370" y="1520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-62" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="1549.5" as="sourcePoint" />
+            <mxPoint x="580" y="1549.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-63" value="&lt;font color=&quot;#ff0000&quot;&gt;pas de déclenchement de recherche&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+          <mxGeometry x="580" y="1520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-64" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="219.5" y="1580" as="sourcePoint" />
+            <mxPoint x="219.5" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-65" value="Nombre de caractères &amp;gt; 3" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="1620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-66" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="219.5" y="1680" as="sourcePoint" />
+            <mxPoint x="219.5" y="1720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-67" value="&lt;font color=&quot;#330000&quot;&gt;Déclenchement de la recherche, mise à jour du contenu de la page et apparition&amp;nbsp;du tag sous le champ ou la liste déroulante&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82b366;fillColor=#d5e8d4;" parent="1" vertex="1">
+          <mxGeometry x="160" y="1720" width="150" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-68" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="310" y="1782" as="sourcePoint" />
+            <mxPoint x="400" y="1782" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-69" value="Mise à jour des mots clé des&amp;nbsp; listes déroulantes correspondant au mot clé entré" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1745" width="140" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-70" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="1782" as="sourcePoint" />
+            <mxPoint x="630" y="1782" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-71" value="Sélection du mot clé dans la liste déroulante" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="630" y="1752.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Q4cqywjzNLYdNPYM8HAM-72" value="" style="curved=1;endArrow=classic;html=1;rounded=0;entryX=1.02;entryY=0.064;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="Q4cqywjzNLYdNPYM8HAM-67" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="1780" as="sourcePoint" />
+            <mxPoint x="800" y="1730" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="800" y="1780" />
+              <mxPoint x="750" y="1730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7MQ79MgqXv5jH8T6Erqn-1" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" target="7MQ79MgqXv5jH8T6Erqn-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <mxPoint x="480" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7MQ79MgqXv5jH8T6Erqn-2" value="avec tag" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="440" y="476" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
