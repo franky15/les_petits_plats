@@ -1,7 +1,12 @@
 //récupération de la data
 async function getDatas(){
 
-	let listAllImgData;
+	let listAllData;
+	let listAllKeyWordSearchBar;
+	let descriptionListFilter;
+	let ustencilsListFilter = [];
+	let ingredientsListFilter = [];
+	let applianceListFilter = [];
 
 	try{
 		//requete de récupération des données asynchrone
@@ -10,18 +15,18 @@ async function getDatas(){
 		//je converti ensuite la réponse pendant un certain temps en json
 		let responseJson = await response.json();
 
-		listAllImgData = responseJson.recipes;
+		listAllData = responseJson.recipes;
 
 		
 		//obtension des listes de mots clés 
 		
 		//constitution des listes pour les filtres
-		let ingredientsListFilter = listAllImgData.map( item => item.ingredients[0].ingredient);
-		let applianceListFilter = listAllImgData.map( item => item.appliance);
-		let descriptionListFilter = listAllImgData.map( item => item.description);
-		console.log(descriptionListFilter);
-	
-		let ustencils = listAllImgData.map( item => item.ustensils );
+		let titreListFilter = listAllData.map( item => item.name);
+		ingredientsListFilter = listAllData.map( item => item.ingredients[0].ingredient);
+		applianceListFilter = listAllData.map( item => item.appliance);
+		descriptionListFilter = listAllData.map( item => item.description);
+		
+		let ustencils = listAllData.map( item => item.ustensils );
     
 		/* suppression des doublons avec [...new Set(list)]
 			[new Set(list)] création d'un nouveau set (ensemble de plusieurs listes) en supprimant les doublons
@@ -32,7 +37,6 @@ async function getDatas(){
 		descriptionListFilter = [...new Set(descriptionListFilter)];
 		ustencils = [...new Set(ustencils)];
 		
-
 		let ustencilsList=[];
 	
 		//fusion de l'ensemble de listes en une seule grosse liste
@@ -41,18 +45,27 @@ async function getDatas(){
 			let ustencilsCurrent = ustencils[u];
 			ustencilsList.push(ustencilsCurrent);
 		
-
 		}
 
-		let ustencilsListFilter = [].concat(...ustencilsList);
-	
-		//obtension de la grande liste de tous les mots clés
-		let listAllKeyWordFinal = [].concat(...ustencilsList).concat(...ingredientsListFilter).concat(...applianceListFilter).concat(...descriptionListFilter);
-		// console.log(listAllKeyWordFinal);
+		ustencilsListFilter = [].concat(...ustencilsList);
 
+		//retrait des doublons après la fusion des données
+		ustencilsListFilter = [...new Set(ustencilsListFilter)];
+
+		//obtension de la grande liste de tous les mots clés utiliser sur la searchbar
+
+		// listAllKeyWordSearchBar = [].concat(ustencilsListFilter).concat(ingredientsListFilter).concat(applianceListFilter);
+		listAllKeyWordSearchBar = [].concat(titreListFilter).concat(ingredientsListFilter).concat(descriptionListFilter);
+
+		/*
 		//stockage des listes de mots clés dans le local storage
 
-		let listkeywords = [ { ingredientsListFilter : ingredientsListFilter }, { applianceListFilter: applianceListFilter }, { descriptionListFilter: descriptionListFilter }, { ustencilsListFilter: ustencilsListFilter }, { listAllKeyWordFinal: listAllKeyWordFinal}];
+		let listkeywords = [ { ingredientsListFilter : ingredientsListFilter },
+			{ applianceListFilter: applianceListFilter }, 
+			{ descriptionListFilter: descriptionListFilter }, 
+			{ ustencilsListFilter: ustencilsListFilter },
+			{ listAllKeyWordSearchBar: listAllKeyWordSearchBar}
+		];
 		
 		for(let l=0; l<listkeywords.length; l++){
 
@@ -68,6 +81,7 @@ async function getDatas(){
 			localStorage.setItem( keyCurrent, keyCurrentStringify);
 
 		}
+		*/
 
 		//vidage du localstorage au chargement de la page
 		window.addEventListener("beforeunload", () => {
@@ -75,17 +89,13 @@ async function getDatas(){
 			localStorage.clear();
 		});
 
-		
-	
-
-
 	} catch(error){
 
 		console.error("Erreur lors de la requête :", error);
 
 	}
 
-	return listAllImgData;
+	return [ listAllKeyWordSearchBar, descriptionListFilter, listAllData, ustencilsListFilter, ingredientsListFilter, applianceListFilter ];//listAllImgData,listAllKeyWordFinal;
 
 }
 

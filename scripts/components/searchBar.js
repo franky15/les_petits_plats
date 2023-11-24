@@ -1,8 +1,22 @@
+//import getDatasFunction from "./cardRecette.js";
+// import search from "./cardRecette.js";
+// import articleCreateFunction from "./cardRecette.js";
 
 
 
 //creation de la searchBar
-export const searchBarFunction = () => {
+// export const searchBarFunction = () => {
+async function searchBarFunction(){
+
+	/*
+	try {
+			
+		let responseData = await getDatasFunction;
+
+	} catch (error) {
+			
+		console.error("Erreur dans la requête :", error);
+	}*/
 
 	//récupération du container de la searchBarContainer
 	const searchBarContainer = document.querySelector(".searchBarContainer");
@@ -22,5 +36,5 @@ export const searchBarFunction = () => {
 
 	return searchBar;
 	
-};
+}
 searchBarFunction();

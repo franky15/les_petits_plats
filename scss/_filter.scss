@@ -19,24 +19,69 @@
         &__container{
 
             display: flex;
-            justify-content: space-between;
+            //justify-content: space-between;
+            flex-direction: column;
             align-items: center;
             width: 60%;
             border-radius: 11px;
 
-        // border: solid blue;
+            //border: solid blue;
+
+            ///////////////////////
+            
+            .btnArrow{
+
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+               //border: solid yellow;
+            }
+            .btnfilter{
+
+                width: 100%;
+                display: flex;
+                
+                //justify-content: space-between;
+                
+                
+               
+                //border: solid red;
+
+                
+        
+            }
+
+            .filterForm{
+
+                width: 30%;
+                //border: solid blue;
+                
+             }
+
+            
+             .filterForm2{
+
+                width: 30%;
+                //border: solid blue;
+                
+             }
+
+            ////////////////////////////
+
+
 
             &--filter{
 
-                width: 30%;
+                width: 100%;//30%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 border-radius: 11px;
-                background-color: white;
+                //background-color: white;
 
-            // border: solid green;
+                //border: solid green;
 
+                
                 .recettesBtn{
 
                     width: 100%;
@@ -62,14 +107,26 @@
                     // border: solid black;
                     }
                 }
-                ul{
+                
+                /*ul{
                     //formatage de notre ul
-                    width: 100%;
+                    width: 100%;//97.5%;
                     margin: 0; 
                     padding: 0; 
                     list-style: none; 
-                    
+
+                    position: relative;
+                    top: -7px;
+
+                    //padding-top: 10px;
+                    border-bottom-left-radius: 15px; 
+                    border-bottom-right-radius: 15px;
+                    background-color: white;
+                    border: solid white;
+             
                     //border: solid yellow;
+
+                    
 
                     li{
 
@@ -124,10 +181,98 @@
                         padding-left: 0;
                         background-color: white;
                         border: solid white;
+
+                        
                     }
 
-                }
+                }*/
             }
+            ///////////////////////////
+            ul{
+                //formatage de notre ul
+                width: 98%;//97.5%;
+                margin: 0px; 
+                padding: 0px; 
+                list-style: none; 
+
+                position: relative;
+                top: -9px;
+
+                //padding-top: 10px;
+                border-bottom-left-radius: 15px; 
+                border-bottom-right-radius: 15px;
+                background-color: white;
+                border: solid white;
+         
+                //border: solid yellow;
+                
+                margin-right: 50;
+
+                li{
+
+                    width: 86%;
+                    margin: auto;
+                    margin-bottom: 20px;
+                    
+                    //border: solid black;
+                    
+                }
+                .optionBar{
+
+                    display: flex;
+                    justify-content: space-between;
+                    //opacity: 0.7;
+                    border-radius: 5px;
+                    border: solid grey 2px;
+
+                    &__input{
+
+                        width: 90%;
+                        height: 30px;
+                        color: grey;
+                        border: solid 0px white;
+                    }
+                    //désactivation de l'apparution des bordures bleues lorsqu'on est focus sur l'input
+                    input:focus {
+                        outline: none; 
+                    }
+                    &__delete{
+
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                        padding-right: 10px;
+                        color: grey;
+                    }
+                    &__icon{
+
+                        width: 10%;
+                        display: flex;
+                        align-items: center;
+                        padding-right: 10px;
+                        color: grey;
+                    // border: solid red;
+                    }
+                }
+                button{
+
+                    width: 100%;
+                    height: 30px;
+                    text-align: start;
+                    padding-left: 0;
+                    background-color: white;
+                    border: solid white;
+
+                    
+                }
+
+            }
+            ///////////////////////////
+
+           
+
+
+            
         }
         &__numberRecette{
 

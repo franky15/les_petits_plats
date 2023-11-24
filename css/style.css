@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*@mixin recettesBtn {
 
     width: 100%;
@@ -147,18 +148,110 @@ main {
 }
 .filtersSection .filters__container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   width: 60%;
   border-radius: 11px;
 }
-.filtersSection .filters__container--filter {
+.filtersSection .filters__container .btnArrow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.filtersSection .filters__container .btnfilter {
+  width: 100%;
+  display: flex;
+}
+.filtersSection .filters__container .filterForm {
   width: 30%;
+}
+.filtersSection .filters__container .filterForm2 {
+  width: 30%;
+}
+.filtersSection .filters__container--filter {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 11px;
-  background-color: white;
+  /*ul{
+      //formatage de notre ul
+      width: 100%;//97.5%;
+      margin: 0; 
+      padding: 0; 
+      list-style: none; 
+
+      position: relative;
+      top: -7px;
+
+      //padding-top: 10px;
+      border-bottom-left-radius: 15px; 
+      border-bottom-right-radius: 15px;
+      background-color: white;
+      border: solid white;
+
+      //border: solid yellow;
+
+
+
+      li{
+
+          width: 86%;
+          margin: auto;
+          margin-bottom: 20px;
+          //border: solid black;
+
+      }
+      .optionBar{
+
+          display: flex;
+          justify-content: space-between;
+          //opacity: 0.7;
+          border-radius: 5px;
+          border: solid grey 2px;
+
+          &__input{
+
+              width: 90%;
+              height: 30px;
+              color: grey;
+              border: solid 0px white;
+          }
+          //désactivation de l'apparution des bordures bleues lorsqu'on est focus sur l'input
+          input:focus {
+              outline: none; 
+          }
+          &__delete{
+
+              display: flex;
+              align-items: center;
+              font-size: 12px;
+              padding-right: 10px;
+              color: grey;
+          }
+          &__icon{
+
+              width: 10%;
+              display: flex;
+              align-items: center;
+              padding-right: 10px;
+              color: grey;
+          // border: solid red;
+          }
+      }
+      button{
+
+          width: 100%;
+          height: 30px;
+          text-align: start;
+          padding-left: 0;
+          background-color: white;
+          border: solid white;
+
+
+      }
+
+  }*/
 }
 .filtersSection .filters__container--filter .recettesBtn {
   width: 100%;
@@ -178,47 +271,54 @@ main {
 .filtersSection .filters__container--filter .recettesBtn .arrow {
   font-size: 18px;
 }
-.filtersSection .filters__container--filter ul {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+.filtersSection .filters__container ul {
+  width: 98%;
+  margin: 0px;
+  padding: 0px;
   list-style: none;
+  position: relative;
+  top: -9px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: white;
+  border: solid white;
+  margin-right: 50;
 }
-.filtersSection .filters__container--filter ul li {
+.filtersSection .filters__container ul li {
   width: 86%;
   margin: auto;
   margin-bottom: 20px;
 }
-.filtersSection .filters__container--filter ul .optionBar {
+.filtersSection .filters__container ul .optionBar {
   display: flex;
   justify-content: space-between;
   border-radius: 5px;
   border: solid grey 2px;
 }
-.filtersSection .filters__container--filter ul .optionBar__input {
+.filtersSection .filters__container ul .optionBar__input {
   width: 90%;
   height: 30px;
   color: grey;
   border: solid 0px white;
 }
-.filtersSection .filters__container--filter ul .optionBar input:focus {
+.filtersSection .filters__container ul .optionBar input:focus {
   outline: none;
 }
-.filtersSection .filters__container--filter ul .optionBar__delete {
+.filtersSection .filters__container ul .optionBar__delete {
   display: flex;
   align-items: center;
   font-size: 12px;
   padding-right: 10px;
   color: grey;
 }
-.filtersSection .filters__container--filter ul .optionBar__icon {
+.filtersSection .filters__container ul .optionBar__icon {
   width: 10%;
   display: flex;
   align-items: center;
   padding-right: 10px;
   color: grey;
 }
-.filtersSection .filters__container--filter ul button {
+.filtersSection .filters__container ul button {
   width: 100%;
   height: 30px;
   text-align: start;

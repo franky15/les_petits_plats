@@ -5,8 +5,24 @@ import getDatas from "../manageDatas.js";
 //creation de la du filtre
 async  function createFilterFunction(){
 
+	/*****récupération de la liste du résultat de recherche du localstorage **/
+		// Récupération de listRicepsFilter la chaîne JSON du localStorage
+		let listRicepsFilterJSON = localStorage.getItem("listRicepsFilter");
+	
+		// Convertion de la chaîne listRicepsFilterJSON en liste JavaScript
+		let listRicepsFilter = JSON.parse(listRicepsFilterJSON);
+	
+		console.log("***listRicepsFilter dans filters");
+		console.log(listRicepsFilter);
+	
+
 	//récupération des données 
-	let listdatas;
+	
+	let listAllData;
+	let ustencilsListFilter;
+	let ingredientsListFilter;
+	let applianceListFilter;
+
 
 	try {
         
@@ -16,38 +32,53 @@ async  function createFilterFunction(){
 		//je converti ensuite la réponse pendant un certain temps en json
 		let responseDataJson = await responseData;
 
-		listdatas = responseDataJson;
+		//récupération des listes utiles
+		listAllData = responseDataJson[2];
+		ustencilsListFilter = responseDataJson[3];
+		ingredientsListFilter = responseDataJson[4];
+		applianceListFilter = responseDataJson[5];
 	
 	} catch (error) {
 
 		console.error("Erreur dans la requête :", error);
 	}
 
-	console.log(listdatas);
+	console.log("*** listAllData");
+	console.log(listAllData);
+	console.log("*** ustencilsListFilter");
+	console.log(ustencilsListFilter);
+	console.log("*** ingredientsListFilter");
+	console.log(ingredientsListFilter);
+	console.log("*** applianceListFilter");
+	console.log(applianceListFilter);
 
-	let listFilters = [ "ingredients", "appareils", "ustensiles" ];
+	//let listFilters = [ "ingredients", "appareils", "ustensiles" ];
     
 	
 
 	/********************* gestion des filtres ******************************* */
 
 	//récupération du container de la containerFilter
-	const filtersContainer = document.querySelector(".filters__container");
+	// const filtersContainer = document.querySelector(".filters__container");btnArrow
+	const btnArrow = document.querySelector(".btnArrow");
 
 	const createFilterItemFunction =(listTitleFiltersCurrent) => {
 
 		let  filter = `
             
+		<div class="filterForm">
+
             <div class="filters__container--filter">
 
                 <button class="recettesBtn" >
             
-                    <span class="titleBtnMain ${listTitleFiltersCurrent} " > ${listTitleFiltersCurrent} </span>
+                    <span class="titleBtnMain ${listTitleFiltersCurrent}" > ${listTitleFiltersCurrent} </span>
                     <span class="arrow arrowDown" > <i class="fa-solid fa-chevron-down"></i> </span>
                     <span class="arrow arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
                 
                 </button>
 
+				<!--
                 <ul  class="listeUlContainer" id="${listTitleFiltersCurrent}" style="display: block;" >
                         
                     <li class="optionBar"  >  
@@ -69,18 +100,23 @@ async  function createFilterFunction(){
                     
                    
                 </ul>
+				-->
 
             </div>
 
+			</div>
+
         `;
 
-		filtersContainer.innerHTML += filter;
+		//filtersContainer.innerHTML += filter;btnArrow
+
+		btnArrow.innerHTML += filter;
 		// const listeUlContainer = document.querySelector(".listeUlContainer");
 		// listeUlContainer.innerHTML = filter;
 	};
 	//createFilterItemFunction();
 
-	//liste des titres des filtres
+	//liste des titres des boutons
 	let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
 	
 	
@@ -91,7 +127,8 @@ async  function createFilterFunction(){
 		for(let i=0; i< listTitleFilters.length; i++){
 
 			let listTitleFiltersCurrent = listTitleFilters[i];
-
+			
+			
 			createFilterItemFunction(listTitleFiltersCurrent);
 
 		}
@@ -99,7 +136,35 @@ async  function createFilterFunction(){
 
 
 	};
-	iterationFilter();
+	//iterationFilter();
+
+
+	//insersion des nouvelles classes dans les boutons
+	const listBtnRecette = document.getElementsByClassName("recettesBtn");
+	console.log(listBtnRecette);
+
+	for(let b=0; b<listBtnRecette.length; b++){
+
+		let listBtnRecetteCurrent = listBtnRecette[b];
+
+		//récupération de la valeur du premier enfant
+		let firstChildBtn = listBtnRecetteCurrent.firstElementChild.textContent;
+
+		for(let i=0; i< listTitleFilters.length; i++){
+
+			let listTitleFiltersCurrent = listTitleFilters[i];
+			
+			if(firstChildBtn.trim() === listTitleFiltersCurrent){
+
+				listBtnRecetteCurrent.classList.add(listTitleFiltersCurrent);
+			}
+			
+			
+		}
+		
+	}
+
+	
 
 	/********************* gestion des tags ******************************* */
 	
@@ -125,7 +190,7 @@ async  function createFilterFunction(){
 
 
 	};
-	keywordsTagFunction();
+	//keywordsTagFunction();
 
 
     
@@ -163,7 +228,7 @@ async  function createFilterFunction(){
 
 
 	};
-	keywordsTagFilterFunction();
+	//keywordsTagFilterFunction();
 
 
 	//valeurs du premier bouton
