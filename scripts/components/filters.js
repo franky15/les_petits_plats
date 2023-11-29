@@ -6,14 +6,14 @@ import getDatas from "../manageDatas.js";
 async  function createFilterFunction(){
 
 	/*****récupération de la liste du résultat de recherche du localstorage **/
-		// Récupération de listRicepsFilter la chaîne JSON du localStorage
-		let listRicepsFilterJSON = localStorage.getItem("listRicepsFilter");
+	// Récupération de listRicepsFilter la chaîne JSON du localStorage
+	let listRicepsFilterJSON = localStorage.getItem("listRicepsFilter");
 	
-		// Convertion de la chaîne listRicepsFilterJSON en liste JavaScript
-		let listRicepsFilter = JSON.parse(listRicepsFilterJSON);
+	// Convertion de la chaîne listRicepsFilterJSON en liste JavaScript
+	let listRicepsFilter = JSON.parse(listRicepsFilterJSON);
 	
-		console.log("***listRicepsFilter dans filters");
-		console.log(listRicepsFilter);
+	console.log("***listRicepsFilter dans filters");
+	console.log(listRicepsFilter);
 	
 
 	//récupération des données 
@@ -53,8 +53,10 @@ async  function createFilterFunction(){
 	console.log(applianceListFilter);
 
 	//let listFilters = [ "ingredients", "appareils", "ustensiles" ];
-    
-	
+
+
+	//liste des titres des boutons
+	let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
 
 	/********************* gestion des filtres ******************************* */
 
@@ -70,41 +72,49 @@ async  function createFilterFunction(){
 
             <div class="filters__container--filter">
 
-                <button class="recettesBtn" >
-            
-                    <span class="titleBtnMain ${listTitleFiltersCurrent}" > ${listTitleFiltersCurrent} </span>
-                    <span class="arrow arrowDown" > <i class="fa-solid fa-chevron-down"></i> </span>
-                    <span class="arrow arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
-                
-                </button>
+				<div class="btnContainer" >
 
-				<!--
-                <ul  class="listeUlContainer" id="${listTitleFiltersCurrent}" style="display: block;" >
-                        
-                    <li class="optionBar"  >  
-                    
-                        <input value=${ "value" } class="optionBar__input ${"Ingredients"} " type="text" >
-                        <span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
-                        <span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
+					<button class="recettesBtn" >
+				
+						<span class="titleBtnMain ${listTitleFiltersCurrent}" > ${listTitleFiltersCurrent} </span>
+						<span class="arrow arrowDown${listTitleFiltersCurrent} arrowDown"  style="display: block;" > <i class="fa-solid fa-chevron-down"></i> </span>
+						<span class="arrow arrowUp${listTitleFiltersCurrent} arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
+					
+					</button>
 
-                    </li>
-                    <li class="optionLi ${ "Ingredients" }" style="display: block;" role='option'>  
-                    
-                        <button  value= ${"Ingredients"} class="${ "Ingredients"+"Btn" }">
+				</div>
+				
+				<div  class="listeUlContainer filterForm2" id="${listTitleFiltersCurrent}" style="display: none;">
 
-                            <span class="${"Ingredients"}">${"Ingredients"}</span>
-                        
-                        </button>
-                        
-                    </li>
-                    
-                   
-                </ul>
-				-->
+					<div class="optionBar"  >  
+						
+							<input  class="optionBar__input ${"input"+listTitleFiltersCurrent}" type="text" >
+							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
+							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
+
+					</div>
+					<ul    class="listeUlContainer filterForm2Container" id="${listTitleFiltersCurrent+"Container"}" >
+							
+						<!--
+						<li class="optionBar"  >  
+						
+							<input placeHolder=${ "value2" } class="optionBar__input ${"Ingredients"} " type="text" >
+							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
+							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
+
+						</li>
+						-->
+			
+						
+					
+					</ul>
+
+				</div>
+				
 
             </div>
 
-			</div>
+		</div>
 
         `;
 
@@ -116,8 +126,8 @@ async  function createFilterFunction(){
 	};
 	//createFilterItemFunction();
 
-	//liste des titres des boutons
-	let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
+	// //liste des titres des boutons
+	// let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
 	
 	
 
@@ -136,12 +146,16 @@ async  function createFilterFunction(){
 
 
 	};
-	//iterationFilter();
+	iterationFilter();
+
+	//const listeUlContainer = document.getElementsByClassName("listeUlContainer")
+	//console.log(listeUlContainer)
+
 
 
 	//insersion des nouvelles classes dans les boutons
 	const listBtnRecette = document.getElementsByClassName("recettesBtn");
-	console.log(listBtnRecette);
+	// console.log(listBtnRecette);
 
 	for(let b=0; b<listBtnRecette.length; b++){
 
@@ -163,6 +177,247 @@ async  function createFilterFunction(){
 		}
 		
 	}
+
+
+
+	/////////////////////////////////////
+	//const listBtnRecette = document.getElementsByClassName("recettesBtn");
+		
+	//récupération des filtres
+	const filterForm2 = document.getElementsByClassName("filterForm2");
+	// console.log(filterForm2); 
+
+	//récupération des filtres
+	const listArrowDown = document.getElementsByClassName("arrowDown");
+
+	const listArrowUp = document.getElementsByClassName("arrowUp");
+
+	//console.log(listArrowDown);
+
+	//liste des valeurs des arrows
+	let listArrowDownFilters = [ "arrowDownIngredients", "arrowDownAppareils", "arrowDownUstensiles" ];
+	let listArrowUpFilters = [ "arrowUpIngredients", "arrowUpAppareils", "arrowUpUstensiles" ];
+
+	//gestion de l'affichage des filtres en cas de non utilisation du champ de recherche
+	///fonction de creation des filtres de recettes lorsqu'on est à l'état initial et le champ de recherche est vide 
+	function createFilterInitFunction(){
+		
+		//ajout des class dans 
+		for(let f=0; f<filterForm2.length; f++){
+
+			let filterFormCureent = filterForm2[f];
+			let valueIdFiltre = filterFormCureent.id;
+
+			// console.log("***filterFormCureent")
+			// console.log(filterFormCureent)
+
+			/////////////////
+			/*
+			//récupération de la propriété display des filtres
+			let styleBtn =  window.getComputedStyle(filterFormCureent);
+
+			const valeurDisplay = styleBtn.getPropertyValue("display");
+
+			console.log(valeurDisplay)
+			*/
+			/////////////////
+
+			for(let i=0; i< listBtnRecette.length; i++){
+
+				let listBtnRecetteCurrent = listBtnRecette[i];
+				
+				//récupération de la deuxième class
+				let valueSecondClass = listBtnRecetteCurrent.classList[1];
+
+				//récupération de id de l'élément en cours
+				let classBtn = document.querySelector(`${"."+valueSecondClass}`);
+
+				// console.log("***classBtn")
+				// console.log(classBtn)
+
+				
+
+				if( valueSecondClass.trim() === valueIdFiltre){
+
+					////////////////////////////////
+
+					classBtn.addEventListener("click", ()=>{
+
+						/*
+						filterFormCureent.style.display = "block";
+
+						
+						//récupération et gestion de arrow correspondant au bouton
+						let arrowUp = document.querySelector(`${ ".arrowDown"+valueIdFiltre}`);
+						
+						arrowUp.style.display = "none";
+
+						//récupération et gestion de arrow correspondant au bouton
+						const arrowDown = document.querySelector(`${ ".arrowUp"+valueIdFiltre}`);
+						arrowDown.style.display = "block";*/
+
+
+						/////////////////
+						//récupération de la propriété display des filtres
+						let valueIdFiltreElement = document.querySelector(`${"#"+valueIdFiltre}`);
+					
+						let stylefilter =  window.getComputedStyle(valueIdFiltreElement);
+
+						const valeurStyleFilterDisplay = stylefilter.getPropertyValue("display");
+
+						if(valeurStyleFilterDisplay === "none"){ //vrai
+
+
+							console.log("**** bienvenue dans le if du display");
+
+							filterFormCureent.style.display = "block";
+
+							//récupération et gestion de arrow correspondant au bouton
+							let arrowUp = document.querySelector(`${ ".arrowDown"+valueIdFiltre}`);
+							
+							arrowUp.style.display = "none";
+
+							//récupération et gestion de arrow correspondant au bouton
+							const arrowDown = document.querySelector(`${ ".arrowUp"+valueIdFiltre}`);
+							arrowDown.style.display = "block";
+
+						}else{
+
+							console.log("**** bienvenue dans le else du display");
+
+							filterFormCureent.style.display = "none";
+							//récupération et gestion de arrow correspondant au bouton
+							let arrowUp = document.querySelector(`${ ".arrowDown"+valueIdFiltre}`);
+							
+							arrowUp.style.display = "block";
+
+							//récupération et gestion de arrow correspondant au bouton
+							const arrowDown = document.querySelector(`${ ".arrowUp"+valueIdFiltre}`);
+							arrowDown.style.display = "none";
+
+						}
+
+						function createLiFunction(liItemValue, ulItem){
+
+
+							let liItem =`
+							
+							
+								<li class="optionLi ${liItemValue}" style="display: block;" role='option'>  
+							
+									<button  value= ${liItemValue} id="${"BtnFilter"+liItemValue}">
+			
+										<span class="${"BtnFilter"+liItemValue}">${liItemValue}</span>
+									
+									</button>
+								
+								</li>
+							
+							`;
+
+							ulItem.innerHTML += liItem;
+						}
+
+						//gestion de l'insetion des listes dans les filtres
+
+						for(let l=0; l<listTitleFilters.length; l++){
+
+							let listTitleFiltersCurrent = listTitleFilters[l];
+
+							// console.log("***listTitleFiltersCurrent")
+							// console.log(listTitleFiltersCurrent);
+
+							//récupération du ul encours
+							let ulItem = document.querySelector(`${"#"+listTitleFiltersCurrent+"Container"}`);
+
+							if(ulItem.id.trim() === "IngredientsContainer"){
+
+								console.log("*** bienvenue dans Ingratients");
+									
+								for(let i=0; i<ingredientsListFilter.length; i++){
+	
+	
+									let ingredientValue = ingredientsListFilter[i];
+
+									// console.log("***ingredientValue");
+									// console.log(ingredientValue);
+	
+									//création du li 
+									createLiFunction(ingredientValue, ulItem);
+	
+								}
+									
+	
+							}else if(ulItem.id.trim() === "UstensilesContainer"){
+	
+								console.log("*** bienvenue dans Ustensiles");
+	
+								for(let i=0; i<ustencilsListFilter.length; i++){
+	
+	
+									let ustensilesValue = ustencilsListFilter[i];
+	
+									//création du li 
+									createLiFunction(ustensilesValue, ulItem);
+	
+								}
+									
+	
+							}else if(ulItem.id.trim() === "AppareilsContainer"){
+	
+								console.log("*** bienvenue dans Appareils");
+	
+								for(let i=0; i<applianceListFilter.length; i++){
+	
+	
+									let applianceValue = applianceListFilter[i];
+	
+									//création du li 
+									createLiFunction(applianceValue, ulItem);
+	
+								}
+									
+	
+							}
+
+							///////////////////////
+							
+
+
+
+							////////////////////////
+
+							
+							
+							
+
+						}
+						/////////////////
+
+					});
+
+			
+
+					///////////////////////:
+			
+				}
+				
+
+
+			}
+
+
+		}
+
+		
+
+
+
+	}
+	createFilterInitFunction();
+
+
+	/////////////////////////////////////
 
 	
 
@@ -228,7 +483,7 @@ async  function createFilterFunction(){
 
 
 	};
-	//keywordsTagFilterFunction();
+	keywordsTagFilterFunction();
 
 
 	//valeurs du premier bouton

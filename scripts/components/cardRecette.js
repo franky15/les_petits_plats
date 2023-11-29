@@ -205,6 +205,7 @@ export async function getDatasFunction() {
 	const inputSearch = document.querySelector(".inputSearch");
 	//console.log(inputSearch);
 	
+	
 	//listes des recettes récupérées après recherche
 	// let listRicepsFilter = [];
 	
@@ -400,65 +401,15 @@ export async function getDatasFunction() {
 	////////////////////////////////////
 
 
-		/********************* gestion des filtres ******************************* */
+	/********************* gestion des filtres ******************************* */
 
-		//récupération du container de la containerFilter
-		// const filtersContainer = document.querySelector(".filters__container");btnArrow
-		const btnArrow = document.querySelector(".btnArrow");
-
-		console.log(btnArrow)
-
-		//fonction de création des bouton de filtres des recette
-		function createBtnItemFunction(listTitleFiltersCurrent){
-
-			let  filter = `
-				
-				<div class="filterForm">
-
-					<div class="filters__container--filter">
-
-						<button class="recettesBtn" >
-					
-							<span class="titleBtnMain ${listTitleFiltersCurrent}" > ${listTitleFiltersCurrent} </span>
-							<span class="arrow arrowDown" > <i class="fa-solid fa-chevron-down"></i> </span>
-							<span class="arrow arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
-						
-						</button>
-
-					</div>
-
-				</div>
-
-			`;
-
-			//filtersContainer.innerHTML += filter;btnArrow
-
-			btnArrow.innerHTML += filter;
-			
-		}
-		// createBtnItemFunction();
-
-		//fonction d'itération du filtre
-		const iterationBtnFilter = () => {
-
-			for(let i=0; i< listTitleFilters.length; i++){
-
-				let listTitleFiltersCurrent = listTitleFilters[i];
-				
-				
-				// createFilterItemFunction(listTitleFiltersCurrent);
-
-				createBtnItemFunction(listTitleFiltersCurrent);
-
-			}
+	/////////////////////////////::
 
 
 
-		};
-		iterationBtnFilter();
 
+	/////////////////////////////::
 
-		///////////////////////////////////////:
 
 	//fonction de creation des filtres de recettes
 	function createFilterFunction(){
@@ -477,7 +428,8 @@ export async function getDatasFunction() {
 		console.log(applianceListFilter);*/
 	
 		/********************* gestion des filtres ******************************* */
-	
+		
+		/*
 		//récupération du container des filtres
 		// const filtersContainer = document.querySelector(".filters__container");
 		const btnfilter = document.querySelector(".btnfilter");
@@ -486,9 +438,19 @@ export async function getDatasFunction() {
 			
 			let  filter = `
 				
-				<div class="filterForm2" id="${listTitleFiltersCurrent}" style="display: block;">
-				
-					<ul  class="filters__container--filter listeUlContainer" >
+				<div class="containerFilterBtn" >
+
+					<button class="recettesBtn" >
+					
+						<span class="titleBtnMain ${listTitleFiltersCurrent}" > ${listTitleFiltersCurrent} </span>
+						<span class="arrow arrowDown" > <i class="fa-solid fa-chevron-down"></i> </span>
+						<span class="arrow arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
+			
+					</button>
+					
+
+					
+					<ul  class="filters__container--filter listeUlContainer filterForm2" id="${listTitleFiltersCurrent}"  style="display: block;">
 							
 						<li class="optionBar" >  
 						
@@ -507,9 +469,11 @@ export async function getDatasFunction() {
 							
 						</li>
 						
-					   
+					
 					</ul>
-	
+		
+					
+
 				</div>
 	
 			`;
@@ -519,33 +483,23 @@ export async function getDatasFunction() {
 			
 		}
 		//createFilterItemFunction();
-	
+		*/
 		
-
-		//fonction d'itération du filtre
-		function iterationFilter(){
-	
-			for(let i=0; i< listTitleFilters.length; i++){
-	
-				let listTitleFiltersCurrent = listTitleFilters[i];
-
-				createFilterItemFunction(listTitleFiltersCurrent);
-				//createBtnItemFunction(listTitleFiltersCurrent)
-			}
-	
-	
-	
-		}
-		iterationFilter();
-
-
-		/////////////////////////////////////
-		
-
 		const listBtnRecette = document.getElementsByClassName("recettesBtn");
+		
 		//récupération des filtres
 		const filterForm2 = document.getElementsByClassName("filterForm2");
 		console.log(filterForm2)
+
+		//récupération des filtres
+		const listArrowDown = document.getElementsByClassName("arrowDown");
+
+		const listArrowUp = document.getElementsByClassName("arrowUp");
+		//console.log(listArrow)
+
+		//liste des valeurs des arrows
+		let listArrowDownFilters = [ "arrowDownIngredients", "arrowDownAppareils", "arrowDownUstensiles" ];
+		let listArrowUpFilters = [ "arrowUpIngredients", "arrowUpAppareils", "arrowUpUstensiles" ];
 		
 		//ajout des class dans 
 		for(let f=0; f<filterForm2.length; f++){
@@ -561,46 +515,107 @@ export async function getDatasFunction() {
 				
 				//récupération de la deuxième class
 				let valueSecondClass = listBtnRecetteCurrent.classList[1];
-
-				/*console.log("**valueSecondClass")
-				console.log(valueSecondClass)*/
+				
+				//récupération de id de l'élément en cours
+				let classBtn = document.querySelector(`${"."+valueSecondClass}`);
 
 
 				if( valueSecondClass.trim() === valueIdFiltre){
 
-					//insersion des évennement dans les boutons
-					listBtnRecetteCurrent.addEventListener("click", ()=>{
+					////////////////////////////////
 
+					for(let a=0; a<listArrowDown.length; a++){
 
-						//listBtnRecetteCurrent.classList.add(listTitleBtnCurrent);
+						let listArrowDownElement = listArrowDown[a];
+						let listArrowDownCurrent = listArrowDownElement.classList[1];
+ 
+						//récupération de id de l'élément en cours
+						let classArrowDown = document.querySelector(`${"."+listArrowDownCurrent}`);
+
 						
-						console.log("***** j'ai clické sur le bouton")
-						console.log("***valueIdFiltre filtre")
-						console.log(valueIdFiltre)
 
-						filterFormCureent.style.display = "block";
-					
-					});
-				}
+						for(let u=0; u<listArrowDownFilters.length; u++){
 
+							let listArrowDownFiltersCurrent = listArrowDownFilters[u];
 
+						
 				
-				/*
-				//insersion des évennement dans les boutons
-				listBtnRecetteCurrent.addEventListener("click", ()=>{
 
-					console.log("*****click test ")
+							if( listArrowDownFiltersCurrent === listArrowDownCurrent ){
 
-					if( (valueSecondClass).trim() === valueId){
+								
+								//insersion des évennement dans les boutons
+								classBtn.addEventListener("click", ()=>{  //listBtnRecetteCurrent 
 
-						//listBtnRecetteCurrent.classList.add(listTitleBtnCurrent);
-						console.log("***** j'ai clické sur le bouton")
-						filterFormCureent.style.display = "block";
+									// listArrowDownElement.style.display = "none";
+
+									classArrowDown.style.display = "none";
+									//listBtnRecetteCurrent.classList.add(listTitleBtnCurrent);
+									
+									console.log("***** j'ai clické sur le bouton")
+								
+									filterFormCureent.style.display = "block";
+
+									
+									//////:
+									
+									///////
+								
+								});
+
+			
+
+							}
+
+							//insersion des évennement dans les boutons
+							classBtn.addEventListener("click", ()=>{ 
+
+								console.log("**** deuxième clique");
+
+								//////:
+								for(let d=0; d<listArrowUpFilters.length; d++){
+
+									let listArrowUpFiltersElement = listArrowUpFilters[d];
+
+
+									for(let dd=0; dd<listArrowUp.length; dd++){
+
+										let listArrowElement2 = listArrowUp[d];
+										let listArrowCurrent2 = listArrowElement2.classList[1];
+
+										//récupération de id de l'élément en cours
+										let classArrowUp = document.querySelector(`${"."+listArrowCurrent2}`);
+
+										console.log("***listArrowCurrent2")
+										console.log(listArrowCurrent2)
+
+										if( listArrowUpFiltersElement === listArrowCurrent2){
+
+											
+											// listArrowElement2.style.display = "block";
+
+											classArrowUp.style.display = "block";
+
+										}
+
+									}
+
+
+	
+								}
+								///////
+
+							});
+							
+	
+						}
 
 					}
 
+					///////////////////////:
+			
+				}
 
-				});*/
 
 			}
 
@@ -634,7 +649,7 @@ export async function getDatasFunction() {
 	
 	
 		};
-		keywordsTagFunction();
+		//keywordsTagFunction();
 	
 	
 		
@@ -672,7 +687,7 @@ export async function getDatasFunction() {
 	
 	
 		};
-		keywordsTagFilterFunction();
+		//keywordsTagFilterFunction();
 	
 	
 		//valeurs du premier bouton
@@ -708,6 +723,8 @@ export async function getDatasFunction() {
 
 
 	/////////////////////////////////////
+
+
 	
 }
 
