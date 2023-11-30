@@ -196,7 +196,7 @@ main {
 }
 .filtersSection .filters__container .filterForm2 {
   width: 100%;
-  height: 450px;
+  max-height: 450px;
   margin: 0px;
   padding: 0px;
   position: relative;
@@ -210,7 +210,7 @@ main {
   background-color: transparent;
 }
 .filtersSection .filters__container .filterForm2 ul {
-  height: 395px;
+  max-height: 395px;
   list-style: none;
   padding: 0;
   margin: 0;

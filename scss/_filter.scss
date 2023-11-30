@@ -109,7 +109,7 @@
                 
                 //formatage de notre ul
                 width: 100%;//97.5%;
-                height: 450px;
+                max-height: 450px;
                 margin: 0px; 
                 padding: 0px; 
                 position: relative;
@@ -125,7 +125,7 @@
                     background-color: transparent; 
                 }
                 ul{
-                    height: 395px;
+                    max-height: 395px;
                     list-style: none; 
                     padding: 0;
                     margin: 0;

@@ -243,10 +243,14 @@ export async function getDatasFunction() {
 		
 		//if(valInput ){  //valInputLocalStorage
 
+			/*
 			// Suppression de tous les enfants de la section
 			while (containerArticleRecette.firstChild) {
 				containerArticleRecette.removeChild(containerArticleRecette.firstChild);
-			}
+			}*/
+
+			// suppression de tous les éléments existants dans l'élément ou enfants
+			containerArticleRecette.innerHTML = "";
 
 			
 			/****** gestion du filtre du titre de la recette ****/

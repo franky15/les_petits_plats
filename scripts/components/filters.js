@@ -239,10 +239,11 @@ async  function createFilterFunction(){
 
 				if( valueSecondClass.trim() === valueIdFiltre){
 
-					////////////////////////////////
+					
 
 					classBtn.addEventListener("click", ()=>{
 
+						
 						/*
 						filterFormCureent.style.display = "block";
 
@@ -305,9 +306,9 @@ async  function createFilterFunction(){
 							
 								<li class="optionLi ${liItemValue}" style="display: block;" role='option'>  
 							
-									<button  value= ${liItemValue} id="${"BtnFilter"+liItemValue}">
+									<button  data-${"btnFilter"+liItemValue.replace(/\s+/g, "")}=${"btnFilter"+liItemValue.replace(/\s+/g, "")} class="btnFilter ${"btnFilter"+liItemValue.replace(/\s+/g, "")}" id="${"btnFilter"+liItemValue.replace(/\s+/g, "")}">
 			
-										<span class="${"BtnFilter"+liItemValue}">${liItemValue}</span>
+										<span >${liItemValue}</span>
 									
 									</button>
 								
@@ -318,100 +319,287 @@ async  function createFilterFunction(){
 							ulItem.innerHTML += liItem;
 						}
 
-						//gestion de l'insetion des listes dans les filtres
+						///////////////////////
 
-						for(let l=0; l<listTitleFilters.length; l++){
+						//***gestion de l'intéraction des valeurs dans  les filtres
 
-							let listTitleFiltersCurrent = listTitleFilters[l];
+						let valInputFilter;
 
-							// console.log("***listTitleFiltersCurrent")
-							// console.log(listTitleFiltersCurrent);
+						//gestion de la value de la searchbar des filtres
+						const listInputFilterValue = [ "inputIngredients", "inputAppareils", "inputUstensiles" ];
 
-							//récupération du ul encours
-							let ulItem = document.querySelector(`${"#"+listTitleFiltersCurrent+"Container"}`);
+						//récupération de tous les inputs
+						let listInputFilterElement = document.getElementsByClassName("optionBar__input");
 
-							if(ulItem.id.trim() === "IngredientsContainer"){
+						//boucle de la liste du tableau de valeurs
+						for(let l=0; l<listInputFilterValue.length; l++){
 
-								console.log("*** bienvenue dans Ingratients");
-									
-								for(let i=0; i<ingredientsListFilter.length; i++){
-	
-	
-									let ingredientValue = ingredientsListFilter[i];
+							let InputlistValueCurrent = listInputFilterValue[l];
+							
 
-									// console.log("***ingredientValue");
-									// console.log(ingredientValue);
-	
-									//création du li 
-									createLiFunction(ingredientValue, ulItem);
-	
+							//boucle de la liste des inputs des filtres
+							for(let s=0; s<listInputFilterElement.length; s++){
+
+								let inputFilterElementCurrent = listInputFilterElement[s];
+								
+								let inputFilterElementValueCurrent = listInputFilterElement[s].classList[1];
+
+								// console.log("***inputFilterElementValueCurrent");
+								// console.log(inputFilterElementValueCurrent);
+
+								if(InputlistValueCurrent === inputFilterElementValueCurrent.trim()){
+
+									console.log("***bienvenue sur l'input");
+
+									inputFilterElementCurrent.addEventListener("input", (e)=>{
+
+										valInputFilter = e.target.value;
+
+										inputFilterElementCurrent.setAttribute("value" , `${valInputFilter}`);
+
+										
+										console.log("**valInputFilter");
+										console.log(valInputFilter);
+
+										setListDataFilterFunction(valInputFilter);
+									});
+
 								}
-									
-	
-							}else if(ulItem.id.trim() === "UstensilesContainer"){
-	
-								console.log("*** bienvenue dans Ustensiles");
-	
-								for(let i=0; i<ustencilsListFilter.length; i++){
-	
-	
-									let ustensilesValue = ustencilsListFilter[i];
-	
-									//création du li 
-									createLiFunction(ustensilesValue, ulItem);
-	
-								}
-									
-	
-							}else if(ulItem.id.trim() === "AppareilsContainer"){
-	
-								console.log("*** bienvenue dans Appareils");
-	
-								for(let i=0; i<applianceListFilter.length; i++){
-	
-	
-									let applianceValue = applianceListFilter[i];
-	
-									//création du li 
-									createLiFunction(applianceValue, ulItem);
-	
-								}
-									
-	
 							}
 
-							///////////////////////
-							
-
-
-
-							////////////////////////
-
-							
-							
 							
 
 						}
-						/////////////////
 
+						
+
+
+
+						////////////////////////
+						
+						function setListDataFilterFunction(valInputFilter){
+
+					
+							//récupération des searchbar desfiltres 
+							//let input = document.querySelector(`${".input"+listTitleFiltersCurrent}`);
+							let inputIngredients = document.querySelector(".inputIngredients");
+							let inputAppareils = document.querySelector(".inputAppareils");
+							let inputUstensiles = document.querySelector(".inputUstensiles");
+
+							//récupération du ul encours
+							let ingredientsContainer = document.querySelector("#IngredientsContainer");
+							let appareilsContainer = document.querySelector("#AppareilsContainer");
+							let ustensilesContainer = document.querySelector("#UstensilesContainer");
+							
+							///////////////////////////////////
+							//gestion  de l'état innitial des filtres avec un input null
+						
+							function initStateFilterFunction(){
+
+								if(!inputIngredients.value){
+
+									console.log("*** bienvenue dans Ingratients");
+										
+									for(let i=0; i<ingredientsListFilter.length; i++){
+		
+		
+										let ingredientValue = ingredientsListFilter[i];
+	
+										// console.log("***ingredientValue");
+										// console.log(ingredientValue);
+		
+										//création du li 
+										createLiFunction(ingredientValue, ingredientsContainer);
+		
+									}
+								}
+										
+		
+								if(!inputUstensiles.value){
+		
+									console.log("*** bienvenue dans Ustensiles");
+		
+									for(let i=0; i<ustencilsListFilter.length; i++){
+		
+		
+										let ustensilesValue = ustencilsListFilter[i];
+		
+										//création du li 
+										createLiFunction(ustensilesValue, ustensilesContainer);
+		
+									}
+								}
+										
+		
+								if(!inputAppareils.value){
+		
+									console.log("*** bienvenue dans Appareils");
+		
+									for(let i=0; i<applianceListFilter.length; i++){
+		
+		
+										let applianceValue = applianceListFilter[i];
+		
+										//création du li 
+										createLiFunction(applianceValue, appareilsContainer);
+		
+									}
+										
+		
+								}
+
+							}
+							initStateFilterFunction();
+							
+
+							
+							//////////////////////////////////
+							//gestion des evennements de la recherche dans les filtres
+							function evenSearchBarFilterFunction(){
+
+								inputIngredients.addEventListener("input", (e)=>{
+
+									let val = e.target.value;
+									
+									console.log(val);
+	
+									// suppression de tous les éléments existants dans l'élément ou enfants
+									ingredientsContainer.innerHTML = "";
+	
+									inputIngredients.setAttribute("value" , `${val}`);
+	
+									let inputIngredientsList = ingredientsListFilter.filter( item => item.includes(`${val}`));
+									
+									//stockage de la liste dans le localstorage
+									//localStorage.setItem("inputIngredientsList", JSON.stringify(inputIngredientsList));
+	
+									for(let i=0; i< inputIngredientsList.length; i++){  
+	
+	
+										let ingredientValue = inputIngredientsList[i];
+	
+										//création du li 
+										createLiFunction(ingredientValue, ingredientsContainer);
+		
+									}
+	
+	
+								});
+	
+	
+	
+								inputAppareils.addEventListener("input", (e)=>{
+	
+									let val = e.target.value;
+									console.log(val);
+
+									inputAppareils.setAttribute("value" , `${val}`);
+	
+									// suppression de tous les éléments existants dans l'élément ou enfants
+									appareilsContainer.innerHTML = "";
+	
+									let inputAppareilsList = applianceListFilter.filter( item => item.includes(`${val.trim()}`));
+									
+									//stockage de la liste dans le localstorage
+									//localStorage.setItem("inputAppareilsList", JSON.stringify(inputAppareilsList));
+									
+									for(let i=0; i< inputAppareilsList.length; i++){ 
+	
+	
+										let AppareilsValue = inputAppareilsList[i];
+	
+										//création du li 
+										createLiFunction(AppareilsValue, appareilsContainer);
+		
+									}
+	
+	
+								});
+	
+								inputUstensiles.addEventListener("input", (e)=>{
+	
+									let val = e.target.value;
+									console.log(val);
+
+									inputUstensiles.setAttribute("value" , `${val}`);
+	
+									// suppression de tous les éléments existants dans l'élément ou enfants
+									ustensilesContainer.innerHTML = "";
+	
+									let inputUstensilesList = ustencilsListFilter.filter( item => item.includes(`${val.trim()}`));
+									
+									//stockage de la liste dans le localstorage
+									//localStorage.setItem("inputUstensilesList", JSON.stringify(inputUstensilesList));
+									
+									for(let i=0; i< inputUstensilesList.length; i++){ 
+	
+	
+										let UstensilesValue = inputUstensilesList[i];
+	
+										//création du li 
+										createLiFunction(UstensilesValue, ustensilesContainer);
+		
+									}
+	
+	
+								});
+
+							}
+							evenSearchBarFilterFunction();
+
+
+							//récupération de tous les boutons ou li des filtres
+							let BtnFilter = document.getElementsByClassName("btnFilter");
+
+							//gestions des evennements au click sur un ingredients, appareils ou ustensils
+							function btnFilterChoiceFunction(){
+
+								for(let b=0; b<BtnFilter.length; b++){
+
+
+									let BtnFilterCurrentValue = BtnFilter[b].id;
+
+									//récupération du bouton spécifique ou encours
+									let btnCurrent = document.getElementById(`${BtnFilterCurrentValue}`)
+
+									
+									btnCurrent.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
+
+										console.log("** j'ai cliqué sur ce bouton")
+
+										console.log("***BtnFilterCurrentValue")
+										console.log(BtnFilterCurrentValue)
+
+										console.log("***btnCurrent")
+										console.log(btnCurrent)
+
+										//récupération du dataset du bouton en cours
+										let valeurDataset = btnCurrent.toLowerCase().dataset.BtnFilterCurrentValue.toLowerCase();
+
+										console.log("***valeurDataset")
+										console.log(valeurDataset)
+									})
+								}
+
+							}
+							btnFilterChoiceFunction();
+
+
+							//récupération des listes issues des recherches des filtres
+							
+
+						}
+						setListDataFilterFunction();
+						
+						
 					});
-
-			
-
-					///////////////////////:
 			
 				}
 				
-
-
 			}
 
 
 		}
-
-		
-
-
 
 	}
 	createFilterInitFunction();
