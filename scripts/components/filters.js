@@ -298,25 +298,27 @@ async  function createFilterFunction(){
 
 						}
 
-						function createLiFunction(liItemValue, ulItem){
-
+						function createLiFunction(liItemValue, ulItem, differentClassFilter){
 
 							let liItem =`
 							
 							
-								<li class="optionLi ${liItemValue}" style="display: block;" role='option'>  
-							
-									<button  data-${"btnFilter"+liItemValue.replace(/\s+/g, "")}=${"btnFilter"+liItemValue.replace(/\s+/g, "")} class="btnFilter ${"btnFilter"+liItemValue.replace(/\s+/g, "")}" id="${"btnFilter"+liItemValue.replace(/\s+/g, "")}">
-			
-										<span >${liItemValue}</span>
-									
-									</button>
+									<li data-${"btnFilter"+liItemValue.replace(/\s+/g, "")}=${"btnFilter"+liItemValue.replace(/\s+/g, "")} class="optionLi ${liItemValue}" style="display: block;" role='option'>  
 								
-								</li>
-							
-							`;
+										<button   class="btnFilter ${"btnFilter"+liItemValue.replace(/\s+/g, "")} ${differentClassFilter}" id="${"btnFilter"+liItemValue.replace(/\s+/g, "")}">
+				
+											<span >${liItemValue}</span>
+										
+										</button>
+									
+									</li>
+								
+								`;
 
 							ulItem.innerHTML += liItem;
+
+							
+							
 						}
 
 						///////////////////////
@@ -358,8 +360,8 @@ async  function createFilterFunction(){
 										inputFilterElementCurrent.setAttribute("value" , `${valInputFilter}`);
 
 										
-										console.log("**valInputFilter");
-										console.log(valInputFilter);
+										// console.log("**valInputFilter");
+										// console.log(valInputFilter);
 
 										setListDataFilterFunction(valInputFilter);
 									});
@@ -405,11 +407,15 @@ async  function createFilterFunction(){
 		
 										let ingredientValue = ingredientsListFilter[i];
 	
-										// console.log("***ingredientValue");
-										// console.log(ingredientValue);
+										//  console.log("***ingredientValue");
+										//  console.log(ingredientValue);
+
+										// console.log("***ingredientsContainer");
+										//  console.log(ingredientsContainer);
 		
+										const differentClassFilter = "tagIngredients";
 										//création du li 
-										createLiFunction(ingredientValue, ingredientsContainer);
+										createLiFunction(ingredientValue, ingredientsContainer, differentClassFilter);
 		
 									}
 								}
@@ -424,8 +430,9 @@ async  function createFilterFunction(){
 		
 										let ustensilesValue = ustencilsListFilter[i];
 		
+										const differentClassFilter = "tagUstensiles";
 										//création du li 
-										createLiFunction(ustensilesValue, ustensilesContainer);
+										createLiFunction(ustensilesValue, ustensilesContainer, differentClassFilter);
 		
 									}
 								}
@@ -440,8 +447,9 @@ async  function createFilterFunction(){
 		
 										let applianceValue = applianceListFilter[i];
 		
+										const differentClassFilter = "tagAppareils";
 										//création du li 
-										createLiFunction(applianceValue, appareilsContainer);
+										createLiFunction(applianceValue, appareilsContainer, differentClassFilter);
 		
 									}
 										
@@ -551,6 +559,8 @@ async  function createFilterFunction(){
 							//récupération de tous les boutons ou li des filtres
 							let BtnFilter = document.getElementsByClassName("btnFilter");
 
+							//récupération des boutons ou li du filtres des ingedients 
+
 							//gestions des evennements au click sur un ingredients, appareils ou ustensils
 							function btnFilterChoiceFunction(){
 
@@ -560,26 +570,456 @@ async  function createFilterFunction(){
 									let BtnFilterCurrentValue = BtnFilter[b].id;
 
 									//récupération du bouton spécifique ou encours
-									let btnCurrent = document.getElementById(`${BtnFilterCurrentValue}`)
+									let btnCurrent = document.getElementById(`${BtnFilterCurrentValue}`);
 
 									
 									btnCurrent.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-										console.log("** j'ai cliqué sur ce bouton")
+										console.log("** j'ai cliqué sur ce bouton");
 
-										console.log("***BtnFilterCurrentValue")
-										console.log(BtnFilterCurrentValue)
+										// console.log("***BtnFilterCurrentValue")
+										// console.log(BtnFilterCurrentValue)
 
-										console.log("***btnCurrent")
-										console.log(btnCurrent)
+										// console.log("***btnCurrent")
+										// console.log(btnCurrent.classList[2])
 
-										//récupération du dataset du bouton en cours
-										let valeurDataset = btnCurrent.toLowerCase().dataset.BtnFilterCurrentValue.toLowerCase();
+										let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
+										// console.log("***valClassBtnLi")
+										// console.log(valClassBtnLi);//.replace(/\s+/g, "")
+										
+										//vérification si la valeur de chaque filtres est déjà présente dans le local storage car
+										//on veut une valeur par filtre ou par liste
 
-										console.log("***valeurDataset")
-										console.log(valeurDataset)
-									})
+										let differentClassFilter = btnCurrent.classList[2];
+										
+										//stockage de la valeur du li ou du btn dans le localstorage
+										//localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+
+										//récupération des valeurs selectionnées du localstorage
+										const valChoiceFilter = localStorage.getItem(differentClassFilter);
+
+										//récupération des recettes qui correspondent à la sélection du filtre
+										
+										let listValFilterTest = ["ingredients", "ustensils" ];
+
+										let listChoiceAppareils = [];
+										let listChoiceIngredients = [];
+										let listChoiceUstensils = [];
+
+										for(let l=0; l<listAllData.length; l++){
+
+										
+											let objectAllDataCurrent = listAllData[l];
+
+											for(let t=0; t<listValFilterTest.length; t++){
+
+												let  valFilterTestCurrent = listValFilterTest[t];
+
+												//vérification si l'élément encours est une liste ou non
+												function ingredientsChoiceFunction(){
+													
+													for(let o=0; o<objectAllDataCurrent[valFilterTestCurrent].length; o++){
+
+														let valObjectIngredients = objectAllDataCurrent[valFilterTestCurrent][o].ingredient;
+		
+														// console.log("***valObjectIngredients"); 
+														// console.log(  valObjectIngredients );
+														
+														if(valObjectIngredients){
+
+										
+															if(valClassBtnLi.toUpperCase() === valObjectIngredients.replace(/\s+/g, "").toUpperCase() ){
+
+																// console.log("*** bienvenue dans le if ingredients replace ");
+																
+
+
+																listChoiceIngredients.push(objectAllDataCurrent);
+
+																
+	
+															}
+
+														}
+
+							
+		
+													}
+
+					
+													//transfert de la list aux autres li 
+													//ustensilsChoiceFunction(listChoiceIngredients);
+												}
+												ingredientsChoiceFunction();
+												
+												//gestion du choix sur les appareils
+												function applianceChoiceFunction(){
+
+
+													if(objectAllDataCurrent.appliance ){
+		
+														if(valClassBtnLi.toUpperCase() === objectAllDataCurrent.appliance.replace(/\s+/g, "").toUpperCase() ){
+			
+															console.log("*** bienvenue dans le if ustensils replace ");
+			
+															listChoiceAppareils.push(objectAllDataCurrent);
+			
+														}
+															
+													}
+
+													
+
+												}
+												applianceChoiceFunction();
+												
+											
+												//gestion du choix sur les ustensils
+												function ustensilsChoiceFunction(){
+
+				
+													for(let o=0; o<objectAllDataCurrent.ustensils.length; o++){
+
+														let valObjectUstensils = objectAllDataCurrent.ustensils[o];
+
+														if(valObjectUstensils ){    //&& !listChoiceIngredientsLocalstorage
+		
+															console.log("listChoiceIngredients n'existe dans cette condition");
+															
+															if(valClassBtnLi.toUpperCase() === valObjectUstensils.replace(/\s+/g, "").toUpperCase() ){
+		
+																console.log("*** bienvenue dans le if ustensils replace 1 ");
+		
+																listChoiceUstensils.push(objectAllDataCurrent);
+		
+															}
+														/////////////
+														}
+		
+													}
+
+
+												}
+												ustensilsChoiceFunction();
+
+											}
+
+										}
+
+										//stockage de la liste dans le localstorage
+										/*localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));*/
+
+										let listAppareils = [];
+										let listIngredients = [];
+										let listUstensils = [];
+
+
+										//mise à jour des listes des filtres
+										if(listChoiceIngredients && listChoiceAppareils.length === 0 && listChoiceUstensils.length === 0){
+
+
+											console.log("***listChoiceIngredients");
+											console.log(listChoiceIngredients);
+
+											function updateChoiceAppareilsFunction(){
+
+												//suppression de tous les éléments existants dans l'élément ou enfants
+												appareilsContainer.innerHTML = "";
+
+												for(let i=0; i< listChoiceIngredients.length; i++){ 
+				
+				
+													let appareilsValue2 = listChoiceIngredients[i].appliance;
+												
+													//insersion des valeurs
+													listAppareils.push(appareilsValue2);
+					
+												}
+
+												//suppression des doublons et mise à jour des li
+												//retrait des doublons 
+												let appareilsValue3 = [...new Set(listAppareils)];
+
+												for(let i=0; i< appareilsValue3.length; i++){ 
+				
+				
+													let appareilsValue2 = appareilsValue3[i];
+								
+													const differentClassFilter = "tagAppareils";
+
+													//création du li 
+													createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
+							
+												}
+
+											}
+											updateChoiceAppareilsFunction();
+											
+
+
+											function updateChoiceUstensilsFunction(){
+
+												//suppression de tous les éléments existants dans l'élément ou enfants
+												ustensilesContainer.innerHTML = "";
+
+												for(let i=0; i< listChoiceIngredients.length; i++){ 
+						
+													//liste 
+													let UstensilesValue1 = listChoiceIngredients[i].ustensils;
+												
+														
+													for(let l=0; l< UstensilesValue1.length; l++){ //UstensilesValue1
+
+														let UstensilesValue = UstensilesValue1[l];
+														listUstensils.push(UstensilesValue);
+						
+
+													}
+
+									
+												}
+
+												//suppression des doublons et mise à jour des li
+												//retrait des doublons 
+												let ustensilsValue3 = [...new Set(listUstensils)];
+
+												for(let i=0; i< ustensilsValue3.length; i++){ 
+				
+				
+													let ustensilsValue2 = ustensilsValue3[i];
+								
+													const differentClassFilter = "tagUstensiles";
+
+													//création du li 
+													createLiFunction(ustensilsValue2, ustensilesContainer, differentClassFilter);
+							
+												}
+
+											}
+											updateChoiceUstensilsFunction();
+											
+
+											
+
+										}else if(listChoiceAppareils && listChoiceIngredients.length === 0 && listChoiceUstensils.length === 0 ){
+											
+											console.log("***listChoiceAppareils");
+											console.log(listChoiceAppareils);
+
+											
+
+											function updateChoiceIngredientsFunctionOne(){
+
+												//suppression de tous les éléments existants dans l'élément ou enfants
+												ingredientsContainer.innerHTML = "";
+
+												for(let i=0; i< listChoiceAppareils.length; i++){ 
+						
+													//liste 
+													let ingredientsValue1 = listChoiceAppareils[i].ingredients;
+													
+													console.log("***ingredientsValue1");
+													console.log(ingredientsValue1);
+	
+													for(let l=0; l< ingredientsValue1.length; l++){ //UstensilesValue1
+	
+														let ingredientsValue = ingredientsValue1[l].ingredient;
+														listIngredients.push(ingredientsValue);
+							
+	
+													}
+	
+												}
+	
+												//suppression des doublons et mise à jour des li
+												//retrait des doublons 
+												let ingredientValue3 = [...new Set(listIngredients)];
+	
+	
+												for(let i=0; i< ingredientValue3.length; i++){ 
+					
+					
+													let ingredientsValue2 = ingredientValue3[i];
+									
+													const differentClassFilter = "tagUstensiles";
+	
+													//création du li 
+													createLiFunction(ingredientsValue2, ingredientsContainer, differentClassFilter);
+								
+												}
+
+											}
+											updateChoiceIngredientsFunctionOne();
+						
+									
+											function updateChoiceUstensilsFunctionOne(){
+
+												//suppression de tous les éléments existants dans l'élément ou enfants
+												ustensilesContainer.innerHTML = "";
+
+											
+												for(let i=0; i< listChoiceAppareils.length; i++){ 
+						
+													//liste 
+													let UstensilesValue1 = listChoiceAppareils[i].ustensils;
+												
+													console.log("***UstensilesValue1");
+													console.log(UstensilesValue1);
+
+													for(let l=0; l< UstensilesValue1.length; l++){ //UstensilesValue1
+
+														let UstensilesValue = UstensilesValue1[l];
+														listUstensils.push(UstensilesValue);
+						
+
+													}
+	
+									
+												}
+
+												//suppression des doublons et mise à jour des li
+												//retrait des doublons 
+												let ustensilsValue3 = [...new Set(listUstensils)];
+
+												console.log("****ustensilsValue3 après retrait doublons");
+												console.log(ustensilsValue3);
+
+												for(let i=0; i< ustensilsValue3.length; i++){ 
+				
+				
+													let ustensilsValue2 = ustensilsValue3[i];
+								
+													const differentClassFilter = "tagUstensiles";
+
+													//création du li 
+													createLiFunction(ustensilsValue2, ustensilesContainer, differentClassFilter);
+							
+												}
+
+
+											}
+											updateChoiceUstensilsFunctionOne();
+											
+
+
+										}else if(listChoiceUstensils && listChoiceIngredients.length === 0 && listChoiceAppareils.length === 0 ){
+
+											console.log("***listChoiceUstensils");
+											console.log(listChoiceUstensils);
+
+											function updateChoiceIngredientsFunctionSecond(){
+
+												//suppression de tous les éléments existants dans l'élément ou enfants
+												ingredientsContainer.innerHTML = "";
+
+												for(let i=0; i< listChoiceUstensils.length; i++){ 
+						
+													//liste 
+													let ingredientsValue1 = listChoiceUstensils[i].ingredients;
+													
+													console.log("***ingredientsValue1");
+													console.log(ingredientsValue1);
+	
+													for(let l=0; l< ingredientsValue1.length; l++){ //UstensilesValue1
+	
+														let ingredientsValue = ingredientsValue1[l].ingredient;
+														listIngredients.push(ingredientsValue);
+							
+	
+													}
+	
+												}
+	
+												//suppression des doublons et mise à jour des li
+												//retrait des doublons 
+												let ingredientValue3 = [...new Set(listIngredients)];
+	
+	
+												for(let i=0; i< ingredientValue3.length; i++){ 
+					
+					
+													let ingredientsValue2 = ingredientValue3[i];
+									
+													const differentClassFilter = "tagUstensiles";
+	
+													//création du li 
+													createLiFunction(ingredientsValue2, ingredientsContainer, differentClassFilter);
+								
+												}
+
+											}
+											updateChoiceIngredientsFunctionSecond();
+
+											////////////////
+											/*
+											//suppression de tous les éléments existants dans l'élément ou enfants
+											ingredientsContainer.innerHTML = "";
+
+											for(let i=0; i< listChoiceUstensils.length; i++){ 
+						
+						
+												let ingredientListValue1 = listChoiceUstensils[i].ingredients;
+
+
+
+												for(let l=0; l< ingredientListValue1.length; l++){ 
+
+													let ingredientValue = ingredientListValue1[l].ingredient;
+
+
+													const differentClassFilter = "tagIngredients";
+
+													//création du li 
+													createLiFunction(ingredientValue, ingredientsContainer, differentClassFilter);
+
+												}
+												
+									
+											}*/
+
+				
+											function updateChoiceAppareilsFunctionSecond(){
+
+												//suppression de tous les éléments existants dans l'élément ou enfants
+												appareilsContainer.innerHTML = "";
+
+												for(let i=0; i< listChoiceUstensils.length; i++){ 
+				
+				
+													let appareilsValue2 = listChoiceUstensils[i].appliance;
+												
+													//insersion des valeurs
+													listAppareils.push(appareilsValue2);
+					
+												}
+
+												//suppression des doublons et mise à jour des li
+												//retrait des doublons 
+												let appareilsValue3 = [...new Set(listAppareils)];
+
+												for(let i=0; i< appareilsValue3.length; i++){ 
+				
+				
+													let appareilsValue2 = appareilsValue3[i];
+								
+													const differentClassFilter = "tagAppareils";
+
+													//création du li 
+													createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
+							
+												}
+
+											}
+											updateChoiceAppareilsFunctionSecond();
+
+
+										}
+
+										
+									});
 								}
+
+								
 
 							}
 							btnFilterChoiceFunction();
