@@ -1,6 +1,9 @@
 
 //récupération de la fonction
 import getDatas from "../manageDatas.js";
+//import articleCreateFunction from "./cardRecette.js";
+import { getDatasFunction } from "./cardRecette.js";
+
 
 //creation de la du filtre
 async  function createFilterFunction(){
@@ -2017,6 +2020,14 @@ async  function createFilterFunction(){
 			keywordsTagFilterFunction(tagIngredientsLocalStorage, ulTagIngredients);
 			
 			deleteTagFunction();
+
+			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+			
+			// console.log("***listChoiceLocalStorage")
+			// console.log(listChoiceLocalStorage)
+			//éxécussion de la articleCreateFunction venant de cardRecette.js
+			
+			getDatasFunction(listChoiceLocalStorage);
 
 
 		}

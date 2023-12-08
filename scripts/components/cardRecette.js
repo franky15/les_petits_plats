@@ -5,7 +5,7 @@ import getDatas from "../manageDatas.js"; //createFilterFunction
 
 
 //fonction asynchrone pemettant d'utiliser ou de récupérer la data 
-export async function getDatasFunction() {
+export async function getDatasFunction(listChoiceLocalStorage) {
 
 	//récupération des données 
 	let listRicepsFilter = [];
@@ -43,15 +43,25 @@ export async function getDatasFunction() {
 	// console.log(listdatasPartiel);
 
 
+	let tagIngredientsLocalStorage = localStorage.getItem("valClassBtnIngredientsLi");
+	
+	
+
+
 	//récupération de containerArticleRecette
 	const containerArticleRecette = document.querySelector(".containerArticleRecette");
 	
 	let article;
 	//fonction de creation de l'article
-	const articleCreateFunction = (recetteCurrent) => {
+	function articleCreateFunction(recetteCurrent){
 
-		//console.log(recetteCurrent);
 
+		console.log("***bienvenue dans articleCreateFunction de cardRecette");
+		
+		console.log("***listChoiceLocalStorage dans cardRecette")
+		console.log(listChoiceLocalStorage)
+
+		
 		article = `
 
         
@@ -188,16 +198,50 @@ export async function getDatasFunction() {
 		
 		ingredientsItemFunction();
  
-	};
+	}
 	
 	//affichage de toutes les recettes sur la page d'acceuil
-	for(let i=0; i<listAllData.length; i++){
+
+	/////////////////////////
+	if(listChoiceLocalStorage){ //.length !==0
+
+		console.log("*** bienvenue dans la condition listChoiceLocalStorage");
+
+		containerArticleRecette.innerHTML = "";
+
+		for(let i=0; i<listChoiceLocalStorage.length; i++){
+
+			let recetteCurrent = listChoiceLocalStorage[i];
+	
+			articleCreateFunction(recetteCurrent);
+	
+		}
+
+	}else{
+
+		console.log("*** bienvenue dans la condition  else listChoiceLocalStorage");
+
+		containerArticleRecette.innerHTML = "";
+		
+		for(let i=0; i<listAllData.length; i++){
+
+			let recetteCurrent = listAllData[i];
+	
+			articleCreateFunction(recetteCurrent);
+	
+		}
+		
+	}
+
+	/////////////////////////
+
+	/*for(let i=0; i<listAllData.length; i++){
 
 		let recetteCurrent = listAllData[i];
 
 		articleCreateFunction(recetteCurrent);
 
-	}
+	}*/
 
 
 	//searchBarFunction();
@@ -241,14 +285,7 @@ export async function getDatasFunction() {
 		console.log("****listFilterDescriptionSearchBar")
 		console.log(listFilterDescriptionSearchBar)*/
 		
-		//if(valInput ){  //valInputLocalStorage
-
-			/*
-			// Suppression de tous les enfants de la section
-			while (containerArticleRecette.firstChild) {
-				containerArticleRecette.removeChild(containerArticleRecette.firstChild);
-			}*/
-
+		
 			// suppression de tous les éléments existants dans l'élément ou enfants
 			containerArticleRecette.innerHTML = "";
 
@@ -407,14 +444,6 @@ export async function getDatasFunction() {
 
 	/********************* gestion des filtres ******************************* */
 
-	/////////////////////////////::
-
-
-
-
-	/////////////////////////////::
-
-
 	//fonction de creation des filtres de recettes
 	function createFilterFunction(){
 
@@ -431,63 +460,7 @@ export async function getDatasFunction() {
 		console.log("*** applianceListFilter");
 		console.log(applianceListFilter);*/
 	
-		/********************* gestion des filtres ******************************* */
 		
-		/*
-		//récupération du container des filtres
-		// const filtersContainer = document.querySelector(".filters__container");
-		const btnfilter = document.querySelector(".btnfilter");
-
-		function createFilterItemFunction(listTitleFiltersCurrent){
-			
-			let  filter = `
-				
-				<div class="containerFilterBtn" >
-
-					<button class="recettesBtn" >
-					
-						<span class="titleBtnMain ${listTitleFiltersCurrent}" > ${listTitleFiltersCurrent} </span>
-						<span class="arrow arrowDown" > <i class="fa-solid fa-chevron-down"></i> </span>
-						<span class="arrow arrowUp" style="display: none;" > <i class="fa-solid fa-chevron-up"></i> </span>
-			
-					</button>
-					
-
-					
-					<ul  class="filters__container--filter listeUlContainer filterForm2" id="${listTitleFiltersCurrent}"  style="display: block;">
-							
-						<li class="optionBar" >  
-						
-							<input value=${ "value" } class="optionBar__input ${"Ingredients"} " type="text" >
-							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
-							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
-	
-						</li>
-						<li class="optionLi ${ "Ingredients" }" style="display: block;" role='option'>  
-						
-							<button  value= ${"Ingredients"} class="${ "Ingredients"+"Btn" }">
-	
-								<span class="${"Ingredients"}">${"Ingredients"}</span>
-							
-							</button>
-							
-						</li>
-						
-					
-					</ul>
-		
-					
-
-				</div>
-	
-			`;
-	
-			// filtersContainer.innerHTML += filter;
-			btnfilter.innerHTML += filter;
-			
-		}
-		//createFilterItemFunction();
-		*/
 		
 		const listBtnRecette = document.getElementsByClassName("recettesBtn");
 		
@@ -631,106 +604,16 @@ export async function getDatasFunction() {
 	
 		/********************* gestion des tags ******************************* */
 		
-		const keywordsTag = document.querySelector(".keywordsTag");
-		//fonction de création du tag de la barre de recherche
-		const keywordsTagFunction = () => {
-	
-			const keywordsTagBtn = `
-	
-				<div class="${"keyword"} keywordContainer" >
-	
-					<p class="${"keyword"} keywordContainer__btn">
-	
-						${"keyword text"}
-								
-					</p>
-					<span class="keywordContainer__delete"> <i class="fa-solid fa-x btnDeleteTagSearch" data-keyWord=${"keyword text"} ></i> </span>
-				
-				</div>
-			
-			`;
-			keywordsTag.innerHTML= keywordsTagBtn;
-	
-	
-		};
-		//keywordsTagFunction();
 	
 	
 		
-		const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
-		//console.log(keywordsTaglistFilter);
-		
-		//fonction de création des tags des filtres
-		const keywordsTagFilterFunction = () => {
-	
-			const keywordsTagFilter = `
-	
-				<li class="${"keyword"} keywordContainer" >
-	
-					<p   class="${"keyword"} keywordContainer__btn">
-	
-						${"keyword text des listes"}
-								
-					</p>
-					<span class="keywordContainer__delete"> <i class="fa-solid fa-circle-xmark btnDeleteTag" data-keyWord=${"keyword text"} ></i> </span>
-				
-				</li>
-				<li class="${"keyword"} keywordContainer" >
-	
-					<p   class="${"keyword"} keywordContainer__btn">
-	
-						${"keyword text des listes"}
-								
-					</p>
-					<span class="keywordContainer__delete"> <i class="fa-solid fa-circle-xmark btnDeleteTag" data-keyWord=${"keyword text"}></i> </span>
-				
-				</li>
-			
-			`;
-			keywordsTaglistFilter.innerHTML= keywordsTagFilter;
-	
-	
-		};
-		//keywordsTagFilterFunction();
-	
-	
-		//valeurs du premier bouton
-		let listNameFilters = [ "ingredients", "appareils", "ustencils"];
-		
-		/*
-		const labelClickData = () => {
-	
-			//récupération du label
-			const labelRecettes = document.querySelector(".labelRecettes");
-			
-			//récupération des icon flèche
-			const arrowUpp = document.querySelector(".arrowUpp");
-			const arrowDown = document.querySelector(".arrowDown");
-	
-			labelRecettes.addEventListener( "click", () => {
-	
-				arrowUpp.style.display = "block"; // Afficher arrowUpp
-				arrowDown.style.display = "none"; // Masquer arrowDown
-				
-				console.log("click sur le label effectué");
-	
-			});
-		
-		};
-		labelClickData();
-		*/
 		
 	}
-	// createFilterFunction();
-
 	
 
-
-	/////////////////////////////////////
-
-
+	
 	
 }
 
-getDatasFunction(); 
+export default getDatasFunction(); 
 
