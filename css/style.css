@@ -279,14 +279,15 @@ main {
   display: flex;
   margin: auto;
   margin-bottom: 50px;
-  border: solid red;
 }
 .filtersSection .sectionTag .keywordsTag {
-  width: 18%;
+  width: 100%;
   margin-right: 50px;
 }
 .filtersSection .sectionTag .keywordsTag .keywordContainer {
+  width: 20%;
   height: 60px;
+  margin-right: 40px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -306,6 +307,7 @@ main {
   font-size: 18px;
 }
 .filtersSection .sectionTag ul {
+  display: flex;
   margin: 0;
   padding: 0;
   list-style: none;

@@ -244,26 +244,32 @@
 
         width: 90%;
         display: flex;
+        //justify-content: space-between;
         margin: auto;
         margin-bottom: 50px;
-        border: solid red;
+       // border: solid red;
 
         .keywordsTag{
 
-            width: 18%;
+            //width: 18%;
+            width: 100%;
             margin-right: 50px;
+            //border: solid green;
         
         
             .keywordContainer{
 
-                // width: 18%;//195px;
+                width: 20%;//195px;
                 height: 60px;
+                margin-right: 40px;
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
                 margin-bottom: 10px;
                 background-color: #FFD15B;
                 border-radius: 11px;
+
+                //border: solid yellowgreen;
             
 
                 &__btn{
@@ -296,11 +302,13 @@
 
         ul{
             
+            display: flex;
+            //justify-content: space-between;
             margin: 0; 
             padding: 0; 
             list-style: none; 
            
-        // border: solid black;
+            //border: solid black;
 
         
         }
