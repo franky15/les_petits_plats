@@ -678,14 +678,15 @@ async  function createFilterFunction(){
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
 
+
 							console.log("***valClassBtnLi");
-							console.log(valClassBtnLi);
+							console.log(btnTaIngredientsLi.textContent);
 
 							// let differentClassFilter = btnCurrent.classList[2];
 													
 							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
-			
+							// localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
+							localStorage.setItem( "valClassBtnIngredientsLi", btnTaIngredientsLi.textContent);
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
@@ -728,6 +729,9 @@ async  function createFilterFunction(){
 													
 											applianceChoiceFunction();
 											ustensilsChoiceFunction();
+
+											//exécution de la fonction des tags
+											showTagFunction();
 										}
 																
 									}
@@ -849,8 +853,8 @@ async  function createFilterFunction(){
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
 
 							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
-			
+							//localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
+							localStorage.setItem( "valClassBtnIngredientsLi", btnTagIngredientsLi.textContent);
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
@@ -887,6 +891,9 @@ async  function createFilterFunction(){
 												
 											ustensilsChoiceFunction();
 											applianceChoiceFunction();
+
+											//exécution de la fonction des tags
+											showTagFunction();
 										}
 															
 									}
@@ -957,7 +964,8 @@ async  function createFilterFunction(){
 								// let differentClassFilter = btnCurrent.classList[2];
 										
 								//stockage de la valeur du li ou du btn dans le localstorage
-								localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+								//localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
+								localStorage.setItem( "valClassBtnIngredientsLi", btnCurrent.textContent);
 
 								//récupération des valeurs selectionnées du localstorage
 								const valChoiceFilter = localStorage.getItem(differentClassFilter);
@@ -1011,6 +1019,9 @@ async  function createFilterFunction(){
 								
 								applianceChoiceFunction();
 								ustensilsChoiceFunction();
+
+								//exécution de la fonction des tags
+								showTagFunction();
 
 								//////////////////////////
 							
@@ -1143,7 +1154,7 @@ async  function createFilterFunction(){
 							// let differentClassFilter = btnCurrent.classList[2];
 													
 							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+							localStorage.setItem( "valClassBtnAppareilsLi", btnTagAppareilsLi.textContent);
 			
 
 							//récupération des valeurs selectionnées du localstorage
@@ -1177,6 +1188,9 @@ async  function createFilterFunction(){
 											
 										ingredientsChoiceFunction();
 										ustensilsChoiceFunction();
+
+										//exécution de la fonction des tags
+										showTagFunction();
 										
 									}
 														
@@ -1296,7 +1310,7 @@ async  function createFilterFunction(){
 							// let differentClassFilter = btnCurrent.classList[2];
 													
 							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+							localStorage.setItem( "valClassBtnAppareilsLi", btnTagUstensilsLi.textContent);
 			
 
 							//récupération des valeurs selectionnées du localstorage
@@ -1335,6 +1349,9 @@ async  function createFilterFunction(){
 												
 										ingredientsChoiceFunction();
 										ustensilsChoiceFunction();
+
+										//exécution de la fonction des tags
+										showTagFunction();
 									}
 															
 								}
@@ -1409,7 +1426,7 @@ async  function createFilterFunction(){
 								// let differentClassFilter = btnCurrent.classList[2];
 										
 								//stockage de la valeur du li ou du btn dans le localstorage
-								localStorage.setItem( "valClassBtnLi", JSON.stringify(valClassBtnLi));
+								localStorage.setItem( "valClassBtnAppareilsLi", btnCurrent.textContent);
 
 								//récupération des valeurs selectionnées du localstorage
 								const valChoiceFilter = localStorage.getItem(valClassBtnLi);
@@ -1447,6 +1464,9 @@ async  function createFilterFunction(){
 
 								ingredientsChoiceFunction();
 								ustensilsChoiceFunction();
+
+								//exécution de la fonction des tags
+								showTagFunction();
 
 								//////////////////////////
 							
@@ -1574,16 +1594,15 @@ async  function createFilterFunction(){
 							console.log("** bienvenue dans  tagIgredients condition 1");
 			
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
-							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
+							//let valClassBtnUstensilsLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 
-							console.log("***valClassBtnLi");
-							console.log(valClassBtnLi);
+							
 
 							// let differentClassFilter = btnCurrent.classList[2];
 													
 							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+							localStorage.setItem( "valClassBtnUstensilsLi", btnTaUstenilsLi.textContent);
 			
 
 							//récupération des valeurs selectionnées du localstorage
@@ -1627,6 +1646,9 @@ async  function createFilterFunction(){
 													
 											applianceChoiceFunction();
 											ingredientsChoiceFunction();
+
+											//exécution de la fonction des tags
+											showTagFunction();
 										
 										}
 																
@@ -1753,7 +1775,7 @@ async  function createFilterFunction(){
 							// let differentClassFilter = btnCurrent.classList[2];
 													
 							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+							localStorage.setItem( "valClassBtnUstensilsLi", btnTUstensilsLi.textContent);
 			
 
 							//récupération des valeurs selectionnées du localstorage
@@ -1794,6 +1816,9 @@ async  function createFilterFunction(){
 												
 											applianceChoiceFunction();
 											ingredientsChoiceFunction();
+
+											//exécution de la fonction des tags
+											showTagFunction();
 										}
 															
 									}
@@ -1855,7 +1880,7 @@ async  function createFilterFunction(){
 								let differentClassFilter = btnCurrent.classList[2];
 													
 								//stockage de la valeur du li ou du btn dans le localstorage
-								localStorage.setItem( differentClassFilter, JSON.stringify(valClassBtnLi));
+								localStorage.setItem( "valClassBtnUstensilsLi", btnCurrent.textContent);
 			
 								//récupération des valeurs selectionnées du localstorage
 								const valChoiceFilter = localStorage.getItem(differentClassFilter);
@@ -1893,6 +1918,9 @@ async  function createFilterFunction(){
 												
 												applianceChoiceFunction();
 												ingredientsChoiceFunction();
+
+												//exécution de la fonction des tags
+												showTagFunction();
 											}
 									
 										}
@@ -1944,16 +1972,19 @@ async  function createFilterFunction(){
 	/********************* gestion des tags ******************************* */
 	
 	const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
+	const ulTagIngredients = document.querySelector(".ulTagIngredients");
+	const ulTagAppareils = document.querySelector(".ulTagAppareils");
+	const ulTagUstensils = document.querySelector(".ulTagUstensils");
 	//console.log(keywordsTaglistFilter);
     
 	//fonction de création des tags des filtres
-	const keywordsTagFilterFunction = (tagValue, tagTexContent) => {
+	const keywordsTagFilterFunction = (tagTexContent, tagContainer) => {
 
 		const keywordsTagFilter = `
 
-            <li class="${"keyword"+tagValue} keywordContainer" >
+            <li class="${"likeyword"+(tagTexContent).replace(/\s+/g, "")} keywordContainer"  >
 
-                <p   class="${"keyword"} keywordContainer__btn">
+                <p   class="${"keyword"+(tagTexContent).replace(/\s+/g, "")} keywordContainer__btn">
 
                     ${tagTexContent}
                             
@@ -1964,7 +1995,8 @@ async  function createFilterFunction(){
 
             
         `;
-		keywordsTaglistFilter.innerHTML= keywordsTagFilter;
+		//keywordsTaglistFilter.innerHTML= keywordsTagFilter;
+		tagContainer.innerHTML= keywordsTagFilter;
 
 
 	};
@@ -1972,69 +2004,63 @@ async  function createFilterFunction(){
 
 	function showTagFunction(){
 
-
+		console.log("Bienvenue dans showTagFunction()");
 		//récupération des valeurs des tags du localstorage
 
+		let tagIngredientsLocalStorage = localStorage.getItem("valClassBtnIngredientsLi");
+		let tagAppareilsLocalStorage = localStorage.getItem("valClassBtnAppareilsLi");
+		let tagUstensilsLocalStorage = localStorage.getItem("valClassBtnUstensilsLi");
+
+		if(tagIngredientsLocalStorage){
+
+			ulTagIngredients.innerHTML = "";
+			keywordsTagFilterFunction(tagIngredientsLocalStorage, ulTagIngredients);
+			
+			deleteTagFunction();
+
+
+		}
+		if(tagAppareilsLocalStorage){
+
+			ulTagAppareils.innerHTML = "";
+			keywordsTagFilterFunction(tagAppareilsLocalStorage, ulTagAppareils);
+
+			deleteTagFunction();
+
+		}
+		if(tagUstensilsLocalStorage){
+
+			ulTagUstensils.innerHTML = "";
+			keywordsTagFilterFunction(tagUstensilsLocalStorage, ulTagUstensils);
+		
+			deleteTagFunction();
+		}
+
+	}
+	//showTagFunction();
+
+	//gestion des fermetures des tags
+
+	function deleteTagFunction(){
+
+		let keywordContainer = document.getElementsByClassName("keywordContainer");
+
+		for( let k=0; k<keywordContainer.length; k++){
+
+			let keywordContainerCurrent = keywordContainer[k].classList[0];
+
+			//récupération du parent de l'élément
+			let keywordContainerClassCurrent = document.querySelector(`.${keywordContainerCurrent}`).parentNode;
+
+		
+			keywordContainerClassCurrent.addEventListener("click", ()=>{
+
+				keywordContainerClassCurrent.innerHTML = "";
+			});
+		}
 	}
 
 
-
-	/*
-	const keywordsTag = document.querySelector(".keywordsTag");
-	//fonction de création du tag de la barre de recherche
-	const keywordsTagFunction = () => {
-
-		const keywordsTagBtn = `
-
-            <div class="${"keyword"} keywordContainer" >
-
-                <p class="${"keyword"} keywordContainer__btn">
-
-                    ${"keyword text"}
-                            
-                </p>
-                <span class="keywordContainer__delete"> <i class="fa-solid fa-x btnDeleteTagSearch" data-keyWord=${"keyword text"} ></i> </span>
-            
-            </div>
-        
-        `;
-		keywordsTag.innerHTML= keywordsTagBtn;
-
-
-	};
-	//keywordsTagFunction();
-	*/
-
-
-    
-	
-
-
-	//valeurs du premier bouton
-	let listNameFilters = [ "ingredients", "appareils", "ustencils"];
-	
-	/*
-	const labelClickData = () => {
-
-		//récupération du label
-		const labelRecettes = document.querySelector(".labelRecettes");
-        
-		//récupération des icon flèche
-		const arrowUpp = document.querySelector(".arrowUpp");
-		const arrowDown = document.querySelector(".arrowDown");
-
-		labelRecettes.addEventListener( "click", () => {
-
-			arrowUpp.style.display = "block"; // Afficher arrowUpp
-			arrowDown.style.display = "none"; // Masquer arrowDown
-            
-			console.log("click sur le label effectué");
-
-		});
-    
-	};
-	labelClickData();
-    */
 	
 }
 createFilterFunction();
