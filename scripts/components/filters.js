@@ -187,7 +187,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	const iterationFilter = () => {
 
 		btnArrow.innerHTML= "";
-		
+
 		for(let i=0; i< listTitleFilters.length; i++){
 
 			let listTitleFiltersCurrent = listTitleFilters[i];
@@ -554,8 +554,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	
 					//création du li 
 					createLiFunction(ingredientValue, ingredientsContainer, differentClassFilter);
+
 		
 				}
+
+				//////////////////////
+				btnFilterChoiceFunction();
+				//////////////////////
 	
 	
 			});
@@ -587,6 +592,10 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					createLiFunction(AppareilsValue, appareilsContainer, differentClassFilter);
 		
 				}
+
+				//////////////////////
+				btnFilterChoiceFunction();
+				//////////////////////
 	
 	
 			});
@@ -617,6 +626,10 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					createLiFunction(UstensilesValue, ustensilesContainer, differentClassFilter);
 		
 				}
+
+				//////////////////////
+				btnFilterChoiceFunction();
+				//////////////////////
 	
 	
 			});
@@ -642,7 +655,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 		function btnFilterChoiceFunction(){
 
-			function ingredientsChoiceFunction(listRecepsResultSearchBarMain){
+			function ingredientsChoiceFunction(){
 
 			
 				
