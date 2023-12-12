@@ -141,24 +141,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					<div class="optionBar"  >  
 						
 							<input  class="optionBar__input ${"input"+listTitleFiltersCurrent}" type="text" >
-							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
+							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete ${"btnDelete"+listTitleFiltersCurrent}"></i> </span>
 							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
 
 					</div>
 					<ul    class="listeUlContainer filterForm2Container" id="${listTitleFiltersCurrent+"Container"}" >
 							
-						<!--
-						<li class="optionBar"  >  
-						
-							<input placeHolder=${ "value2" } class="optionBar__input ${"Ingredients"} " type="text" >
-							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
-							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
-
-						</li>
-						-->
 			
-						
-					
 					</ul>
 
 				</div>
@@ -331,6 +320,10 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								//stockage de la liste dans le localstorage
 								localStorage.setItem("classBtnValue", JSON.stringify(classBtn.classList[1]));
 
+								//////////////////
+								//deleteSearchBarFilter();
+								//////////////////
+
 							}else{
 
 								console.log("**** bienvenue dans le else du display");
@@ -344,10 +337,15 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								//récupération et gestion de arrow correspondant au bouton
 								const arrowDown = document.querySelector(`${ ".arrowUp"+valueIdFiltre}`);
 								arrowDown.style.display = "none";
+								//////////////////
+								//deleteSearchBarFilter();
+								//////////////////
 
 							}
 						}
 						ShowDisplayFilterFunction();
+
+						
 
 						
 						
@@ -436,7 +434,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					// console.log(valInputFilter);
 
 					setListDataFilterFunction(valInputFilter);
+
+					/////////////////
+					//deleteSearchBarFilter(inputFilterElementCurrent,valInputFilter );
+				/////////////////
 				});
+
+				
 
 			}
 		}
@@ -543,7 +547,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				let inputIngredientsList = ingredientsListFilter.filter( item => item.includes(`${val}`));
 									
 				//stockage de la liste dans le localstorage
-				//localStorage.setItem("inputIngredientsList", JSON.stringify(inputIngredientsList));
+				localStorage.setItem("inputIngredientsList", JSON.stringify(val));
 	
 				const differentClassFilter = "tagIngredients";
 
@@ -557,6 +561,76 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 		
 				}
+
+				////////////////////////////////////////////
+
+				/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
+
+				function deleteSearchBarFilter(){
+
+					console.log("*****bienvenue à la deleteSearchBarFilter");
+
+		
+
+					let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
+
+					//récupération de toutes les croix des filtres
+					const inputsearchBarFilter = document.getElementsByClassName("btnDelete");
+
+					for(let s=0; s<listInputSearchBarFilter.length; s++){
+
+
+						let listInputSearchBarFilterValue = listInputSearchBarFilter[s];
+
+
+						for(let i=0; i<inputsearchBarFilter.length; i++){
+
+							let inputsearchBarFilterClass = inputsearchBarFilter[i].classList[3];
+				
+
+							let elementDeleteCurrent = inputsearchBarFilter[i];
+
+							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
+
+								// console.log("*****bienvenue à la condition delete");
+								// console.log(elementDeleteCurrent);
+
+					
+								elementDeleteCurrent.addEventListener("click", ()=>{
+
+									console.log("*****bienvenue à la l'evennement delete");
+									console.log(elementDeleteCurrent);
+
+									inputIngredients.value = "";
+									inputIngredients.removeAttribute("value");
+									
+
+									// suppression de tous les éléments existants dans l'élément ou enfants
+									ingredientsContainer.innerHTML = "";
+									
+									for(let i=0; i< ingredientsListFilter.length; i++){ 
+	
+	
+										let ingredientValue = ingredientsListFilter[i];
+							
+										//création du li 
+										createLiFunction(ingredientValue, ingredientsContainer, differentClassFilter);
+								
+									}
+										
+
+
+								});
+
+
+							}
+						}
+					}
+				}
+				deleteSearchBarFilter();
+				//btnFilterChoiceFunction();
+
+				////////////////////////////////////////////
 
 				//////////////////////
 				btnFilterChoiceFunction();
@@ -579,7 +653,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				let inputAppareilsList = applianceListFilter.filter( item => item.includes(`${val.trim()}`));
 									
 				//stockage de la liste dans le localstorage
-				//localStorage.setItem("inputAppareilsList", JSON.stringify(inputAppareilsList));
+				localStorage.setItem("inputAppareilsList", JSON.stringify(val));
 									
 				const differentClassFilter = "tagAppareils";
 
@@ -593,9 +667,76 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 				}
 
-				//////////////////////
+				////////////////////////////////////////////
+
+				/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
+
+				function deleteSearchBarFilter(){
+
+					console.log("*****bienvenue à la deleteSearchBarFilter");
+
+		
+
+					let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
+
+					//récupération de toutes les croix des filtres
+					const inputsearchBarFilter = document.getElementsByClassName("btnDelete");
+
+					for(let s=0; s<listInputSearchBarFilter.length; s++){
+
+
+						let listInputSearchBarFilterValue = listInputSearchBarFilter[s];
+
+
+						for(let i=0; i<inputsearchBarFilter.length; i++){
+
+							let inputsearchBarFilterClass = inputsearchBarFilter[i].classList[3];
+				
+
+							let elementDeleteCurrent = inputsearchBarFilter[i];
+
+							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
+
+								// console.log("*****bienvenue à la condition delete");
+								// console.log(elementDeleteCurrent);
+
+					
+								elementDeleteCurrent.addEventListener("click", ()=>{
+
+									console.log("*****bienvenue à la l'evennement delete");
+									console.log(elementDeleteCurrent);
+
+									inputAppareils.value = "";
+									inputAppareils.removeAttribute("value");
+									
+
+									// suppression de tous les éléments existants dans l'élément ou enfants
+									appareilsContainer.innerHTML = "";
+									
+									for(let i=0; i< applianceListFilter.length; i++){ 
+	
+	
+										let AppareilsValue = applianceListFilter[i];
+							
+										//création du li 
+										createLiFunction(AppareilsValue, appareilsContainer, differentClassFilter);
+								
+									}
+										
+
+
+								});
+
+
+							}
+						}
+					}
+				}
+				deleteSearchBarFilter();
+
 				btnFilterChoiceFunction();
-				//////////////////////
+
+				////////////////////////////////////////////
 	
 	
 			});
@@ -613,7 +754,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				let inputUstensilesList = ustencilsListFilter.filter( item => item.includes(`${val.trim()}`));
 									
 				//stockage de la liste dans le localstorage
-				//localStorage.setItem("inputUstensilesList", JSON.stringify(inputUstensilesList));
+				localStorage.setItem("inputUstensilesList", JSON.stringify(val));
 									
 				const differentClassFilter = "tagUstensiles";
 
@@ -630,6 +771,76 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				//////////////////////
 				btnFilterChoiceFunction();
 				//////////////////////
+
+				////////////////////////////////////////////
+
+				/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
+
+				function deleteSearchBarFilter(inputFilterElementCurrent, valInputFilter){
+
+					console.log("*****bienvenue à la deleteSearchBarFilter");
+
+		
+
+					let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
+
+					//récupération de toutes les croix des filtres
+					const inputsearchBarFilter = document.getElementsByClassName("btnDelete");
+
+					for(let s=0; s<listInputSearchBarFilter.length; s++){
+
+
+						let listInputSearchBarFilterValue = listInputSearchBarFilter[s];
+
+
+						for(let i=0; i<inputsearchBarFilter.length; i++){
+
+							let inputsearchBarFilterClass = inputsearchBarFilter[i].classList[3];
+				
+
+							let elementDeleteCurrent = inputsearchBarFilter[i];
+
+							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
+
+								// console.log("*****bienvenue à la condition delete");
+								// console.log(elementDeleteCurrent);
+
+					
+								elementDeleteCurrent.addEventListener("click", ()=>{
+
+									console.log("*****bienvenue à la l'evennement delete");
+									console.log(elementDeleteCurrent);
+
+									inputUstensiles.value = "";
+									inputUstensiles.removeAttribute("value");
+									
+
+									// suppression de tous les éléments existants dans l'élément ou enfants
+									ustensilesContainer.innerHTML = "";
+									
+									for(let i=0; i< ustencilsListFilter.length; i++){ 
+	
+	
+										let ustensilValue = ustencilsListFilter[i];
+							
+										//création du li 
+										createLiFunction(ustensilValue, ustensilesContainer, differentClassFilter);
+								
+									}
+										
+
+
+								});
+
+
+							}
+						}
+					}
+				}
+				deleteSearchBarFilter();
+				//btnFilterChoiceFunction();
+
+				////////////////////////////////////////////
 	
 	
 			});
@@ -1985,6 +2196,62 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			});
 		}
 	}
+
+	/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
+	/*
+	function deleteSearchBarFilter(inputFilterElementCurrent, valInputFilter){
+
+		console.log("*****bienvenue à la deleteSearchBarFilter");
+
+		
+
+		let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
+
+		//récupération de tous les inputs des filtres
+		const inputsearchBarFilter = document.getElementsByClassName("btnDelete");
+
+		for(let s=0; s<listInputSearchBarFilter.length; s++){
+
+
+			let listInputSearchBarFilterValue = listInputSearchBarFilter[s];
+
+			for(let i=0; i<inputsearchBarFilter.length; i++){
+
+				let inputsearchBarFilterClass = inputsearchBarFilter[i].classList[3];
+				
+
+				let elementDeleteCurrent = inputsearchBarFilter[i];
+
+				if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
+
+					// console.log("*****bienvenue à la condition delete");
+					// console.log(elementDeleteCurrent);
+
+					
+					elementDeleteCurrent.addEventListener("click", ()=>{
+
+						console.log("*****bienvenue à la condition delete");
+						console.log(elementDeleteCurrent);
+
+						//inputFilterElementCurrent.addEventListener("input", ())
+						if(valInputFilter){
+
+							inputFilterElementCurrent.value = "";
+
+							evenSearchBarFilterFunction()
+
+						}
+						
+
+					})
+
+
+				}
+			}
+		}
+	}*/
+	
+	
 
 
 	
