@@ -6,17 +6,17 @@ import { getDatasFunction } from "./cardRecette.js";
 
 
 //creation de la du filtre
-async  function createFilterFunction(){
+export async  function createFilterFunction(listRicepsFilterJSON){
 
 	/*****récupération de la liste du résultat de recherche du localstorage **/
 	// Récupération de listRicepsFilter la chaîne JSON du localStorage
-	let listRicepsFilterJSON = localStorage.getItem("listRicepsFilter");
+	/*let listRicepsFilterJSON = localStorage.getItem("listRicepsFilter");
 	
 	// Convertion de la chaîne listRicepsFilterJSON en liste JavaScript
-	let listRicepsFilter = JSON.parse(listRicepsFilterJSON);
+	//let listRicepsFilter = JSON.parse(listRicepsFilterJSON);
 	
 	console.log("***listRicepsFilter dans filters");
-	console.log(listRicepsFilter);
+	console.log(listRicepsFilter);*/
 	
 
 	//récupération des données 
@@ -40,11 +40,61 @@ async  function createFilterFunction(){
 		ustencilsListFilter = responseDataJson[3];
 		ingredientsListFilter = responseDataJson[4];
 		applianceListFilter = responseDataJson[5];
+		
+		
 	
 	} catch (error) {
 
 		console.error("Erreur dans la requête :", error);
 	}
+
+	/*
+	console.log("*** listAllData");
+	console.log(listAllData);
+	console.log("*** ustencilsListFilter");
+	console.log(ustencilsListFilter);
+	console.log("*** ingredientsListFilter");
+	console.log(ingredientsListFilter);
+	console.log("*** applianceListFilter");
+	console.log(applianceListFilter);*/
+
+	/********************* gestion des de la list issue de la barre de recherche principale ******************************* */
+	if(listRicepsFilterJSON){
+
+		console.log("***listRicepsFilterJSON dans filters");
+		console.log(listRicepsFilterJSON);
+		
+		//constitution des listes pour les filtres
+		let titreListFilter = listRicepsFilterJSON.map( item => item.name);
+		ingredientsListFilter = listRicepsFilterJSON.map( item => item.ingredients[0].ingredient);
+		applianceListFilter = listRicepsFilterJSON.map( item => item.appliance);
+		let ustencils = listAllData.map( item => item.ustensils );
+		//let descriptionListFilter = listRicepsFilterJSON.map( item => item.description);
+
+		//suppresssion des doublons
+		ingredientsListFilter = [...new Set(ingredientsListFilter)];
+		applianceListFilter = [...new Set(applianceListFilter)];
+		//descriptionListFilter = [...new Set(descriptionListFilter)];
+		ustencils = [...new Set(ustencils)];
+
+		let ustencilsList=[];
+	
+		//fusion de l'ensemble de listes en une seule grosse liste
+		for(let u=0; u<ustencils.length; u++){
+
+			let ustencilsCurrent = ustencils[u];
+			ustencilsList.push(ustencilsCurrent);
+		
+		}
+
+		ustencilsListFilter = [].concat(...ustencilsList);
+
+		//retrait des doublons après la fusion des données
+		ustencilsListFilter = [...new Set(ustencilsListFilter)];
+
+
+	}
+	
 
 	console.log("*** listAllData");
 	console.log(listAllData);
@@ -55,9 +105,8 @@ async  function createFilterFunction(){
 	console.log("*** applianceListFilter");
 	console.log(applianceListFilter);
 
-	//let listFilters = [ "ingredients", "appareils", "ustensiles" ];
-
-
+	//liste des recettes
+	let listRecepsResultSearchBarMain =[];
 	//liste des titres des boutons
 	let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
 
@@ -137,6 +186,8 @@ async  function createFilterFunction(){
 	//fonction d'itération du filtre
 	const iterationFilter = () => {
 
+		btnArrow.innerHTML= "";
+		
 		for(let i=0; i< listTitleFilters.length; i++){
 
 			let listTitleFiltersCurrent = listTitleFilters[i];
@@ -247,10 +298,6 @@ async  function createFilterFunction(){
 					
 					classBtn.addEventListener("click", ()=>{
 
-						console.log("***classBtn");
-						console.log(classBtn);
-
-									
 						/////////////////
 						//récupération de la propriété display des filtres
 						let valueIdFiltreElement = document.querySelector(`${"#"+valueIdFiltre}`);
@@ -417,7 +464,8 @@ async  function createFilterFunction(){
 							
 		///////////////////////////////////
 		//gestion  de l'état innitial des filtres avec un input null
-						
+		
+
 		function initStateFilterFunction(){
 
 			if(!inputIngredients.value){
@@ -517,8 +565,7 @@ async  function createFilterFunction(){
 			inputAppareils.addEventListener("input", (e)=>{
 	
 				let val = e.target.value;
-				console.log(val);
-
+				
 				inputAppareils.setAttribute("value" , `${val}`);
 	
 				// suppression de tous les éléments existants dans l'élément ou enfants
@@ -590,47 +637,33 @@ async  function createFilterFunction(){
 		let listChoiceAppareils = [];
 		let listChoiceIngredients = [];
 		let listChoiceUstensils = [];
-			
+
+		
+		
 		function btnFilterChoiceFunction(){
 
-			/*let listChoiceAppareils = [];
-			let listChoiceIngredients = [];
-			let listChoiceUstensils = [];*/
+			function ingredientsChoiceFunction(listRecepsResultSearchBarMain){
 
-			function ingredientsChoiceFunction(){
-
-				 console.log("***listChoiceIngredients");
-				console.log(listChoiceIngredients);
-
+			
+				
 
 				if(listChoiceAppareils.length !==0  ){
 
-					console.log("** listChoiceAppareils");
-					console.log(listChoiceAppareils);
-					
 					let listAppareilsConcat = [];
 
 
 					const differentClassFilter = "tagIngredients";
 					
-
-
 					for(let i=0; i< listChoiceAppareils.length; i++){ 
 				
 						ingredientsContainer.innerHTML= "";
 						
 						let ingredientsValue2List = listChoiceAppareils[i].ingredients;
 								
-						console.log("** ingredientsValue2List");
-						console.log(ingredientsValue2List);
-
 						for(let ig=0; ig<ingredientsValue2List.length; ig++){
 
 
 							let ingredientsValue2 = ingredientsValue2List[ig].ingredient;
-
-							// console.log("** ingredientsValue2");
-							// console.log(ingredientsValue2);
 
 							listAppareilsConcat.push(ingredientsValue2);
 
@@ -651,10 +684,6 @@ async  function createFilterFunction(){
 					for(let l=0; l<listAppareilsConcat2.length; l++){
 
 						let listIngredientsConcatCurrent = listAppareilsConcat2[l];
-
-						
-						// console.log("** listIngredientsConcatCurrent");
-						// console.log(listIngredientsConcatCurrent);
 
 						//création du li 
 						createLiFunction(listIngredientsConcatCurrent, ingredientsContainer, differentClassFilter);
@@ -680,13 +709,7 @@ async  function createFilterFunction(){
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
-
-
-							console.log("***valClassBtnLi");
-							console.log(btnTaIngredientsLi.textContent);
-
-							// let differentClassFilter = btnCurrent.classList[2];
-													
+			
 							//stockage de la valeur du li ou du btn dans le localstorage
 							// localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
 							localStorage.setItem( "valClassBtnIngredientsLi", btnTaIngredientsLi.textContent);
@@ -698,6 +721,13 @@ async  function createFilterFunction(){
 												
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
+
+							///////////////////////////////////////////////
+
+
+							///////////////////////////////////////////////
+
+
 							for(let l=0; l<listChoiceAppareils.length; l++){
 
 								let listappareilObject = listChoiceAppareils[l].ingredients;
@@ -706,21 +736,12 @@ async  function createFilterFunction(){
 								for(let j=0; j<listappareilObject.length; j++ ){
 
 									let listappareilObjectCurrent = listappareilObject[j].ingredient;
-									//let objectAllDataCurrent = listIngredientsVal[j].ingredient;
-
-									console.log("***listappareilObjectCurrent");
-									console.log(listappareilObjectCurrent);
-
-					
-
+							
 									if(listappareilObjectCurrent ){
 		
 										if(valClassBtnLi.replace(/\s+/g, "").toUpperCase() === listappareilObjectCurrent.replace(/\s+/g, "").toUpperCase() ){
 				
 											console.log("*** bienvenue dans le if appareilVal replace  de ingredients");
-				
-											// console.log("***objectAllDataCurrent");
-											// console.log(objectAllDataCurrent);
 				
 											listChoiceIngredients=[];
 											listChoiceIngredients.push(objectAppareil);
@@ -776,21 +797,11 @@ async  function createFilterFunction(){
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
-					console.log("** listChoiceUstensils dans tagAppareils");
-					console.log(listChoiceUstensils);
-					//let differentClassFilter = btnCurrent.classList[2];
-
-							
-
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
 					// let listUstensilsConcat = [...new Set(listChoiceUstensils)];
 					let listValIngredientsConcat =[];
 
-					console.log("***listChoiceUstensils");
-					console.log(listChoiceUstensils);
-
-		
 					const differentClassFilter = "tagIngredients";
 					ingredientsContainer.innerHTML= "";
 
@@ -801,10 +812,7 @@ async  function createFilterFunction(){
 				
 						let listIngredients = listChoiceUstensils[i].ingredients;
 						let objectIngredients = listChoiceUstensils[i];
-								
-						console.log("** listIngredients");
-						console.log(listIngredients);
-
+							
 						for(let l=0; l<listIngredients.length; l++){
 
 							let ingredientsValue = listIngredients[l].ingredient;
@@ -825,10 +833,6 @@ async  function createFilterFunction(){
 					for(let l=0; l<listValIngredientsConcat2.length; l++){
 
 						let listIngredientsConcatCurrent = listValIngredientsConcat2[l];
-
-						
-						// console.log("** listIngredientsConcatCurrent");
-						// console.log(listIngredientsConcatCurrent);
 
 						//création du li 
 						createLiFunction(listIngredientsConcatCurrent, ingredientsContainer, differentClassFilter);
@@ -851,6 +855,7 @@ async  function createFilterFunction(){
 
 							console.log("** bienvenue dans  tagAppareils condition 1");
 			
+						
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
@@ -881,10 +886,6 @@ async  function createFilterFunction(){
 			
 											console.log("*** bienvenue dans le if appareils replace ");
 			
-											// console.log("***ingredientsValueCurrent");
-											// console.log(ingredientsValueCurrent);
-			
-											
 											listChoiceIngredients.push(objectIngredientsCurrent);
 			
 									
@@ -944,9 +945,6 @@ async  function createFilterFunction(){
 						//récupération du bouton spécifique ou encours
 						let btnCurrent = document.getElementById(`${BtnFilterCurrentValue}`);
 
-						/*console.log("*** mon btnCurrent");
-						console.log(btnCurrent);*/
-
 						let differentClassFilter = btnCurrent.classList[2];
 
 						//vérification si on est sur le bon filtres
@@ -956,10 +954,6 @@ async  function createFilterFunction(){
 							btnCurrent.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 								console.log("** bienvenue dans  tagIngredients");
-
-			
-								// console.log("*** mon btnCurrent");
-								// console.log(btnCurrent);
 
 								//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 								let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
@@ -1002,9 +996,7 @@ async  function createFilterFunction(){
 
 													listChoiceIngredients.push(objectAllDataCurrent);
 
-													console.log("***valObjectIngredients");
-													console.log(valObjectIngredients);
-
+									
 													//stockage de la valeur du li ou du btn dans le localstorage
 													//localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));
 													localStorage.setItem( "listChoice", JSON.stringify(listChoiceIngredients));
@@ -1078,8 +1070,6 @@ async  function createFilterFunction(){
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
-					console.log("** listChoiceIngredients dans tagAppareils");
-					console.log(listChoiceIngredients);
 					//let differentClassFilter = btnCurrent.classList[2];
 
 					
@@ -1101,10 +1091,6 @@ async  function createFilterFunction(){
 								
 						listAppareilsConcat.push(appareilsValue2);
 
-						console.log("** appareilsValue2");
-						console.log(appareilsValue2);
-
-
 						//création du li 
 						//createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
 							
@@ -1117,10 +1103,6 @@ async  function createFilterFunction(){
 					for(let l=0; l<listAppareilsConcat2.length; l++){
 
 						let listIngredientsConcatCurrent = listAppareilsConcat2[l];
-
-						
-						// console.log("** listIngredientsConcatCurrent");
-						// console.log(listIngredientsConcatCurrent);
 
 						//création du li 
 						createLiFunction(listIngredientsConcatCurrent, appareilsContainer, differentClassFilter);
@@ -1142,13 +1124,8 @@ async  function createFilterFunction(){
 						btnTagAppareilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagAppareils condition 1");
-			
-							console.log("***listChoiceIngredients");
-							console.log(listChoiceIngredients);
-						
-							// console.log("*** mon btnCurrent");
-							// console.log(btnCurrent);
-			
+
+							
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagAppareilsLiId.substring(9,tagAppareilsLiId.length);
@@ -1175,11 +1152,6 @@ async  function createFilterFunction(){
 								if(objectAllDataCurrent.appliance ){
 		
 									if(valClassBtnLi.toUpperCase() === objectAllDataCurrent.appliance.replace(/\s+/g, "").toUpperCase() ){
-		
-										console.log("*** bienvenue dans le if ustensils replace ");
-		
-										console.log("***objectAllDataCurrent.appliance");
-										console.log(objectAllDataCurrent.appliance);
 		
 										//listChoiceAppareils=[];
 										listChoiceAppareils.push(objectAllDataCurrent);
@@ -1232,12 +1204,6 @@ async  function createFilterFunction(){
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
-					console.log("** listChoiceUstensils dans tagAppareils");
-					console.log(listChoiceUstensils);
-					//let differentClassFilter = btnCurrent.classList[2];
-
-							
-
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
 					let listAppareilsConcat = [];
@@ -1256,10 +1222,6 @@ async  function createFilterFunction(){
 								
 						listAppareilsConcat.push(appareilsValue2);
 
-						console.log("** appareilsValue2");
-						console.log(appareilsValue2);
-
-
 						//création du li 
 						//createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
 							
@@ -1273,10 +1235,6 @@ async  function createFilterFunction(){
 					for(let l=0; l<listAppareilsConcat2.length; l++){
 
 						let listIngredientsConcatCurrent = listAppareilsConcat2[l];
-
-						
-						// console.log("** listIngredientsConcatCurrent");
-						// console.log(listIngredientsConcatCurrent);
 
 						//création du li 
 						createLiFunction(listIngredientsConcatCurrent, appareilsContainer, differentClassFilter);
@@ -1299,9 +1257,7 @@ async  function createFilterFunction(){
 
 							console.log("** bienvenue dans  tagAppareils condition 1");
 			
-							console.log("***listChoiceUstensils");
-							console.log(listChoiceUstensils);
-						
+							
 							// console.log("*** mon btnCurrent");
 							// console.log(btnCurrent);
 			
@@ -1338,9 +1294,6 @@ async  function createFilterFunction(){
 									if(valClassBtnLi.toUpperCase() === appareilsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
 			
 										console.log("*** bienvenue dans le if appareils replace ");
-			
-										console.log("***appareilsValueCurrent");
-										console.log(appareilsValueCurrent);
 			
 										//listChoiceAppareils=[];
 										listChoiceAppareils.push(listChoiceUstensilsCurrent);
@@ -1416,16 +1369,10 @@ async  function createFilterFunction(){
 
 								console.log("** bienvenue dans  tagAppareils");
 
-			
-								// console.log("*** mon btnCurrent");
-								// console.log(btnCurrent);
-
+								
 								//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 								let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 					
-								console.log("*** valClassBtnLi");
-								console.log(valClassBtnLi);	
-
 								// let differentClassFilter = btnCurrent.classList[2];
 										
 								//stockage de la valeur du li ou du btn dans le localstorage
@@ -1450,9 +1397,6 @@ async  function createFilterFunction(){
 										if(valClassBtnLi.toUpperCase() === valAppareils.replace(/\s+/g, "").toUpperCase() ){
 
 											listChoiceAppareils.push(objectAllDataCurrent);
-
-											console.log("***valAppareils");
-											console.log(valAppareils);
 
 											//stockage de la valeur du li ou du btn dans le localstorage
 											//localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
@@ -1522,9 +1466,6 @@ async  function createFilterFunction(){
 
 				if(listChoiceAppareils.length !==0 ){
 
-					console.log("** listChoiceAppareils");
-					console.log(listChoiceAppareils);
-					
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
 					let listUstensilsConcat = [];
@@ -1540,16 +1481,10 @@ async  function createFilterFunction(){
 						
 						let ustensilsValue2List = listChoiceAppareils[i].ustensils;
 								
-						console.log("** ustensilsValue2List");
-						console.log(ustensilsValue2List);
-
 						for(let u=0; u<ustensilsValue2List.length; u++){
 
 
 							let ustensilsValue2 = ustensilsValue2List[u];
-
-							// console.log("** ustensilsValue2");
-							// console.log(ustensilsValue2);
 
 							listUstensilsConcat.push(ustensilsValue2);
 
@@ -1571,10 +1506,6 @@ async  function createFilterFunction(){
 	
 						let listUstensilsConcatCurrent = listUstensilsConcat2[l];
 	
-							
-						// console.log("** listIngredientsConcatCurrent");
-						// console.log(listIngredientsConcatCurrent);
-	
 						//création du li 
 						createLiFunction(listUstensilsConcatCurrent, ustensilesContainer, differentClassFilter);
 	
@@ -1595,7 +1526,7 @@ async  function createFilterFunction(){
 						btnTaUstenilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagIgredients condition 1");
-			
+							
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							//let valClassBtnUstensilsLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
@@ -1624,11 +1555,6 @@ async  function createFilterFunction(){
 
 									let ustensilsValueCurrent = listUstensilsObject[j];
 									//let objectAllDataCurrent = listIngredientsVal[j].ingredient;
-
-									console.log("***ustensilsValueCurrent");
-									console.log(ustensilsValueCurrent);
-
-					
 
 									if(listUstensilsObject ){
 		
@@ -1691,12 +1617,7 @@ async  function createFilterFunction(){
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
-					console.log("** listChoiceIngredients dans tagAppareils");
-					console.log(listChoiceIngredients);
-					//let differentClassFilter = btnCurrent.classList[2];
-
-							
-
+					
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
 					let listUstensilsConcat = [];
@@ -1713,9 +1634,6 @@ async  function createFilterFunction(){
 
 						let listustensilsValue2 = listChoiceIngredients[i].ustensils;
 								
-						console.log("** listustensilsValue2");
-						console.log(listustensilsValue2);
-
 						for(let l=0; l<listustensilsValue2.length; l++){
 
 							let ustensilsValueCurrent = listustensilsValue2[l];
@@ -1739,10 +1657,7 @@ async  function createFilterFunction(){
 			
 						let listUstensilsConcatCurrent = listUstensilsConcat2[l];
 			
-									
-						// console.log("** listIngredientsConcatCurrent");
-						// console.log(listIngredientsConcatCurrent);
-			
+								
 						//création du li 
 						createLiFunction(listUstensilsConcatCurrent, ustensilesContainer, differentClassFilter);
 			
@@ -1763,13 +1678,7 @@ async  function createFilterFunction(){
 						btnTUstensilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagUstensiles condition 1");
-			
-							console.log("***listChoiceIngredients");
-							console.log(listChoiceIngredients);
-						
-							// console.log("*** mon btnCurrent");
-							// console.log(btnCurrent);
-			
+							
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
@@ -1805,9 +1714,6 @@ async  function createFilterFunction(){
 										if(valClassBtnLi.toUpperCase() === ustensilsCurrent.replace(/\s+/g, "").toUpperCase() ){
 			
 											console.log("*** bienvenue dans le if ustensils replace ");
-			
-											console.log("***ustensilsCurrent");
-											console.log(ustensilsCurrent);
 			
 											//listChoiceAppareils=[];
 											listChoiceUstensils.push(objectIngredients);
@@ -1874,8 +1780,7 @@ async  function createFilterFunction(){
 								console.log("** bienvenue dans  tagUstensiles");
 			
 						
-								// console.log("*** mon btnCurrent");
-								// console.log(btnCurrent);
+						
 			
 								//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 								let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
@@ -1912,9 +1817,6 @@ async  function createFilterFunction(){
 		
 												listChoiceUstensils.push(objectAllDataCurrent);
 										
-												console.log("***valObjectUstensils");
-												console.log(valObjectUstensils);
-		
 												//stockage de la valeur du li ou du btn dans le localstorage
 												//localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
 												localStorage.setItem( "listChoice", JSON.stringify(listChoiceUstensils));
@@ -2074,7 +1976,7 @@ async  function createFilterFunction(){
 
 	
 }
-createFilterFunction();
+export default createFilterFunction();
 
 
 

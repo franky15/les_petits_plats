@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 //récupération de la fonction
 import getDatas from "../manageDatas.js"; //createFilterFunction
-
+import { createFilterFunction } from "./filters.js";
 
 
 //fonction asynchrone pemettant d'utiliser ou de récupérer la data 
@@ -56,12 +56,6 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 	function articleCreateFunction(recetteCurrent){
 
 
-		console.log("***bienvenue dans articleCreateFunction de cardRecette");
-		
-		console.log("***listChoiceLocalStorage dans cardRecette")
-		console.log(listChoiceLocalStorage)
-
-		
 		article = `
 
         
@@ -205,8 +199,6 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 	/////////////////////////
 	if(listChoiceLocalStorage){ //.length !==0
 
-		console.log("*** bienvenue dans la condition listChoiceLocalStorage");
-
 		containerArticleRecette.innerHTML = "";
 
 		for(let i=0; i<listChoiceLocalStorage.length; i++){
@@ -222,7 +214,7 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 		console.log("*** bienvenue dans la condition  else listChoiceLocalStorage");
 
 		containerArticleRecette.innerHTML = "";
-		
+
 		for(let i=0; i<listAllData.length; i++){
 
 			let recetteCurrent = listAllData[i];
@@ -235,13 +227,6 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 	/////////////////////////
 
-	/*for(let i=0; i<listAllData.length; i++){
-
-		let recetteCurrent = listAllData[i];
-
-		articleCreateFunction(recetteCurrent);
-
-	}*/
 
 
 	//searchBarFunction();
@@ -297,8 +282,6 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 				if(listFilterNameSearchBar.length > 0 ){
 
-					console.log("***bienvenue dans name")
-
 					//for(let i=0; i<listFilterNameSearchBar.length; i++){
 
 
@@ -312,14 +295,11 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 						//vérification si l'input correspont à la description de la recette encours
 						if(  recetteCurrent.name.toUpperCase() === valInput.toUpperCase() ){  //(recetteCurrent.name ).includes(valInput) 
 	
-							// console.log(recetteCurrent.name.toUpperCase())
-							// console.log(valInput)
-
-							console.log("***** condition name Limonade de Coco")
-	
 							//insersion des receptes dans la liste
 							listRicepsFilter.push(recetteCurrent)
 							articleCreateFunction(recetteCurrent);
+
+							
 							
 						
 						
@@ -354,7 +334,6 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 				}else if(listFilterDescriptionSearchBar.length === 0 && listFilterNameSearchBar.length === 0 ){
 
-					console.log("***bienvenue dans ingredients")
 
 					let ingredientObjectCurrent = recetteCurrent.ingredients;
 				
@@ -382,10 +361,7 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 			}
 
-			createFilterFunction(listRicepsFilter);
-
-			// console.log("***listRicepsFilter")
-			// console.log(listRicepsFilter)
+			
 
 			//stockage de listRicepsFilter dans le localstorage
 			// Convertion  listRicepsFilter en chaîne JSON
@@ -394,10 +370,20 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 			// Stockage la chaîne JSON dans le local storage avec une clé
 			localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
 
+
+			// Récupération et conversion de listRicepsFilter la chaîne JSON du localStorage
+			let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
+
+			// console.log("***listRicepsFilterJSON dans carrd");
+			// console.log(listRicepsFilterJSON);
+
+			//transfert de la listRicepsFilterJSON vers la fonction ou le fichier filters.js
+			createFilterFunction(listRicepsFilterJSON);
+
 	});
 
 	let valInputLocalStorage = localStorage.getItem("valInput");
-	console.log(valInputLocalStorage);
+	
 
 	//fermeture de la searchbar
 
@@ -431,187 +417,6 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 	deleteValueInput();
 
 
-
-	/////////////////////////////////////
-
-
-	// //liste des titres des filtres
-	let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
-
-
-	////////////////////////////////////
-
-
-	/********************* gestion des filtres ******************************* */
-
-	//fonction de creation des filtres de recettes
-	function createFilterFunction(){
-
-		
-		console.log("*** listRicepsFilter récupéré ici")
-		console.log(listRicepsFilter)
-		/*
-		console.log("*** listAllData");
-		console.log(listAllData);
-		console.log("*** ustencilsListFilter");
-		console.log(ustencilsListFilter);
-		console.log("*** ingredientsListFilter");
-		console.log(ingredientsListFilter);
-		console.log("*** applianceListFilter");
-		console.log(applianceListFilter);*/
-	
-		
-		
-		const listBtnRecette = document.getElementsByClassName("recettesBtn");
-		
-		//récupération des filtres
-		const filterForm2 = document.getElementsByClassName("filterForm2");
-		console.log(filterForm2)
-
-		//récupération des filtres
-		const listArrowDown = document.getElementsByClassName("arrowDown");
-
-		const listArrowUp = document.getElementsByClassName("arrowUp");
-		//console.log(listArrow)
-
-		//liste des valeurs des arrows
-		let listArrowDownFilters = [ "arrowDownIngredients", "arrowDownAppareils", "arrowDownUstensiles" ];
-		let listArrowUpFilters = [ "arrowUpIngredients", "arrowUpAppareils", "arrowUpUstensiles" ];
-		
-		//ajout des class dans 
-		for(let f=0; f<filterForm2.length; f++){
-
-			let filterFormCureent = filterForm2[f];
-			let valueIdFiltre = filterFormCureent.id;
-			/*console.log("***valueId")
-			console.log(valueId)*/
-
-			for(let i=0; i< listBtnRecette.length; i++){
-
-				let listBtnRecetteCurrent = listBtnRecette[i];
-				
-				//récupération de la deuxième class
-				let valueSecondClass = listBtnRecetteCurrent.classList[1];
-				
-				//récupération de id de l'élément en cours
-				let classBtn = document.querySelector(`${"."+valueSecondClass}`);
-
-
-				if( valueSecondClass.trim() === valueIdFiltre){
-
-					////////////////////////////////
-
-					for(let a=0; a<listArrowDown.length; a++){
-
-						let listArrowDownElement = listArrowDown[a];
-						let listArrowDownCurrent = listArrowDownElement.classList[1];
- 
-						//récupération de id de l'élément en cours
-						let classArrowDown = document.querySelector(`${"."+listArrowDownCurrent}`);
-
-						
-
-						for(let u=0; u<listArrowDownFilters.length; u++){
-
-							let listArrowDownFiltersCurrent = listArrowDownFilters[u];
-
-						
-				
-
-							if( listArrowDownFiltersCurrent === listArrowDownCurrent ){
-
-								
-								//insersion des évennement dans les boutons
-								classBtn.addEventListener("click", ()=>{  //listBtnRecetteCurrent 
-
-									// listArrowDownElement.style.display = "none";
-
-									classArrowDown.style.display = "none";
-									//listBtnRecetteCurrent.classList.add(listTitleBtnCurrent);
-									
-									console.log("***** j'ai clické sur le bouton")
-								
-									filterFormCureent.style.display = "block";
-
-									
-									//////:
-									
-									///////
-								
-								});
-
-			
-
-							}
-
-							//insersion des évennement dans les boutons
-							classBtn.addEventListener("click", ()=>{ 
-
-								console.log("**** deuxième clique");
-
-								//////:
-								for(let d=0; d<listArrowUpFilters.length; d++){
-
-									let listArrowUpFiltersElement = listArrowUpFilters[d];
-
-
-									for(let dd=0; dd<listArrowUp.length; dd++){
-
-										let listArrowElement2 = listArrowUp[d];
-										let listArrowCurrent2 = listArrowElement2.classList[1];
-
-										//récupération de id de l'élément en cours
-										let classArrowUp = document.querySelector(`${"."+listArrowCurrent2}`);
-
-										console.log("***listArrowCurrent2")
-										console.log(listArrowCurrent2)
-
-										if( listArrowUpFiltersElement === listArrowCurrent2){
-
-											
-											// listArrowElement2.style.display = "block";
-
-											classArrowUp.style.display = "block";
-
-										}
-
-									}
-
-
-	
-								}
-								///////
-
-							});
-							
-	
-						}
-
-					}
-
-					///////////////////////:
-			
-				}
-
-
-			}
-
-
-		}
-
-
-		///////////////////////////////////////
-	
-		/********************* gestion des tags ******************************* */
-		
-	
-	
-		
-		
-	}
-	
-
-	
 	
 }
 
