@@ -239,6 +239,19 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 	//listes des recettes récupérées après recherche
 	// let listRicepsFilter = [];
 	
+	//////////////////////
+
+	//affichage de la quantité des recettes
+	function showNumberRiceptsFunction(){
+
+		let numberRecettes = document.querySelector(".filters__numberRecetteValue");
+		numberRecettes.textContent=`${listAllData.length}`;
+
+	}
+	showNumberRiceptsFunction();
+	
+
+	//////////////////////
 	inputSearch.addEventListener( "input", (e)=> {
 
 		//listes des recettes récupérées après recherche
@@ -281,6 +294,7 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 			containerArticleRecette.innerHTML = "";
 
 			
+
 			/****** gestion du filtre du titre de la recette ****/
 			for(let j=0; j< listAllData.length; j++){
 			
@@ -302,9 +316,11 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 						if(  recetteCurrent.name.toUpperCase() === valInput.toUpperCase() ){  //(recetteCurrent.name ).includes(valInput) 
 	
 							//insersion des receptes dans la liste
-							listRicepsFilter.push(recetteCurrent)
+							listRicepsFilter.push(recetteCurrent);
 							articleCreateFunction(recetteCurrent);
-
+							
+							//affichage de la quantité des recettes
+							showNumberRiceptsFunction();
 							
 							
 						
@@ -333,6 +349,9 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 							articleCreateFunction(recetteCurrent);
 
+							//affichage de la quantité des recettes
+							showNumberRiceptsFunction();
+
 						}
 
 					//}
@@ -357,7 +376,10 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 							
 							listRicepsFilter = [...ingredientCurrentFilter];
 							articleCreateFunction(recetteCurrent);
-						
+
+							//affichage de la quantité des recettes
+							showNumberRiceptsFunction();
+							
 						}
 
 
