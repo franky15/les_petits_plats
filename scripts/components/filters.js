@@ -141,7 +141,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					<div class="optionBar"  >  
 						
 							<input  class="optionBar__input ${"input"+listTitleFiltersCurrent}" type="text" >
-							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete ${"btnDelete"+listTitleFiltersCurrent}"></i> </span>
+							<span class="optionBar__delete"> <i class="fa-solid fa-x btnDelete ${"btnDelete"+listTitleFiltersCurrent}" style="display: none;"></i> </span>
 							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
 
 					</div>
@@ -427,17 +427,62 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 					valInputFilter = e.target.value;
 
+				
 					inputFilterElementCurrent.setAttribute("value" , `${valInputFilter}`);
 
-										
-					// console.log("**valInputFilter");
-					// console.log(valInputFilter);
 
 					setListDataFilterFunction(valInputFilter);
 
-					/////////////////
-					//deleteSearchBarFilter(inputFilterElementCurrent,valInputFilter );
-				/////////////////
+					////////////////////////////////////////////
+
+					//gestion de l'affichage de la croix dans le filtre
+					function deleteValueSearchBarFilterFunction(){
+
+						console.log("*****bienvenue à la deleteValueSearchBarFilterFunction");
+				
+						
+				
+						let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
+				
+						//récupération de tous les inputs des filtres
+						const inputsearchBarFilter = document.getElementsByClassName("btnDelete");
+				
+						for(let i=0; i<inputsearchBarFilter.length; i++){
+				
+							let inputsearchBarFilterClass = inputsearchBarFilter[i].classList[3];
+								
+				
+							let elementDeleteCurrent = inputsearchBarFilter[i];
+
+
+							//récupération des valeurs dans les classes
+							let valueClassbtenXDelete = `${inputsearchBarFilterClass}`.substring(9,`${inputsearchBarFilterClass}`.length);
+							let valueClassbtenInput = `${inputFilterElementCurrent.classList[1]}`.substring(5,`${inputFilterElementCurrent.classList[1]}`.length);
+							//let valueClassbtenInput = `${inputFilterElementCurrent}`.substring(5,`${inputFilterElementCurrent}`.length);
+								
+							console.log("*****valueClassbtenXDelete");
+							console.log(valueClassbtenXDelete);
+
+							console.log("*****valueClassbtenInput");
+							console.log(valueClassbtenInput);
+				
+							if(valueClassbtenInput === valueClassbtenXDelete && valInputFilter){
+				
+								console.log("*****bienvenue à la condition delete");
+								//console.log(elementDeleteCurrent);
+
+								elementDeleteCurrent.style.display = "block";
+									
+				
+							}else{
+
+								elementDeleteCurrent.style.display = "none";
+							}
+						}
+						
+					}
+					deleteValueSearchBarFilterFunction();
+					/////////////////////////////////////////////////////////////
 				});
 
 				
@@ -592,10 +637,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
 
-								// console.log("*****bienvenue à la condition delete");
-								// console.log(elementDeleteCurrent);
-
-					
 								elementDeleteCurrent.addEventListener("click", ()=>{
 
 									console.log("*****bienvenue à la l'evennement delete");
@@ -603,8 +644,10 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 									inputIngredients.value = "";
 									inputIngredients.removeAttribute("value");
-									
 
+									//masquage de la croix 
+									elementDeleteCurrent.style.display="none";
+									
 									// suppression de tous les éléments existants dans l'élément ou enfants
 									ingredientsContainer.innerHTML = "";
 									
@@ -697,15 +740,16 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
 
-								// console.log("*****bienvenue à la condition delete");
-								// console.log(elementDeleteCurrent);
-
-					
 								elementDeleteCurrent.addEventListener("click", ()=>{
 
 									console.log("*****bienvenue à la l'evennement delete");
 									console.log(elementDeleteCurrent);
 
+									//masquage de la croix 
+
+									elementDeleteCurrent.style.display="none";
+									
+											
 									inputAppareils.value = "";
 									inputAppareils.removeAttribute("value");
 									
@@ -802,15 +846,14 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
 
-								// console.log("*****bienvenue à la condition delete");
-								// console.log(elementDeleteCurrent);
-
-					
 								elementDeleteCurrent.addEventListener("click", ()=>{
 
 									console.log("*****bienvenue à la l'evennement delete");
 									console.log(elementDeleteCurrent);
 
+									//masquage de la croix 
+									elementDeleteCurrent.style.display="none";
+									
 									inputUstensiles.value = "";
 									inputUstensiles.removeAttribute("value");
 									

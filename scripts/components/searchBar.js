@@ -24,7 +24,7 @@ async function searchBarFunction(){
 	let  searchBar = `
    
    <input  class="searchBarContainer__input inputSearch" type="text" placeholder="Rechercher une recette, un ingredient...">
-   <span class="searchBarContainer__delete"> <i class="fa-solid fa-x btnDelete"></i> </span>
+   <span class="searchBarContainer__delete"> <i class="fa-solid fa-x btnDelete btnDeleteSearchBarMain" style="display: none;"></i> </span>
    <button class="searchBarContainer__button"><i class="fa-solid fa-magnifying-glass"></i></button>
 
    `;

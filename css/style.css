@@ -118,6 +118,7 @@ main {
   border: solid white;
 }
 .containerTitre .searchBarContainer__delete {
+  width: 2%;
   opacity: 0.5;
   margin-right: 30px;
 }

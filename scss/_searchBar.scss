@@ -46,12 +46,15 @@
             width: 90%;
             height: 85%;
             border: solid white;
+           // border: solid yellow;
 
         }
         &__delete{
 
+            width: 2%;
             opacity: 0.5;
             margin-right: 30px;
+            //border: solid red;
 
             .btnDelete{
 
@@ -67,6 +70,7 @@
             height: 90%;
             background-color: black;
             border-radius: 5px;
+            //border: solid yellow;
 
             i{
                 font-size: 45px;

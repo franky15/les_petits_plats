@@ -227,7 +227,8 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 	/////////////////////////
 
-
+	//récupération de la croix du champ de recherche principal
+	let btnDeleteSearchBarMain = document.querySelector(".btnDeleteSearchBarMain")
 
 	//searchBarFunction();
 	//gestion de la value de la searchbar
@@ -247,29 +248,34 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 		let ingredientCurrentFilter = [];
 
 		let valInput = e.target.value;
-		// console.log(valInput);
+		//console.log(valInput);
 
-		
 		inputSearch.setAttribute("value" , `${valInput}`);
 		
+		//let btnDeleteSearchBarMain = document.querySelector(".btnDeleteSearchBarMain")
+		
+		//affichage de la croix
+		if(valInput){
+				
+			console.log("*****bienvenue à la condition valInput dans cardRecette");
+			
+
+			btnDeleteSearchBarMain.style.display = "block";
+				
+
+		}else{
+
+			btnDeleteSearchBarMain.style.display = "none";
+		}
+
 		//stockage de valInput dans le local storage
 
 		localStorage.setItem("valInput", valInput);
 		
-		//let valInputLocalStorage = localStorage.getItem("valInput");
-		//console.log(valInputLocalStorage);
-		
-
 		//obtension des listes de recette qui correspondent à l'input de la recherche en fonction des catégories correspondantes
 		let listFilterNameSearchBar = listAllData.filter( item => item.name.includes(`${valInput}`) );
 		let listFilterDescriptionSearchBar = listAllData.filter( item => item.description.includes(`${valInput}`) );
 
-		/*
-		console.log("***listFilterNameSearchBar")
-		console.log(listFilterNameSearchBar)
-		console.log("****listFilterDescriptionSearchBar")
-		console.log(listFilterDescriptionSearchBar)*/
-		
 		
 			// suppression de tous les éléments existants dans l'élément ou enfants
 			containerArticleRecette.innerHTML = "";
@@ -395,7 +401,14 @@ export async function getDatasFunction(listChoiceLocalStorage) {
 
 		btnDelete.addEventListener("click", ()=>{
 
+			//suppression de l'input et de sa valeur de l'input 
 			inputSearch.value = "";
+			inputSearch.removeAttribute("value");
+
+
+			//masquage de la croix 
+			btnDeleteSearchBarMain.style.display="none";
+
 			// Supprimez la clé du local storage
 			localStorage.removeItem("valInput");
 
