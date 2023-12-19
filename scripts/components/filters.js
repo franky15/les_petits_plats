@@ -61,9 +61,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	/********************* gestion des de la list issue de la barre de recherche principale ******************************* */
 	if(listRicepsFilterJSON){
 
-		console.log("***listRicepsFilterJSON dans filters");
+		/*console.log("***listRicepsFilterJSON dans filters");
 		console.log(listRicepsFilterJSON);
-		
+		*/
 		//constitution des listes pour les filtres
 		let titreListFilter = listRicepsFilterJSON.map( item => item.name);
 		ingredientsListFilter = listRicepsFilterJSON.map( item => item.ingredients[0].ingredient);
@@ -421,7 +421,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 			if(InputlistValueCurrent === inputFilterElementValueCurrent.trim()){
 
-				console.log("***bienvenue sur l'input");
+				//console.log("***bienvenue sur l'input");
 
 				inputFilterElementCurrent.addEventListener("input", (e)=>{
 
@@ -460,12 +460,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							let valueClassbtenInput = `${inputFilterElementCurrent.classList[1]}`.substring(5,`${inputFilterElementCurrent.classList[1]}`.length);
 							//let valueClassbtenInput = `${inputFilterElementCurrent}`.substring(5,`${inputFilterElementCurrent}`.length);
 								
-							console.log("*****valueClassbtenXDelete");
-							console.log(valueClassbtenXDelete);
-
-							console.log("*****valueClassbtenInput");
-							console.log(valueClassbtenInput);
-				
 							if(valueClassbtenInput === valueClassbtenXDelete && valInputFilter){
 				
 								console.log("*****bienvenue à la condition delete");
@@ -519,7 +513,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 			if(!inputIngredients.value){
 
-				console.log("*** bienvenue dans Ingratients");
+				//console.log("*** bienvenue dans Ingratients");
 										
 				for(let i=0; i<ingredientsListFilter.length; i++){
 		
@@ -536,7 +530,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 			if(!inputUstensiles.value){
 		
-				console.log("*** bienvenue dans Ustensiles");
+				//console.log("*** bienvenue dans Ustensiles");
 		
 				for(let i=0; i<ustencilsListFilter.length; i++){
 		
@@ -553,7 +547,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 			if(!inputAppareils.value){
 		
-				console.log("*** bienvenue dans Appareils");
+				//console.log("*** bienvenue dans Appareils");
 		
 				for(let i=0; i<applianceListFilter.length; i++){
 		
@@ -906,7 +900,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		let listChoiceUstensils = [];
 
 		
-		
+		//gestion des filtres lorsqu'on choisit un élément de la list
 		function btnFilterChoiceFunction(){
 
 			function ingredientsChoiceFunction(){
@@ -938,11 +932,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							// createLiFunction(ingredientsValue2, ingredientsContainer, differentClassFilter);
 
 						}
-
-
-						
-							
-							
+		
 					}
 
 					//retrait des doublons 
@@ -988,13 +978,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 												
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
-
-							///////////////////////////////////////////////
-
-
-							///////////////////////////////////////////////
-
-
 							for(let l=0; l<listChoiceAppareils.length; l++){
 
 								let listappareilObject = listChoiceAppareils[l].ingredients;
@@ -1015,7 +998,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				
 										
 											//stockage de la valeur du li ou du btn dans le localstorage
-											// localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));
+											localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceIngredients));
 													
 											applianceChoiceFunction();
@@ -1157,7 +1140,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 									
 											//stockage de la valeur du li ou du btn dans le localstorage
-											// localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
+											localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
 												
 											ustensilsChoiceFunction();
@@ -1265,7 +1248,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 									
 													//stockage de la valeur du li ou du btn dans le localstorage
-													//localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));
+													localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));
 													localStorage.setItem( "listChoice", JSON.stringify(listChoiceIngredients));
 
 												}
@@ -1425,7 +1408,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 								
 										//stockage de la valeur du li ou du btn dans le localstorage
-										//localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
+										localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 										localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
 											
 										ingredientsChoiceFunction();
@@ -1567,7 +1550,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 									
 										//stockage de la valeur du li ou du btn dans le localstorage
-										//localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
+										localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 										localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
 												
 										ingredientsChoiceFunction();
@@ -1666,7 +1649,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 											listChoiceAppareils.push(objectAllDataCurrent);
 
 											//stockage de la valeur du li ou du btn dans le localstorage
-											//localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
+											localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
 
 										}
@@ -1837,7 +1820,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				
 										
 											//stockage de la valeur du li ou du btn dans le localstorage
-											//localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
+											localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceUstensils));
 													
 											applianceChoiceFunction();
@@ -1987,7 +1970,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 									
 											//stockage de la valeur du li ou du btn dans le localstorage
-											//localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
+											localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceUstensils));
 												
 											applianceChoiceFunction();
@@ -2085,7 +2068,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 												listChoiceUstensils.push(objectAllDataCurrent);
 										
 												//stockage de la valeur du li ou du btn dans le localstorage
-												//localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
+												localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
 												localStorage.setItem( "listChoice", JSON.stringify(listChoiceUstensils));
 												
 												applianceChoiceFunction();
@@ -2150,11 +2133,11 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	//console.log(keywordsTaglistFilter);
     
 	//fonction de création des tags des filtres
-	const keywordsTagFilterFunction = (tagTexContent, tagContainer) => {
+	const keywordsTagFilterFunction = (tagTexContent, tagContainer, listChoiceClass) => {
 
 		const keywordsTagFilter = `
 
-            <li class="${"likeyword"+(tagTexContent).replace(/\s+/g, "")} keywordContainer"  >
+            <li class="${"likeyword"+(tagTexContent).replace(/\s+/g, "")} keywordContainer ${listChoiceClass}"  >
 
                 <p   class="${"keyword"+(tagTexContent).replace(/\s+/g, "")} keywordContainer__btn">
 
@@ -2183,37 +2166,67 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		let tagAppareilsLocalStorage = localStorage.getItem("valClassBtnAppareilsLi");
 		let tagUstensilsLocalStorage = localStorage.getItem("valClassBtnUstensilsLi");
 
+		let listChoiceIngredientsStorage = "listChoiceIngredients";
+
 		if(tagIngredientsLocalStorage){
 
 			ulTagIngredients.innerHTML = "";
-			keywordsTagFilterFunction(tagIngredientsLocalStorage, ulTagIngredients);
+			keywordsTagFilterFunction(tagIngredientsLocalStorage, ulTagIngredients, listChoiceIngredientsStorage);
 			
 			deleteTagFunction();
 
 			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
 			
-			// console.log("***listChoiceLocalStorage")
-			// console.log(listChoiceLocalStorage)
+
 			//éxécussion de la articleCreateFunction venant de cardRecette.js
 			
 			getDatasFunction(listChoiceLocalStorage);
 
 
 		}
-		if(tagAppareilsLocalStorage){
+		if(tagAppareilsLocalStorage){ 
+
+			let listChoiceAppareilsStorage = "listChoiceAppareils";
 
 			ulTagAppareils.innerHTML = "";
-			keywordsTagFilterFunction(tagAppareilsLocalStorage, ulTagAppareils);
+			keywordsTagFilterFunction(tagAppareilsLocalStorage, ulTagAppareils, listChoiceAppareilsStorage);
 
 			deleteTagFunction();
+
+			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+			let listChoiceAppareilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceAppareils"));
+			
+			console.log("***listChoiceLocalStorage");
+			console.log(listChoiceLocalStorage);
+
+			console.log("***listChoiceAppareilsLocalStorage");
+			console.log(listChoiceAppareilsLocalStorage);
+			//éxécussion de la articleCreateFunction venant de cardRecette.js
+			
+			getDatasFunction(listChoiceLocalStorage);
 
 		}
 		if(tagUstensilsLocalStorage){
 
+			let listChoiceUstensilsStorage = "listChoiceUstensils";
+
 			ulTagUstensils.innerHTML = "";
-			keywordsTagFilterFunction(tagUstensilsLocalStorage, ulTagUstensils);
+			keywordsTagFilterFunction(tagUstensilsLocalStorage, ulTagUstensils, listChoiceUstensilsStorage);
 		
 			deleteTagFunction();
+
+			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+			let listChoiceUstensilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceUstensils"));
+			
+			console.log("***listChoiceLocalStorage");
+			console.log(listChoiceLocalStorage);
+
+			console.log("***listChoiceUstensilsLocalStorage");
+			console.log(listChoiceUstensilsLocalStorage);
+
+			//éxécussion de la articleCreateFunction venant de cardRecette.js
+			
+			getDatasFunction(listChoiceLocalStorage);
 		}
 
 	}
@@ -2223,19 +2236,194 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 	function deleteTagFunction(){
 
+		let listTitleFilters2 =[ "Ingredients", "Appareils", "Ustensils" ];
+
+		//récupération de la liste qui correspond au contenu de la page
+		let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+		
+		
+		let listConcatUnique = []; // listChoiceLocalStorage;
+
+		//récupération de la liste des ul ou contenaire des tags
 		let keywordContainer = document.getElementsByClassName("keywordContainer");
 
 		for( let k=0; k<keywordContainer.length; k++){
 
 			let keywordContainerCurrent = keywordContainer[k].classList[0];
 
+			//récupération de la class volue
+			let classLiTagCurrent = keywordContainer[k].classList[2];
+
+			// console.log("****classLiTagCurrent")
+			// console.log(classLiTagCurrent)
+			
+
+			
 			//récupération du parent de l'élément
 			let keywordContainerClassCurrent = document.querySelector(`.${keywordContainerCurrent}`).parentNode;
 
-		
+			
+
 			keywordContainerClassCurrent.addEventListener("click", ()=>{
 
+				//récupération de la liste qui correspond au contenu de la page
+				let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+				
+				let sectionTag = document.getElementsByClassName("keywordsTag");
+				
 				keywordContainerClassCurrent.innerHTML = "";
+
+				console.log("****classLiTagCurrent");
+				console.log(classLiTagCurrent);
+
+				for(let i=0; i<listTitleFilters2.length; i++){
+
+					let valListTitleFiltersCurrent = listTitleFilters2[i];
+
+					if(keywordContainerClassCurrent.classList[2].includes(valListTitleFiltersCurrent) ){
+
+						//function manageDataTag(){
+
+						//récupération de la liste qui correspond au tag qu'on supprime
+						let listChoiceTagLocalStorage = JSON.parse(localStorage.getItem(`${"listChoice"+valListTitleFiltersCurrent}`));
+				
+						//fusion des deux listes pour obtenir une nouvelle liste lors de la suppression du tag
+							
+						console.log("***listChoiceLocalStorage");
+						console.log(listChoiceLocalStorage);
+
+						console.log("***listChoiceTagLocalStorage");
+						console.log(listChoiceTagLocalStorage);
+
+						/*
+							let newListTag=[...new Set([...listChoiceLocalStorage, ...listChoiceTagLocalStorage])];
+
+							//suppression des doublons dans les liste d'objects en fonction de l'id
+							let uniqueList = newListTag.filter((item, index, array) =>
+								index === array.findIndex((item2) => item2.id === item.id)
+							);
+
+							console.log("**uniqueList");
+							console.log(uniqueList);
+
+							//stockage de la valeur du li ou du btn dans le localstorage
+							localStorage.setItem( "uniqueList", JSON.stringify(uniqueList));
+							*/
+
+						//transfert de uniqueList vers getDatasFunction 
+						//getDatasFunction( listAllData);
+
+						//}
+						
+
+
+						
+
+
+						let ulTagIngredients = document.querySelector(".ulTagIngredients");
+						let ulTagAppareils = document.querySelector(".ulTagAppareils");
+						let ulTagUstensils = document.querySelector(".ulTagUstensils");
+
+						console.log("***ulTagIngredients");
+						console.log(ulTagIngredients);
+						console.log(ulTagIngredients.childNodes.length);
+			
+						console.log("***ulTagAppareils");
+						console.log(ulTagAppareils);
+						console.log(ulTagAppareils.childNodes.length);
+
+
+						//mise à jour du contenu de la page lorsqu'on ferme les tags
+						
+						//transfert de uniqueList vers getDatasFunction 
+						if(ulTagIngredients.childNodes.length <=1  && ulTagAppareils.childNodes.length <=1 && ulTagUstensils.childNodes.length <=1  ){
+
+							console.log("*** tous premier enfant n'existe pas");
+
+						
+
+							//getDatasFunction(listChoiceLocalStorage);
+							//transfert de uniqueList vers getDatasFunction 
+							getDatasFunction( listAllData);
+							
+							
+
+						}else{
+
+							console.log("****bienvenue dans le else de la fermeture des tags");
+							//console.log("**uniqueList");
+							//console.log(uniqueList);
+
+							//supression de la liste du local storage  qui correspond au tag qu'on supprime
+							localStorage.removeItem(`${"listChoice"+valListTitleFiltersCurrent}`);
+
+							
+							//récupération de toutes les liste du local storage
+							let listChoiceIngredientsStorage = JSON.parse(localStorage.getItem("listChoiceIngredients")) ?? [];
+							let listChoiceAppareilsStorage = JSON.parse(localStorage.getItem("listChoiceAppareils")) ?? [];
+							let listChoiceUstensilsStorage = JSON.parse(localStorage.getItem("listChoiceUstensils")) ?? [];
+
+
+							//////////////////////////
+							if(classLiTagCurrent === "listChoiceIngredients"){
+
+								console.log("**bienvenue dans le tag listChoiceIngredients");
+
+								//fusion de toutes les listes du local storage qui correspondent au résultat de chaque tag
+								//let listUpdateDeleteFilter = [...new Set([...listChoiceIngredientsStorage, ...listChoiceLocalStorage])];
+								let listUpdateDeleteFilter = [...new Set([...listChoiceAppareilsStorage, ...listChoiceUstensilsStorage])];  //...listChoiceIngredientsStorage, ...listChoiceAppareilsStorage, ...listChoiceUstensilsStorage, ...listChoiceLocalStorage
+								//suppression des doublons dans les liste d'objects en fonction de l'id
+								let uniqueList = listUpdateDeleteFilter.filter((item, index, array) =>
+									index === array.findIndex((item2) => item2.id === item.id)
+								);
+
+
+								getDatasFunction( uniqueList);
+			
+							}else if(classLiTagCurrent === "listChoiceAppareils"){
+
+								console.log("**bienvenue dans le tag listChoiceAppareils");
+
+								//fusion de toutes les listes du local storage qui correspondent au résultat de chaque tag
+								let listUpdateDeleteFilter = [...new Set([...listChoiceIngredientsStorage, ...listChoiceUstensilsStorage])]; //...listChoiceAppareilsStorage, ...listChoiceLocalStorage
+
+								//suppression des doublons dans les liste d'objects en fonction de l'id
+								let uniqueList = listUpdateDeleteFilter.filter((item, index, array) =>
+									index === array.findIndex((item2) => item2.id === item.id)
+								);
+
+
+								getDatasFunction( uniqueList);
+
+							}else if(classLiTagCurrent === "listChoiceUstensils"){
+
+								console.log("**bienvenue dans le tag listChoiceUstensils");
+
+								//fusion de toutes les listes du local storage qui correspondent au résultat de chaque tag
+								let listUpdateDeleteFilter = [...new Set([...listChoiceIngredientsStorage, ...listChoiceAppareilsStorage])];  //...listChoiceUstensilsStorage,, ...listChoiceLocalStorage
+
+								//suppression des doublons dans les liste d'objects en fonction de l'id
+								let uniqueList = listUpdateDeleteFilter.filter((item, index, array) =>
+									index === array.findIndex((item2) => item2.id === item.id)
+								);
+
+								getDatasFunction( uniqueList);
+								
+							}
+
+
+						}
+						
+						
+		
+					}
+				}
+
+				
+
+
+				
+
 			});
 		}
 	}
