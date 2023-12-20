@@ -2254,8 +2254,11 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			//récupération de la class volue
 			let classLiTagCurrent = keywordContainer[k].classList[2];
 
-			// console.log("****classLiTagCurrent")
-			// console.log(classLiTagCurrent)
+			//récupération du texContent du tag
+			let valueTexContentTagCurrent = keywordContainer[k].textContent.trim();
+
+			// console.log("****valueTexContentTagCurrent")
+			// console.log(  valueTexContentTagCurrent)
 			
 
 			
@@ -2295,31 +2298,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						console.log("***listChoiceTagLocalStorage");
 						console.log(listChoiceTagLocalStorage);
 
-						/*
-							let newListTag=[...new Set([...listChoiceLocalStorage, ...listChoiceTagLocalStorage])];
-
-							//suppression des doublons dans les liste d'objects en fonction de l'id
-							let uniqueList = newListTag.filter((item, index, array) =>
-								index === array.findIndex((item2) => item2.id === item.id)
-							);
-
-							console.log("**uniqueList");
-							console.log(uniqueList);
-
-							//stockage de la valeur du li ou du btn dans le localstorage
-							localStorage.setItem( "uniqueList", JSON.stringify(uniqueList));
-							*/
-
-						//transfert de uniqueList vers getDatasFunction 
-						//getDatasFunction( listAllData);
-
-						//}
-						
-
-
-						
-
-
+						//récupération des ul ou container des tags
 						let ulTagIngredients = document.querySelector(".ulTagIngredients");
 						let ulTagAppareils = document.querySelector(".ulTagAppareils");
 						let ulTagUstensils = document.querySelector(".ulTagUstensils");
@@ -2369,45 +2348,382 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 								console.log("**bienvenue dans le tag listChoiceIngredients");
 
-								//fusion de toutes les listes du local storage qui correspondent au résultat de chaque tag
-								//let listUpdateDeleteFilter = [...new Set([...listChoiceIngredientsStorage, ...listChoiceLocalStorage])];
-								let listUpdateDeleteFilter = [...new Set([...listChoiceAppareilsStorage, ...listChoiceUstensilsStorage])];  //...listChoiceIngredientsStorage, ...listChoiceAppareilsStorage, ...listChoiceUstensilsStorage, ...listChoiceLocalStorage
-								//suppression des doublons dans les liste d'objects en fonction de l'id
-								let uniqueList = listUpdateDeleteFilter.filter((item, index, array) =>
-									index === array.findIndex((item2) => item2.id === item.id)
-								);
+								/////////////////////
+
+								
+								//fonction de gestion de mise à jour à la supression des tags
+								function manageValueTexcontentTagFunction(){
 
 
-								getDatasFunction( uniqueList);
-			
+									console.log(valueTexContentTagCurrent);
+
+									let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
+									let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
+								
+									let listValueTexContentTag = [valueTexContentTagAppareils, valueTexContentTagUstensils];
+
+									let listValueTexContentTagFinal = [];
+
+									for(let l=0; l<listValueTexContentTag.length; l++){
+
+										let valueTexContentTag = listValueTexContentTag[l];
+
+										if(valueTexContentTag.length !== 0 ){
+
+											// valueTexContentTag.textContent.trim()
+											listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
+											
+
+
+										}
+									}
+									
+									console.log("***listValueTexContentTagFinal");
+									console.log(listValueTexContentTagFinal);
+									
+									let listAppareilsUstensilsObjectTag = [];
+
+									let listIng = [];
+									let listUst = [];
+
+									//obtension des différentes liste d'objets correspondantes aux filtres restants
+									for(let f=0; f<listValueTexContentTagFinal.length; f++){
+
+										let valueTextContentCurrent = listValueTexContentTagFinal[f];
+
+										for(let i=0; i<listAllData.length; i++){
+
+											//objet encours
+											let valueObjectTag = listAllData[i];
+
+											//valeurs de ingredient de l'objet encours
+											let listAppareilsTagCurrent = valueObjectTag.appliance;
+
+											if(listAppareilsTagCurrent === valueTextContentCurrent){
+
+												//console.log("**** listIngredientTagCurrent existe")
+
+												//ajout de l'objet encours dans la list
+												listAppareilsUstensilsObjectTag.push(valueObjectTag);
+
+												listIng.push(valueObjectTag);
+
+										
+											}
+
+											//valeurs de ustensil de l'objet encours
+											let listUstensilTagCurrent = valueObjectTag.ustensils;
+
+
+											if(listUstensilTagCurrent.length !== 0){
+
+												//console.log("**** listUstensilTagCurrent existe")
+
+												//gestion de la liste des ustensils encours
+												for(let j=0; j<listUstensilTagCurrent.length; j++){
+
+													let ValueUstensilTagCurrent = listUstensilTagCurrent[j];
+
+													if(ValueUstensilTagCurrent === valueTextContentCurrent){
+
+														//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
+
+														//ajout de l'objet encours dans la list
+														listAppareilsUstensilsObjectTag.push(valueObjectTag);
+
+														listUst.push(valueObjectTag);
+													}
+
+												}
+
+												
+
+											}
+										}
+
+									}
+
+									console.log("****listAppareilsUstensilsObjectTag");
+									console.log(listAppareilsUstensilsObjectTag);
+
+							
+
+									//suppression des doublons dans les liste d'objects en fonction de l'id
+									let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
+										index === array.findIndex((item2) => item2.id === item.id)
+									);
+
+									console.log("****NewUniqueList");
+									console.log(NewUniqueList);
+
+									getDatasFunction( NewUniqueList);
+
+								}
+								manageValueTexcontentTagFunction();
+								
+						
+
+								/////////////////////
+
+							
+								
+								
 							}else if(classLiTagCurrent === "listChoiceAppareils"){
 
 								console.log("**bienvenue dans le tag listChoiceAppareils");
 
-								//fusion de toutes les listes du local storage qui correspondent au résultat de chaque tag
-								let listUpdateDeleteFilter = [...new Set([...listChoiceIngredientsStorage, ...listChoiceUstensilsStorage])]; //...listChoiceAppareilsStorage, ...listChoiceLocalStorage
+								
 
-								//suppression des doublons dans les liste d'objects en fonction de l'id
-								let uniqueList = listUpdateDeleteFilter.filter((item, index, array) =>
-									index === array.findIndex((item2) => item2.id === item.id)
-								);
+								/////////////////////
+
+								
+								//fonction de gestion de mise à jour à la supression des tags
+								function manageValueTexcontentTagFunction(){
 
 
-								getDatasFunction( uniqueList);
+									console.log(valueTexContentTagCurrent);
+
+									let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
+									let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
+								
+									let listValueTexContentTag = [valueTexContentTagIngredients, valueTexContentTagUstensils];
+
+									let listValueTexContentTagFinal = [];
+
+									for(let l=0; l<listValueTexContentTag.length; l++){
+
+										let valueTexContentTag = listValueTexContentTag[l];
+
+										if(valueTexContentTag.length !== 0 ){
+
+											// valueTexContentTag.textContent.trim()
+											listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
+											
+
+
+										}
+									}
+									
+									console.log("***listValueTexContentTagFinal");
+									console.log(listValueTexContentTagFinal);
+									
+									let listAppareilsUstensilsObjectTag = [];
+
+									let listIng = [];
+									let listUst = [];
+
+									//obtension des différentes liste d'objets correspondantes aux filtres restants
+									for(let f=0; f<listValueTexContentTagFinal.length; f++){
+
+										let valueTextContentCurrent = listValueTexContentTagFinal[f];
+
+										for(let i=0; i<listAllData.length; i++){
+
+											//objet encours
+											let valueObjectTag = listAllData[i];
+
+											//valeurs de ingredient de l'objet encours
+											let listIngredientTagCurrent = valueObjectTag.ingredients;
+
+											if(listIngredientTagCurrent.length !== 0){
+
+												//console.log("**** listIngredientTagCurrent existe")
+
+
+												//gestion de la liste des ingredients encours
+												for(let j=0; j<listIngredientTagCurrent.length; j++){
+
+													let objectIngredientTagCurrent = listIngredientTagCurrent[j].ingredient;
+
+
+													if(objectIngredientTagCurrent === valueTextContentCurrent){
+
+														//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+
+														//ajout de l'objet encours dans la list
+														listAppareilsUstensilsObjectTag.push(valueObjectTag);
+
+														listIng.push(valueObjectTag);
+
+													}
+
+												}
+
+												
+
+											}
+
+											//valeurs de ustensil de l'objet encours
+											let listUstensilTagCurrent = valueObjectTag.ustensils;
+
+
+											if(listUstensilTagCurrent.length !== 0){
+
+												//console.log("**** listUstensilTagCurrent existe")
+
+												//gestion de la liste des ustensils encours
+												for(let j=0; j<listUstensilTagCurrent.length; j++){
+
+													let ValueUstensilTagCurrent = listUstensilTagCurrent[j];
+
+													if(ValueUstensilTagCurrent === valueTextContentCurrent){
+
+														//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
+
+														//ajout de l'objet encours dans la list
+														listAppareilsUstensilsObjectTag.push(valueObjectTag);
+
+														listUst.push(valueObjectTag);
+													}
+
+												}
+
+												
+
+											}
+										}
+
+									}
+
+									console.log("****listAppareilsUstensilsObjectTag");
+									console.log(listAppareilsUstensilsObjectTag);
+
+							
+
+									//suppression des doublons dans les liste d'objects en fonction de l'id
+									let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
+										index === array.findIndex((item2) => item2.id === item.id)
+									);
+
+									console.log("****NewUniqueList");
+									console.log(NewUniqueList);
+
+									getDatasFunction( NewUniqueList);
+
+								}
+								manageValueTexcontentTagFunction();
+								
+						
+
+								/////////////////////
 
 							}else if(classLiTagCurrent === "listChoiceUstensils"){
 
 								console.log("**bienvenue dans le tag listChoiceUstensils");
 
-								//fusion de toutes les listes du local storage qui correspondent au résultat de chaque tag
-								let listUpdateDeleteFilter = [...new Set([...listChoiceIngredientsStorage, ...listChoiceAppareilsStorage])];  //...listChoiceUstensilsStorage,, ...listChoiceLocalStorage
 
-								//suppression des doublons dans les liste d'objects en fonction de l'id
-								let uniqueList = listUpdateDeleteFilter.filter((item, index, array) =>
-									index === array.findIndex((item2) => item2.id === item.id)
-								);
+								//fonction de gestion de mise à jour à la supression des tags
+								function manageValueTexcontentTagFunction(){
 
-								getDatasFunction( uniqueList);
+
+									console.log(valueTexContentTagCurrent);
+
+									let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
+									let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
+								
+									let listValueTexContentTag = [valueTexContentTagIngredients, valueTexContentTagAppareils];
+
+									let listValueTexContentTagFinal = [];
+
+									for(let l=0; l<listValueTexContentTag.length; l++){
+
+										let valueTexContentTag = listValueTexContentTag[l];
+
+										if(valueTexContentTag.length !== 0 ){
+
+											// valueTexContentTag.textContent.trim()
+											listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
+											
+
+
+										}
+									}
+									
+									console.log("***listValueTexContentTagFinal");
+									console.log(listValueTexContentTagFinal);
+									
+									let listAppareilsIngredientObjectTag = [];
+
+									let listIng = [];
+									let listUst = [];
+
+									//obtension des différentes liste d'objets correspondantes aux filtres restants
+									for(let f=0; f<listValueTexContentTagFinal.length; f++){
+
+										let valueTextContentCurrent = listValueTexContentTagFinal[f];
+
+										for(let i=0; i<listAllData.length; i++){
+
+											//objet encours
+											let valueObjectTag = listAllData[i];
+
+											//valeurs de ingredient de l'objet encours
+											let listIngredientTagCurrent = valueObjectTag.ingredients;
+
+											if(listIngredientTagCurrent.length !== 0){
+
+												//console.log("**** listIngredientTagCurrent existe")
+
+
+												//gestion de la liste des ingredients encours
+												for(let j=0; j<listIngredientTagCurrent.length; j++){
+
+													let objectIngredientTagCurrent = listIngredientTagCurrent[j].ingredient;
+
+
+													if(objectIngredientTagCurrent === valueTextContentCurrent){
+
+														//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+
+														//ajout de l'objet encours dans la list
+														listAppareilsIngredientObjectTag.push(valueObjectTag);
+
+														listIng.push(valueObjectTag);
+
+													}
+
+												}
+
+												
+
+											}
+
+											//valeurs de ustensil de l'objet encours
+											let listAppareilsTagCurrent = valueObjectTag.appliance;
+
+
+											if(listAppareilsTagCurrent.length === valueTextContentCurrent){
+
+												//console.log("**** listUstensilTagCurrent existe")
+
+												//ajout de l'objet encours dans la list
+												listAppareilsIngredientObjectTag.push(valueObjectTag);
+
+												listUst.push(valueObjectTag);
+
+												
+											}
+										}
+
+									}
+
+									console.log("****listAppareilsIngredientObjectTag");
+									console.log(listAppareilsIngredientObjectTag);
+
+							
+
+									//suppression des doublons dans les liste d'objects en fonction de l'id
+									let NewUniqueList = listAppareilsIngredientObjectTag.filter((item, index, array) =>
+										index === array.findIndex((item2) => item2.id === item.id)
+									);
+
+									console.log("****NewUniqueList");
+									console.log(NewUniqueList);
+
+									getDatasFunction( NewUniqueList);
+
+								}
+								manageValueTexcontentTagFunction();
 								
 							}
 
