@@ -97,6 +97,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 	}
 	
+	ustencilsListFilter = ustencilsListFilter.sort();
+	ingredientsListFilter = ingredientsListFilter.sort();
+	applianceListFilter = applianceListFilter.sort()
 
 	console.log("*** listAllData");
 	console.log(listAllData);
