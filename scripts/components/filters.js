@@ -77,6 +77,8 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		//descriptionListFilter = [...new Set(descriptionListFilter)];
 		ustencils = [...new Set(ustencils)];
 
+
+
 		let ustencilsList=[];
 	
 		//fusion de l'ensemble de listes en une seule grosse liste
@@ -104,6 +106,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	console.log(ingredientsListFilter);
 	console.log("*** applianceListFilter");
 	console.log(applianceListFilter);
+
+	// Stockage dans le localStorage
+	localStorage.setItem("ingredientsListFilter", JSON.stringify(ingredientsListFilter));
+	localStorage.setItem("applianceListFilter", JSON.stringify(applianceListFilter));
+	localStorage.setItem("ustencilsListFilter", JSON.stringify(ustencilsListFilter));
+
+	
 
 	//liste des recettes
 	let listRecepsResultSearchBarMain =[];
@@ -507,8 +516,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							
 		///////////////////////////////////
 		//gestion  de l'état innitial des filtres avec un input null
-		
-
 		function initStateFilterFunction(){
 
 			if(!inputIngredients.value){
@@ -890,7 +897,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 
-		//gestion des evennements au click sur le un choix de li ou 
+		//gestion des evennements au click sur  un choix de li ou 
 							
 		//récupération de tous les boutons ou li des filtres
 		let BtnFilter = document.getElementsByClassName("btnFilter");
@@ -901,26 +908,83 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 		
 		//gestion des filtres lorsqu'on choisit un élément de la list
-		function btnFilterChoiceFunction(){
+		function btnFilterChoiceFunction(listChoiceAppareils2,listChoiceIngredients2, listChoiceUstensils2 ){
 
+			console.log("*** bienvenue dans la fonction btnFilterChoiceFunction");
+			
+			/*if(listChoiceAppareils2 ){
+
+				listChoiceAppareils=listChoiceAppareils2;
+
+				console.log("bien listChoiceAppareils")
+				console.log( listChoiceAppareils)
+			}
+
+			if(listChoiceIngredients2){
+
+				listChoiceIngredients=listChoiceIngredients2;
+
+				console.log("bien listChoiceIngredients")
+				console.log( listChoiceIngredients)
+			}
+
+			if(listChoiceUstensils2){
+
+				listChoiceUstensils=listChoiceUstensils2;
+
+				console.log("bien listChoiceUstensils")
+				console.log( listChoiceUstensils)
+
+			}*/
+
+			// Récupérer toutes les clés du localStorage   
+			const keysLocalstorage = Object.keys(localStorage);
+
+			console.log("****keysLocalstorage");
+			console.log(keysLocalstorage);
+
+			if(keysLocalstorage.length === 0){
+
+				console.log("****keysLocalstorage est null");
+				console.log(keysLocalstorage);
+
+				 listChoiceAppareils = [];
+				 listChoiceIngredients = [];
+				 listChoiceUstensils = [];
+
+			}
+
+			console.log("bien listChoiceIngredients");
+			console.log( listChoiceIngredients);
+			
+
+			//fonction de mise à jour de la liste du filtre ingredient
 			function ingredientsChoiceFunction(){
 
-			
 				
 
-				if(listChoiceAppareils.length !==0  ){
+				console.log("bien ingredientsChoiceFunction");
+				console.log("bien listChoiceIngredients");
+				console.log( listChoiceIngredients);
+				
+
+				//if(keysLocalstorage.length !==0 ){
+
+				if(listChoiceAppareils.length !==0 ){   // && keysLocalstorage.length !==0 
+
+					console.log("bienvenue listChoiceAppareils.length !==0");
 
 					let listAppareilsConcat = [];
 
 
 					const differentClassFilter = "tagIngredients";
-					
-					for(let i=0; i< listChoiceAppareils.length; i++){ 
-				
-						ingredientsContainer.innerHTML= "";
 						
+					for(let i=0; i< listChoiceAppareils.length; i++){ 
+					
+						ingredientsContainer.innerHTML= "";
+							
 						let ingredientsValue2List = listChoiceAppareils[i].ingredients;
-								
+									
 						for(let ig=0; ig<ingredientsValue2List.length; ig++){
 
 
@@ -932,12 +996,14 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							// createLiFunction(ingredientsValue2, ingredientsContainer, differentClassFilter);
 
 						}
-		
+			
 					}
 
 					//retrait des doublons 
 					let listAppareilsConcat2 = [...new Set(listAppareilsConcat)];
 
+		
+						
 					for(let l=0; l<listAppareilsConcat2.length; l++){
 
 						let listIngredientsConcatCurrent = listAppareilsConcat2[l];
@@ -958,69 +1024,69 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						let btnTaIngredientsLi = btnTagIngredientsListLi[b];
 						let tagIngredientsLiId = btnTagIngredientsListLi[b].id;
 
-							
+								
 						btnTaIngredientsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagIgredients condition 1");
-			
+				
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
-			
+				
 							//stockage de la valeur du li ou du btn dans le localstorage
 							// localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
 							localStorage.setItem( "valClassBtnIngredientsLi", btnTaIngredientsLi.textContent);
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
-			
+				
 							//récupération des recettes qui correspondent à la sélection du filtre
-												
+													
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
 							for(let l=0; l<listChoiceAppareils.length; l++){
 
 								let listappareilObject = listChoiceAppareils[l].ingredients;
 								let objectAppareil = listChoiceAppareils[l];
-								
+									
 								for(let j=0; j<listappareilObject.length; j++ ){
 
 									let listappareilObjectCurrent = listappareilObject[j].ingredient;
-							
+								
 									if(listappareilObjectCurrent ){
-		
+			
 										if(valClassBtnLi.replace(/\s+/g, "").toUpperCase() === listappareilObjectCurrent.replace(/\s+/g, "").toUpperCase() ){
-				
+					
 											console.log("*** bienvenue dans le if appareilVal replace  de ingredients");
-				
+					
 											listChoiceIngredients=[];
 											listChoiceIngredients.push(objectAppareil);
-				
-										
+					
+											
 											//stockage de la valeur du li ou du btn dans le localstorage
 											localStorage.setItem( "listChoiceIngredients", JSON.stringify(listChoiceIngredients));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceIngredients));
-													
+														
 											applianceChoiceFunction();
 											ustensilsChoiceFunction();
 
 											//exécution de la fonction des tags
 											showTagFunction();
 										}
-																
+																	
 									}
 
-							
+								
 								}
 
-					
+						
 							}
 
 							//////////////////////////
-							
+								
 							//fermeture de la list
 
-						
+							
 							//masquage de la fleche du haut arrowDownIngredients
 							let arrowUpIngredients = document.querySelector(".arrowUpIngredients");
 							arrowUpIngredients.style.display = "none";
@@ -1036,16 +1102,20 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 							//////////////////////////
-		
 			
+				
 						});
 
 					}
 
 
-				}else  if(listChoiceUstensils.length !== 0 ){
+				}else  if(listChoiceUstensils.length !== 0  ){
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
+
+					console.log("bien ingredientsChoiceFunction");
+					console.log("bien listChoiceUstensils");
+					console.log( listChoiceUstensils);
 
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
@@ -1058,11 +1128,11 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 					for(let i=0; i< listChoiceUstensils.length; i++){ 
-				
-				
+					
+					
 						let listIngredients = listChoiceUstensils[i].ingredients;
 						let objectIngredients = listChoiceUstensils[i];
-							
+								
 						for(let l=0; l<listIngredients.length; l++){
 
 							let ingredientsValue = listIngredients[l].ingredient;
@@ -1070,15 +1140,16 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							//stockage des ingredients pour éliminer les doublons
 							listValIngredientsConcat.push(ingredientsValue);
 
-	
+		
 						}
 
-						
 							
+								
 					}
 
 					//retrait des doublons 
 					let listValIngredientsConcat2 = [...new Set(listValIngredientsConcat)];
+
 
 					for(let l=0; l<listValIngredientsConcat2.length; l++){
 
@@ -1100,12 +1171,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						let btnTagIngredientsLi = btnTagIngredientsListLi[b];
 						let tagIngredientsLiId = btnTagIngredientsListLi[b].id;
 
-							
+								
 						btnTagIngredientsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagAppareils condition 1");
-			
-						
+				
+							
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
@@ -1116,51 +1187,51 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
-			
+				
 							//récupération des recettes qui correspondent à la sélection du filtre
-							
+								
 
 							for(let l=0; l<listChoiceUstensils.length; l++){
 
 								let listChoiceIngredientsCurrent = listChoiceUstensils[l].ingredients;
 								let objectIngredientsCurrent = listChoiceUstensils[l];
-			
-										
+				
+											
 								for(let u=0; u<listChoiceIngredientsCurrent.length; u++){
 
 									let  ingredientsValueCurrent = listChoiceIngredientsCurrent[u].ingredient;
 
 									if(ingredientsValueCurrent ){
-		
+			
 										if(valClassBtnLi.toUpperCase() === ingredientsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
-			
+				
 											console.log("*** bienvenue dans le if appareils replace ");
-			
+				
 											listChoiceIngredients.push(objectIngredientsCurrent);
-			
-									
+				
+										
 											//stockage de la valeur du li ou du btn dans le localstorage
 											localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
-												
+													
 											ustensilsChoiceFunction();
 											applianceChoiceFunction();
 
 											//exécution de la fonction des tags
 											showTagFunction();
 										}
-															
+																
 									}
 
 								}
-								
+									
 							}
 
 							//////////////////////////
-							
+								
 							//fermeture de la list
 
-						
+							
 							//masquage de la fleche du haut arrowDownIngredients
 							let arrowUpIngredients = document.querySelector(".arrowUpIngredients");
 							arrowUpIngredients.style.display = "none";
@@ -1176,16 +1247,33 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 							//////////////////////////
-		
-
-
 			
+
+
+				
 						});
 
 					}
 
+					//}
 
-				} else{ 
+				
+
+
+				} else{  //état initial des valeurs du filtre
+
+					console.log("**** bienvenue à l'état initial du filtre ou de la  ingredientsChoiceFunction");
+
+					/////////////////////////////
+					
+					const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
+					const ulTagIngredients = document.querySelector(".ulTagIngredients");
+					const ulTagAppareils = document.querySelector(".ulTagAppareils");
+					const ulTagUstensils = document.querySelector(".ulTagUstensils");
+
+					//ulTagIngredients.innerHTML="";
+
+					/////////////////////////////
 
 					for(let b=0; b<BtnFilter.length; b++){
 
@@ -1302,27 +1390,24 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			ingredientsChoiceFunction();
 				
 
-				
-
-			//////////////////////////////////
-
-
-			//gestion du choix sur les appareils
-
-				
+			//fonction de mise à jour de la liste du filtre appareils
 			function applianceChoiceFunction(){
 
 				//fonction de retour à l'état initial des filtres
 				
 				//vérification si on est sur le bon filtres
 				
-				if(listChoiceIngredients.length !== 0 ){
+				//if(keysLocalstorage.length !==0 ){
+
+				if(listChoiceIngredients.length !== 0  ){  //&& keysLocalstorage.length !==0
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
+						
+
 					//let differentClassFilter = btnCurrent.classList[2];
 
-					
+						
 
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
@@ -1335,20 +1420,21 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 					for(let i=0; i< listChoiceIngredients.length; i++){ 
-				
-				
+					
+					
 						let appareilsValue2 = listChoiceIngredients[i].appliance;
-								
+									
 						listAppareilsConcat.push(appareilsValue2);
 
 						//création du li 
 						//createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
-							
-							
+								
+								
 					}
 
 					//retrait des doublons 
 					let listAppareilsConcat2 = [...new Set(listAppareilsConcat)];
+
 
 					for(let l=0; l<listAppareilsConcat2.length; l++){
 
@@ -1370,64 +1456,64 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						let btnTagAppareilsLi = btnTagAppareilsListLi[b];
 						let tagAppareilsLiId = btnTagAppareilsListLi[b].id;
 
-							
+								
 						btnTagAppareilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagAppareils condition 1");
 
-							
+								
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagAppareilsLiId.substring(9,tagAppareilsLiId.length);
 
 
 							// let differentClassFilter = btnCurrent.classList[2];
-													
+														
 							//stockage de la valeur du li ou du btn dans le localstorage
 							localStorage.setItem( "valClassBtnAppareilsLi", btnTagAppareilsLi.textContent);
-			
+				
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
-			
+				
 							//récupération des recettes qui correspondent à la sélection du filtre
-												
+													
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
 							for(let l=0; l<listChoiceIngredients.length; l++){
 
 								let objectAllDataCurrent = listChoiceIngredients[l];
-			
-													
+				
+														
 								if(objectAllDataCurrent.appliance ){
-		
+			
 									if(valClassBtnLi.toUpperCase() === objectAllDataCurrent.appliance.replace(/\s+/g, "").toUpperCase() ){
-		
+			
 										//listChoiceAppareils=[];
 										listChoiceAppareils.push(objectAllDataCurrent);
-		
-								
+			
+									
 										//stockage de la valeur du li ou du btn dans le localstorage
 										localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 										localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
-											
+												
 										ingredientsChoiceFunction();
 										ustensilsChoiceFunction();
 
 										//exécution de la fonction des tags
 										showTagFunction();
-										
+											
 									}
-														
+															
 								}
 							}
 
 							//////////////////////////
-							
+								
 							//fermeture de la list
 							//showHidenElementFunction();
+								
 							
-						
 							//masquage de la fleche du haut arrowDownIngredients
 							let arrowUpAppareils = document.querySelector(".arrowUpAppareils");
 							arrowUpAppareils.style.display = "none";
@@ -1441,16 +1527,16 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							const containerAppareils = document.querySelector("#Appareils");
 							containerAppareils.style.display = "none";
 
-							
+								
 							//////////////////////////
-		
 			
+				
 						});
 
 					}
 
 
-				}else if(listChoiceUstensils.length !== 0 ){
+				}else if(listChoiceUstensils.length !== 0  ){  //&& keysLocalstorage.length !==0
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
@@ -1465,22 +1551,23 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 					for(let i=0; i< listChoiceUstensils.length; i++){ 
-				
+					
 						//appareilsContainer.innerHTML= "";
 
 						let appareilsValue2 = listChoiceUstensils[i].appliance;
-								
+									
 						listAppareilsConcat.push(appareilsValue2);
 
 						//création du li 
 						//createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
-							
-							
+								
+								
 					}
 
-					
+						
 					//retrait des doublons 
 					let listAppareilsConcat2 = [...new Set(listAppareilsConcat)];
+
 
 					for(let l=0; l<listAppareilsConcat2.length; l++){
 
@@ -1502,75 +1589,75 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						let btnTagUstensilsLi = btnTagAUstensilsListLi[b];
 						let tagUstensilsLiId = btnTagAUstensilsListLi[b].id;
 
-			
+				
 						btnTagUstensilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagAppareils condition 1");
-			
-							
+				
+								
 							// console.log("*** mon btnCurrent");
 							// console.log(btnCurrent);
-			
+				
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 
 
 							// let differentClassFilter = btnCurrent.classList[2];
-													
+														
 							//stockage de la valeur du li ou du btn dans le localstorage
 							localStorage.setItem( "valClassBtnAppareilsLi", btnTagUstensilsLi.textContent);
-			
+				
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
-			
+				
 							//récupération des recettes qui correspondent à la sélection du filtre
-												
+													
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
 							for(let l=0; l<listChoiceUstensils.length; l++){
 
 								let listChoiceUstensilsCurrent = listChoiceUstensils[l];
 								let appareilsValueCurrent = listChoiceUstensils[l].appliance;
-			
-										
+				
+											
 								// for(let u=0; u<listUstensilsCurrent.length; u++){
 
 								// 	let objectAppareilsCurrent = listChoiceUstensils[u];
 
 								if(appareilsValueCurrent ){
-		
+			
 									if(valClassBtnLi.toUpperCase() === appareilsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
-			
+				
 										console.log("*** bienvenue dans le if appareils replace ");
-			
+				
 										//listChoiceAppareils=[];
 										listChoiceAppareils.push(listChoiceUstensilsCurrent);
-			
-									
+				
+										
 										//stockage de la valeur du li ou du btn dans le localstorage
 										localStorage.setItem( "listChoiceAppareils", JSON.stringify(listChoiceAppareils));
 										localStorage.setItem( "listChoice", JSON.stringify(listChoiceAppareils));
-												
+													
 										ingredientsChoiceFunction();
 										ustensilsChoiceFunction();
 
 										//exécution de la fonction des tags
 										showTagFunction();
 									}
-															
+																
 								}
 
 								//}
-								
+									
 							}
 
 							//////////////////////////
-							
+								
 							//fermeture de la list
 							//showHidenElementFunction();
-							
+								
 							//masquage de la fleche du haut arrowDownIngredients
 							let arrowUpAppareils = document.querySelector(".arrowUpAppareils");
 							arrowUpAppareils.style.display = "none";
@@ -1584,18 +1671,30 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							const containerAppareils = document.querySelector("#Appareils");
 							containerAppareils.style.display = "none";
 
-							
-			
+								
+				
 							//////////////////////////
-			
+				
 						});
 
 					}
+
+					//}
 
 
 				}else{
 
 					
+					/////////////////////////////
+					
+					const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
+					const ulTagIngredients = document.querySelector(".ulTagIngredients");
+					const ulTagAppareils = document.querySelector(".ulTagAppareils");
+					const ulTagUstensils = document.querySelector(".ulTagUstensils");
+
+					//ulTagAppareils.innerHTML="";
+
+					/////////////////////////////
 
 					for(let b=0; b<BtnFilter.length; b++){
 
@@ -1706,15 +1805,16 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 
-			//gestion du choix sur les ustensils
+			//fonction de mise à jour de la liste du filtre ustensils
 			function ustensilsChoiceFunction(){
 
 
 				
 				//vérification si on est sur le bon filtres
 
+				//if(keysLocalstorage.length !==0 ){
 
-				if(listChoiceAppareils.length !==0 ){
+				if(listChoiceAppareils.length !==0   ){  //&& keysLocalstorage.length !==0
 
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
@@ -1722,15 +1822,15 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 					const differentClassFilter = "tagUstensiles";
-					
+						
 
 
 					for(let i=0; i< listChoiceAppareils.length; i++){ 
-				
+					
 						ustensilesContainer.innerHTML= "";
-						
+							
 						let ustensilsValue2List = listChoiceAppareils[i].ustensils;
-								
+									
 						for(let u=0; u<ustensilsValue2List.length; u++){
 
 
@@ -1744,21 +1844,22 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						}
 
 
-						
 							
-							
+								
+								
 					}
 
 					//retrait des doublons 
 					let listUstensilsConcat2 = [...new Set(listUstensilsConcat)];
 
+
 					for(let l=0; l<listUstensilsConcat2.length; l++){
-	
+		
 						let listUstensilsConcatCurrent = listUstensilsConcat2[l];
-	
+		
 						//création du li 
 						createLiFunction(listUstensilsConcatCurrent, ustensilesContainer, differentClassFilter);
-	
+		
 					}
 
 
@@ -1772,73 +1873,73 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						let btnTaUstenilsLi = btnTagUstensilsLi[b];
 						let tagUstensilsLiId = btnTagUstensilsLi[b].id;
 
-							
+								
 						btnTaUstenilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagIgredients condition 1");
-							
+								
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							//let valClassBtnUstensilsLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 
-							
+								
 
 							// let differentClassFilter = btnCurrent.classList[2];
-													
+														
 							//stockage de la valeur du li ou du btn dans le localstorage
 							localStorage.setItem( "valClassBtnUstensilsLi", btnTaUstenilsLi.textContent);
-			
+				
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
-			
+				
 							//récupération des recettes qui correspondent à la sélection du filtre
-												
+													
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
 							for(let l=0; l<listChoiceAppareils.length; l++){
 
 								let listUstensilsObject = listChoiceAppareils[l].ustensils;
 								let objectAppareil = listChoiceAppareils[l];
-								
+									
 								for(let j=0; j<listUstensilsObject.length; j++ ){
 
 									let ustensilsValueCurrent = listUstensilsObject[j];
 									//let objectAllDataCurrent = listIngredientsVal[j].ingredient;
 
 									if(listUstensilsObject ){
-		
+			
 										if(valClassBtnLi.replace(/\s+/g, "").toUpperCase() === ustensilsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
-				
+					
 											console.log("*** bienvenue dans le if appareilVal replace  de ingredients");
-				
+					
 											// console.log("***objectAllDataCurrent");
 											// console.log(objectAllDataCurrent);
-				
+					
 											listChoiceUstensils=[];
 											listChoiceUstensils.push(objectAppareil);
-				
-										
+					
+											
 											//stockage de la valeur du li ou du btn dans le localstorage
 											localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceUstensils));
-													
+														
 											applianceChoiceFunction();
 											ingredientsChoiceFunction();
 
 											//exécution de la fonction des tags
 											showTagFunction();
-										
+											
 										}
-																
+																	
 									}
 
-									
-									
-									
+										
+										
+										
 								}
 
-					
+						
 							}
 
 							//fonction de retour à l'état initial des filtres
@@ -1857,17 +1958,17 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							const containerUstensiles = document.querySelector("#Ustensiles");
 							containerUstensiles.style.display = "none";
 
-			
+				
 						});
 
 					}
 
 
-				}else if(listChoiceIngredients.length !== 0 ){
+				}else if(listChoiceIngredients.length !== 0  ){  //&& keysLocalstorage.length !==0
 
 					console.log("** bienvenue dans  tagAppareils condition 1");
 
-					
+						
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
 					let listUstensilsConcat = [];
@@ -1879,11 +1980,11 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 					for(let i=0; i< listChoiceIngredients.length; i++){ 
-				
+					
 						ustensilesContainer.innerHTML= "";
 
 						let listustensilsValue2 = listChoiceIngredients[i].ustensils;
-								
+									
 						for(let l=0; l<listustensilsValue2.length; l++){
 
 							let ustensilsValueCurrent = listustensilsValue2[l];
@@ -1896,21 +1997,23 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 
-							
-							
+								
+								
 					}
 
 					//retrait des doublons 
 					let listUstensilsConcat2 = [...new Set(listUstensilsConcat)];
 
+
+
 					for(let l=0; l<listUstensilsConcat2.length; l++){
-			
+				
 						let listUstensilsConcatCurrent = listUstensilsConcat2[l];
-			
-								
+				
+									
 						//création du li 
 						createLiFunction(listUstensilsConcatCurrent, ustensilesContainer, differentClassFilter);
-			
+				
 					}
 
 
@@ -1924,35 +2027,35 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						let btnTUstensilsLi = btnTUstensilsListLi[b];
 						let tagUstensilsLiId = btnTUstensilsListLi[b].id;
 
-							
+								
 						btnTUstensilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
 							console.log("** bienvenue dans  tagUstensiles condition 1");
-							
+								
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
 
 
 							// let differentClassFilter = btnCurrent.classList[2];
-													
+														
 							//stockage de la valeur du li ou du btn dans le localstorage
 							localStorage.setItem( "valClassBtnUstensilsLi", btnTUstensilsLi.textContent);
-			
+				
 
 							//récupération des valeurs selectionnées du localstorage
 							const valChoiceFilter = localStorage.getItem(differentClassFilter);
-			
+				
 							//récupération des recettes qui correspondent à la sélection du filtre
-												
+													
 							let listValFilterTest = ["ingredients", "ustensils" ];
 
 							for(let l=0; l<listChoiceIngredients.length; l++){
 
 								let listIngredients = listChoiceIngredients[l].ustensils;
 								let objectIngredients = listChoiceIngredients[l];
-							
-			
+								
+				
 								for(let u=0; u<listIngredients.length; u++){
 
 
@@ -1960,29 +2063,29 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 									let ustensilsCurrent = listIngredients[u];
 
 									if(ustensilsCurrent){
-		
+			
 										if(valClassBtnLi.toUpperCase() === ustensilsCurrent.replace(/\s+/g, "").toUpperCase() ){
-			
+				
 											console.log("*** bienvenue dans le if ustensils replace ");
-			
+				
 											//listChoiceAppareils=[];
 											listChoiceUstensils.push(objectIngredients);
-			
-									
+				
+										
 											//stockage de la valeur du li ou du btn dans le localstorage
 											localStorage.setItem( "listChoiceUstensils", JSON.stringify(listChoiceUstensils));
 											localStorage.setItem( "listChoice", JSON.stringify(listChoiceUstensils));
-												
+													
 											applianceChoiceFunction();
 											ingredientsChoiceFunction();
 
 											//exécution de la fonction des tags
 											showTagFunction();
 										}
-															
+																
 									}
 								}
-								
+									
 							}
 
 							//fonction de retour à l'état initial des filtres
@@ -2000,13 +2103,26 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							//masquage du ul
 							const containerUstensiles = document.querySelector("#Ustensiles");
 							containerUstensiles.style.display = "none";
-			
+				
 						});
 
 					}
 
+					//}
+
 
 				}else{ 
+
+					/////////////////////////////
+
+					const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
+					const ulTagIngredients = document.querySelector(".ulTagIngredients");
+					const ulTagAppareils = document.querySelector(".ulTagAppareils");
+					const ulTagUstensils = document.querySelector(".ulTagUstensils");
+
+					//ulTagUstensils.innerHTML="";
+
+					/////////////////////////////
 
 					for(let b=0; b<BtnFilter.length; b++){
 
@@ -2115,27 +2231,22 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 		}
 		btnFilterChoiceFunction();
-			
-	}
-	setListDataFilterFunction();
 
-					
-	////////////////////////////////////////////////
 
+		//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+		/********************* gestion des tags ******************************* */
 	
-
-	/********************* gestion des tags ******************************* */
-	
-	const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
-	const ulTagIngredients = document.querySelector(".ulTagIngredients");
-	const ulTagAppareils = document.querySelector(".ulTagAppareils");
-	const ulTagUstensils = document.querySelector(".ulTagUstensils");
-	//console.log(keywordsTaglistFilter);
+		const keywordsTaglistFilter = document.querySelector(".keywordsTag__listFilter");
+		const ulTagIngredients = document.querySelector(".ulTagIngredients");
+		const ulTagAppareils = document.querySelector(".ulTagAppareils");
+		const ulTagUstensils = document.querySelector(".ulTagUstensils");
+		//console.log(keywordsTaglistFilter);
     
-	//fonction de création des tags des filtres
-	const keywordsTagFilterFunction = (tagTexContent, tagContainer, listChoiceClass) => {
+		//fonction de création des tags des filtres
+		const keywordsTagFilterFunction = (tagTexContent, tagContainer, listChoiceClass) => {
 
-		const keywordsTagFilter = `
+			const keywordsTagFilter = `
 
             <li class="${"likeyword"+(tagTexContent).replace(/\s+/g, "")} keywordContainer ${listChoiceClass}"  >
 
@@ -2150,653 +2261,687 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
             
         `;
-		//keywordsTaglistFilter.innerHTML= keywordsTagFilter;
-		tagContainer.innerHTML= keywordsTagFilter;
+			//keywordsTaglistFilter.innerHTML= keywordsTagFilter;
+			tagContainer.innerHTML= keywordsTagFilter;
 
 
-	};
-	// keywordsTagFilterFunction();
+		};
+		// keywordsTagFilterFunction();
 
-	function showTagFunction(){
+		function showTagFunction(){
 
-		console.log("Bienvenue dans showTagFunction()");
-		//récupération des valeurs des tags du localstorage
+			console.log("Bienvenue dans showTagFunction()");
+			//récupération des valeurs des tags du localstorage
 
-		let tagIngredientsLocalStorage = localStorage.getItem("valClassBtnIngredientsLi");
-		let tagAppareilsLocalStorage = localStorage.getItem("valClassBtnAppareilsLi");
-		let tagUstensilsLocalStorage = localStorage.getItem("valClassBtnUstensilsLi");
+			let tagIngredientsLocalStorage = localStorage.getItem("valClassBtnIngredientsLi");
+			let tagAppareilsLocalStorage = localStorage.getItem("valClassBtnAppareilsLi");
+			let tagUstensilsLocalStorage = localStorage.getItem("valClassBtnUstensilsLi");
 
-		let listChoiceIngredientsStorage = "listChoiceIngredients";
+			let listChoiceIngredientsStorage = "listChoiceIngredients";
 
-		if(tagIngredientsLocalStorage){
+			if(tagIngredientsLocalStorage){
 
-			ulTagIngredients.innerHTML = "";
-			keywordsTagFilterFunction(tagIngredientsLocalStorage, ulTagIngredients, listChoiceIngredientsStorage);
+				//ulTagIngredients.innerHTML = "";
+				keywordsTagFilterFunction(tagIngredientsLocalStorage, ulTagIngredients, listChoiceIngredientsStorage);
 			
-			deleteTagFunction();
+				deleteTagFunction();
 
-			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
-			
-
-			//éxécussion de la articleCreateFunction venant de cardRecette.js
-			
-			getDatasFunction(listChoiceLocalStorage);
-
-
-		}
-		if(tagAppareilsLocalStorage){ 
-
-			let listChoiceAppareilsStorage = "listChoiceAppareils";
-
-			ulTagAppareils.innerHTML = "";
-			keywordsTagFilterFunction(tagAppareilsLocalStorage, ulTagAppareils, listChoiceAppareilsStorage);
-
-			deleteTagFunction();
-
-			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
-			let listChoiceAppareilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceAppareils"));
-			
-			console.log("***listChoiceLocalStorage");
-			console.log(listChoiceLocalStorage);
-
-			console.log("***listChoiceAppareilsLocalStorage");
-			console.log(listChoiceAppareilsLocalStorage);
-			//éxécussion de la articleCreateFunction venant de cardRecette.js
-			
-			getDatasFunction(listChoiceLocalStorage);
-
-		}
-		if(tagUstensilsLocalStorage){
-
-			let listChoiceUstensilsStorage = "listChoiceUstensils";
-
-			ulTagUstensils.innerHTML = "";
-			keywordsTagFilterFunction(tagUstensilsLocalStorage, ulTagUstensils, listChoiceUstensilsStorage);
-		
-			deleteTagFunction();
-
-			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
-			let listChoiceUstensilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceUstensils"));
-			
-			console.log("***listChoiceLocalStorage");
-			console.log(listChoiceLocalStorage);
-
-			console.log("***listChoiceUstensilsLocalStorage");
-			console.log(listChoiceUstensilsLocalStorage);
-
-			//éxécussion de la articleCreateFunction venant de cardRecette.js
-			
-			getDatasFunction(listChoiceLocalStorage);
-		}
-
-	}
-	//showTagFunction();
-
-	//gestion des fermetures des tags
-
-	function deleteTagFunction(){
-
-		let listTitleFilters2 =[ "Ingredients", "Appareils", "Ustensils" ];
-
-		//récupération de la liste qui correspond au contenu de la page
-		let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
-		
-		
-		let listConcatUnique = []; // listChoiceLocalStorage;
-
-		//récupération de la liste des ul ou contenaire des tags
-		let keywordContainer = document.getElementsByClassName("keywordContainer");
-
-		for( let k=0; k<keywordContainer.length; k++){
-
-			let keywordContainerCurrent = keywordContainer[k].classList[0];
-
-			//récupération de la class volue
-			let classLiTagCurrent = keywordContainer[k].classList[2];
-
-			//récupération du texContent du tag
-			let valueTexContentTagCurrent = keywordContainer[k].textContent.trim();
-
-			// console.log("****valueTexContentTagCurrent")
-			// console.log(  valueTexContentTagCurrent)
-			
-
-			
-			//récupération du parent de l'élément
-			let keywordContainerClassCurrent = document.querySelector(`.${keywordContainerCurrent}`).parentNode;
-
-			
-
-			keywordContainerClassCurrent.addEventListener("click", ()=>{
-
-				//récupération de la liste qui correspond au contenu de la page
 				let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
-				
-				let sectionTag = document.getElementsByClassName("keywordsTag");
-				
-				keywordContainerClassCurrent.innerHTML = "";
-
-				console.log("****classLiTagCurrent");
-				console.log(classLiTagCurrent);
-
-				for(let i=0; i<listTitleFilters2.length; i++){
-
-					let valListTitleFiltersCurrent = listTitleFilters2[i];
-
-					if(keywordContainerClassCurrent.classList[2].includes(valListTitleFiltersCurrent) ){
-
-						//function manageDataTag(){
-
-						//récupération de la liste qui correspond au tag qu'on supprime
-						let listChoiceTagLocalStorage = JSON.parse(localStorage.getItem(`${"listChoice"+valListTitleFiltersCurrent}`));
-				
-						//fusion des deux listes pour obtenir une nouvelle liste lors de la suppression du tag
-							
-						console.log("***listChoiceLocalStorage");
-						console.log(listChoiceLocalStorage);
-
-						console.log("***listChoiceTagLocalStorage");
-						console.log(listChoiceTagLocalStorage);
-
-						//récupération des ul ou container des tags
-						let ulTagIngredients = document.querySelector(".ulTagIngredients");
-						let ulTagAppareils = document.querySelector(".ulTagAppareils");
-						let ulTagUstensils = document.querySelector(".ulTagUstensils");
-
-						console.log("***ulTagIngredients");
-						console.log(ulTagIngredients);
-						console.log(ulTagIngredients.childNodes.length);
 			
-						console.log("***ulTagAppareils");
-						console.log(ulTagAppareils);
-						console.log(ulTagAppareils.childNodes.length);
+
+				//éxécussion de la articleCreateFunction venant de cardRecette.js
+			
+				getDatasFunction(listChoiceLocalStorage);
 
 
-						//mise à jour du contenu de la page lorsqu'on ferme les tags
+			}
+			if(tagAppareilsLocalStorage){ 
+
+				let listChoiceAppareilsStorage = "listChoiceAppareils";
+
+				//ulTagAppareils.innerHTML = "";
+				keywordsTagFilterFunction(tagAppareilsLocalStorage, ulTagAppareils, listChoiceAppareilsStorage);
+
+				deleteTagFunction();
+
+				let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+				let listChoiceAppareilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceAppareils"));
+			
+				//éxécussion de la articleCreateFunction venant de cardRecette.js
+			
+				getDatasFunction(listChoiceLocalStorage);
+
+			}
+			if(tagUstensilsLocalStorage){
+
+				let listChoiceUstensilsStorage = "listChoiceUstensils";
+
+				//ulTagUstensils.innerHTML = "";
+				keywordsTagFilterFunction(tagUstensilsLocalStorage, ulTagUstensils, listChoiceUstensilsStorage);
+		
+				deleteTagFunction();
+
+				let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+				let listChoiceUstensilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceUstensils"));
+			
+				console.log("***listChoiceLocalStorage");
+				console.log(listChoiceLocalStorage);
+
+				console.log("***listChoiceUstensilsLocalStorage");
+				console.log(listChoiceUstensilsLocalStorage);
+
+				//éxécussion de la articleCreateFunction venant de cardRecette.js
+			
+				getDatasFunction(listChoiceLocalStorage);
+			}
+
+		}
+		//showTagFunction();
+
+		//gestion des fermetures des tags
+
+		function deleteTagFunction(){
+
+			let listTitleFilters2 =[ "Ingredients", "Appareils", "Ustensils" ];
+
+			//récupération de la liste qui correspond au contenu de la page
+			let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+		
+		
+			let listConcatUnique = []; // listChoiceLocalStorage;
+
+			//récupération de la liste des ul ou contenaire des tags
+			let keywordContainer = document.getElementsByClassName("keywordContainer");
+
+			for( let k=0; k<keywordContainer.length; k++){
+
+				let keywordContainerCurrent = keywordContainer[k].classList[0];
+
+				//récupération de la class volue
+				let classLiTagCurrent = keywordContainer[k].classList[2];
+
+				//récupération du texContent du tag
+				let valueTexContentTagCurrent = keywordContainer[k].textContent.trim();
+
+				//récupération du parent de l'élément
+				let keywordContainerClassCurrent = document.querySelector(`.${keywordContainerCurrent}`).parentNode;
+
+			
+				keywordContainerClassCurrent.addEventListener("click", ()=>{
+
+					//récupération de la liste qui correspond au contenu de la page
+					let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
+				
+					let sectionTag = document.getElementsByClassName("keywordsTag");
+				
+					keywordContainerClassCurrent.innerHTML = "";
+
+
+					for(let i=0; i<listTitleFilters2.length; i++){
+
+						let valListTitleFiltersCurrent = listTitleFilters2[i];
+
+						if(keywordContainerClassCurrent.classList[2].includes(valListTitleFiltersCurrent) ){
+
+							//function manageDataTag(){
+
+							//récupération de la liste qui correspond au tag qu'on supprime
+							let listChoiceTagLocalStorage = JSON.parse(localStorage.getItem(`${"listChoice"+valListTitleFiltersCurrent}`));
+				
+							//fusion des deux listes pour obtenir une nouvelle liste lors de la suppression du tag
+							
+							console.log("***listChoiceLocalStorage");
+							console.log(listChoiceLocalStorage);
+
+							console.log("***listChoiceTagLocalStorage");
+							console.log(listChoiceTagLocalStorage);
+
+							//récupération des ul ou container des tags
+							let ulTagIngredients = document.querySelector(".ulTagIngredients");
+							let ulTagAppareils = document.querySelector(".ulTagAppareils");
+							let ulTagUstensils = document.querySelector(".ulTagUstensils");
+
+
+
+							//mise à jour du contenu de la page lorsqu'on ferme les tags
 						
-						//transfert de uniqueList vers getDatasFunction 
-						if(ulTagIngredients.childNodes.length <=1  && ulTagAppareils.childNodes.length <=1 && ulTagUstensils.childNodes.length <=1  ){
+							if(ulTagIngredients.childNodes.length <=1  && ulTagAppareils.childNodes.length <=1 && ulTagUstensils.childNodes.length <=1  ){
 
-							console.log("*** tous premier enfant n'existe pas");
+								console.log("*** tous premier enfant n'existe pas");
 
-						
+								//transfert de uniqueList vers getDatasFunction 
 
-							//getDatasFunction(listChoiceLocalStorage);
-							//transfert de uniqueList vers getDatasFunction 
-							getDatasFunction( listAllData);
+								// Supprimer tout le contenu du localStorage
+								//localStorage.clear();
+								//getDatasFunction( listAllData);
+
+
+								//////////////////////////
+
+								//recréation des li ou élément des filtres
+
+								//récupération du ul encours
+								let ingredientsContainer = document.querySelector("#IngredientsContainer");
+								let appareilsContainer = document.querySelector("#AppareilsContainer");
+								let ustensilesContainer = document.querySelector("#UstensilesContainer");
 							
 							
+								///////////////////////////////////
+								//reinitialisation des listes des filtres 
+								function initStateFilterFunction(){
 
-						}else{
+			
 
-							console.log("****bienvenue dans le else de la fermeture des tags");
-							//console.log("**uniqueList");
-							//console.log(uniqueList);
+		
+									console.log(ingredientsListFilter);
+									console.log(applianceListFilter);
+									console.log(ustencilsListFilter );
+									//console.log("*** bienvenue dans Ingratients");
+										
+									ingredientsContainer.innerHTML="";
 
-							//supression de la liste du local storage  qui correspond au tag qu'on supprime
-							localStorage.removeItem(`${"listChoice"+valListTitleFiltersCurrent}`);
+									for(let i=0; i<ingredientsListFilter.length; i++){
+		
+		
+										let ingredientValue = ingredientsListFilter[i];
+	
+										const differentClassFilter = "tagIngredients";
+										//création du li 
+										createLiFunction(ingredientValue, ingredientsContainer, differentClassFilter);
+		
+									}
+			
+										
+		
+									//console.log("*** bienvenue dans Ustensiles");
+		
+									ustensilesContainer.innerHTML="";
 
+									for(let i=0; i<ustencilsListFilter.length; i++){
+		
+		
+										let ustensilesValue = ustencilsListFilter[i];
+		
+										const differentClassFilter = "tagUstensiles";
+										//création du li 
+										createLiFunction(ustensilesValue, ustensilesContainer, differentClassFilter);
+		
+									}
+			
+					
+									//console.log("*** bienvenue dans Appareils");
+		
+									appareilsContainer.innerHTML="";
+
+									for(let i=0; i<applianceListFilter.length; i++){
+		
+		
+										let applianceValue = applianceListFilter[i];
+		
+										const differentClassFilter = "tagAppareils";
+										//création du li 
+										createLiFunction(applianceValue, appareilsContainer, differentClassFilter);
+		
+									}
+										
+									
+									
+			
+
+								}
+								initStateFilterFunction();
 							
-							//récupération de toutes les liste du local storage
-							let listChoiceIngredientsStorage = JSON.parse(localStorage.getItem("listChoiceIngredients")) ?? [];
-							let listChoiceAppareilsStorage = JSON.parse(localStorage.getItem("listChoiceAppareils")) ?? [];
-							let listChoiceUstensilsStorage = JSON.parse(localStorage.getItem("listChoiceUstensils")) ?? [];
 
+								localStorage.clear();
+								
+								btnFilterChoiceFunction();
 
-							//////////////////////////
-							if(classLiTagCurrent === "listChoiceIngredients"){
+								getDatasFunction( listAllData);
+								//////////////////////////
 
-								console.log("**bienvenue dans le tag listChoiceIngredients");
-
-								/////////////////////
+								// btnFilterChoiceFunction(listChoiceAppareils,listChoiceIngredients, listChoiceUstensils);
 
 								
-								//fonction de gestion de mise à jour à la supression des tags
-								function manageValueTexcontentTagFunction(){
 
 
-									console.log(valueTexContentTagCurrent);
 
-									let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
-									let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
+							}else{
+
+								console.log("****bienvenue dans le else de la fermeture des tags");
+								//console.log("**uniqueList");
+								//console.log(uniqueList);
+
+								//supression de la liste du local storage  qui correspond au tag qu'on supprime
+								localStorage.removeItem(`${"listChoice"+valListTitleFiltersCurrent}`);
+
+							
+								//récupération de toutes les liste du local storage
+								let listChoiceIngredientsStorage = JSON.parse(localStorage.getItem("listChoiceIngredients")) ?? [];
+								let listChoiceAppareilsStorage = JSON.parse(localStorage.getItem("listChoiceAppareils")) ?? [];
+								let listChoiceUstensilsStorage = JSON.parse(localStorage.getItem("listChoiceUstensils")) ?? [];
+
+
+								//////////////////////////
+								if(classLiTagCurrent === "listChoiceIngredients"){
+
+									console.log("**bienvenue dans le tag listChoiceIngredients");
+
+									/////////////////////
+
 								
-									let listValueTexContentTag = [valueTexContentTagAppareils, valueTexContentTagUstensils];
+									//fonction de gestion de mise à jour à la supression des tags
+									function manageValueTexcontentTagFunction(){
 
-									let listValueTexContentTagFinal = [];
 
-									for(let l=0; l<listValueTexContentTag.length; l++){
+										console.log(valueTexContentTagCurrent);
 
-										let valueTexContentTag = listValueTexContentTag[l];
+										let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
+										let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
+								
+										let listValueTexContentTag = [valueTexContentTagAppareils, valueTexContentTagUstensils];
 
-										if(valueTexContentTag.length !== 0 ){
+										let listValueTexContentTagFinal = [];
 
-											// valueTexContentTag.textContent.trim()
-											listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
+										for(let l=0; l<listValueTexContentTag.length; l++){
+
+											let valueTexContentTag = listValueTexContentTag[l];
+
+											if(valueTexContentTag.length !== 0 ){
+
+												// valueTexContentTag.textContent.trim()
+												listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
 											
 
 
+											}
 										}
-									}
 									
-									console.log("***listValueTexContentTagFinal");
-									console.log(listValueTexContentTagFinal);
+										console.log("***listValueTexContentTagFinal");
+										console.log(listValueTexContentTagFinal);
 									
-									let listAppareilsUstensilsObjectTag = [];
+										let listAppareilsUstensilsObjectTag = [];
 
-									let listIng = [];
-									let listUst = [];
+										let listIng = [];
+										let listUst = [];
 
-									//obtension des différentes liste d'objets correspondantes aux filtres restants
-									for(let f=0; f<listValueTexContentTagFinal.length; f++){
+										//obtension des différentes liste d'objets correspondantes aux filtres restants
+										for(let f=0; f<listValueTexContentTagFinal.length; f++){
 
-										let valueTextContentCurrent = listValueTexContentTagFinal[f];
+											let valueTextContentCurrent = listValueTexContentTagFinal[f];
 
-										for(let i=0; i<listAllData.length; i++){
+											for(let i=0; i<listAllData.length; i++){
 
-											//objet encours
-											let valueObjectTag = listAllData[i];
+												//objet encours
+												let valueObjectTag = listAllData[i];
 
-											//valeurs de ingredient de l'objet encours
-											let listAppareilsTagCurrent = valueObjectTag.appliance;
+												//valeurs de ingredient de l'objet encours
+												let listAppareilsTagCurrent = valueObjectTag.appliance;
 
-											if(listAppareilsTagCurrent === valueTextContentCurrent){
+												if(listAppareilsTagCurrent === valueTextContentCurrent){
 
-												//console.log("**** listIngredientTagCurrent existe")
+													//console.log("**** listIngredientTagCurrent existe")
 
-												//ajout de l'objet encours dans la list
-												listAppareilsUstensilsObjectTag.push(valueObjectTag);
+													//ajout de l'objet encours dans la list
+													listAppareilsUstensilsObjectTag.push(valueObjectTag);
 
-												listIng.push(valueObjectTag);
+													listIng.push(valueObjectTag);
 
 										
-											}
-
-											//valeurs de ustensil de l'objet encours
-											let listUstensilTagCurrent = valueObjectTag.ustensils;
-
-
-											if(listUstensilTagCurrent.length !== 0){
-
-												//console.log("**** listUstensilTagCurrent existe")
-
-												//gestion de la liste des ustensils encours
-												for(let j=0; j<listUstensilTagCurrent.length; j++){
-
-													let ValueUstensilTagCurrent = listUstensilTagCurrent[j];
-
-													if(ValueUstensilTagCurrent === valueTextContentCurrent){
-
-														//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
-
-														//ajout de l'objet encours dans la list
-														listAppareilsUstensilsObjectTag.push(valueObjectTag);
-
-														listUst.push(valueObjectTag);
-													}
-
 												}
+
+												//valeurs de ustensil de l'objet encours
+												let listUstensilTagCurrent = valueObjectTag.ustensils;
+
+
+												if(listUstensilTagCurrent.length !== 0){
+
+													//console.log("**** listUstensilTagCurrent existe")
+
+													//gestion de la liste des ustensils encours
+													for(let j=0; j<listUstensilTagCurrent.length; j++){
+
+														let ValueUstensilTagCurrent = listUstensilTagCurrent[j];
+
+														if(ValueUstensilTagCurrent === valueTextContentCurrent){
+
+															//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
+
+															//ajout de l'objet encours dans la list
+															listAppareilsUstensilsObjectTag.push(valueObjectTag);
+
+															listUst.push(valueObjectTag);
+														}
+
+													}
 
 												
 
+												}
 											}
+
 										}
 
-									}
-
-									console.log("****listAppareilsUstensilsObjectTag");
-									console.log(listAppareilsUstensilsObjectTag);
+										console.log("****listAppareilsUstensilsObjectTag");
+										console.log(listAppareilsUstensilsObjectTag);
 
 							
 
-									//suppression des doublons dans les liste d'objects en fonction de l'id
-									let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
-										index === array.findIndex((item2) => item2.id === item.id)
-									);
+										//suppression des doublons dans les liste d'objects en fonction de l'id
+										let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
+											index === array.findIndex((item2) => item2.id === item.id)
+										);
 
-									console.log("****NewUniqueList");
-									console.log(NewUniqueList);
+										console.log("****NewUniqueList");
+										console.log(NewUniqueList);
 
-									getDatasFunction( NewUniqueList);
+										getDatasFunction( NewUniqueList);
 
-								}
-								manageValueTexcontentTagFunction();
+									}
+									manageValueTexcontentTagFunction();
 								
 						
 
-								/////////////////////
+									/////////////////////
 
 							
 								
 								
-							}else if(classLiTagCurrent === "listChoiceAppareils"){
+								}else if(classLiTagCurrent === "listChoiceAppareils"){
 
-								console.log("**bienvenue dans le tag listChoiceAppareils");
-
-								
-
-								/////////////////////
+									console.log("**bienvenue dans le tag listChoiceAppareils");
 
 								
-								//fonction de gestion de mise à jour à la supression des tags
-								function manageValueTexcontentTagFunction(){
 
+									/////////////////////
 
-									console.log(valueTexContentTagCurrent);
-
-									let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
-									let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
 								
-									let listValueTexContentTag = [valueTexContentTagIngredients, valueTexContentTagUstensils];
+									//fonction de gestion de mise à jour à la supression des tags
+									function manageValueTexcontentTagFunction(){
 
-									let listValueTexContentTagFinal = [];
 
-									for(let l=0; l<listValueTexContentTag.length; l++){
+										console.log(valueTexContentTagCurrent);
 
-										let valueTexContentTag = listValueTexContentTag[l];
+										let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
+										let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
+								
+										let listValueTexContentTag = [valueTexContentTagIngredients, valueTexContentTagUstensils];
 
-										if(valueTexContentTag.length !== 0 ){
+										let listValueTexContentTagFinal = [];
 
-											// valueTexContentTag.textContent.trim()
-											listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
+										for(let l=0; l<listValueTexContentTag.length; l++){
+
+											let valueTexContentTag = listValueTexContentTag[l];
+
+											if(valueTexContentTag.length !== 0 ){
+
+												// valueTexContentTag.textContent.trim()
+												listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
 											
 
 
+											}
 										}
-									}
 									
-									console.log("***listValueTexContentTagFinal");
-									console.log(listValueTexContentTagFinal);
+										console.log("***listValueTexContentTagFinal");
+										console.log(listValueTexContentTagFinal);
 									
-									let listAppareilsUstensilsObjectTag = [];
+										let listAppareilsUstensilsObjectTag = [];
 
-									let listIng = [];
-									let listUst = [];
+										let listIng = [];
+										let listUst = [];
 
-									//obtension des différentes liste d'objets correspondantes aux filtres restants
-									for(let f=0; f<listValueTexContentTagFinal.length; f++){
+										//obtension des différentes liste d'objets correspondantes aux filtres restants
+										for(let f=0; f<listValueTexContentTagFinal.length; f++){
 
-										let valueTextContentCurrent = listValueTexContentTagFinal[f];
+											let valueTextContentCurrent = listValueTexContentTagFinal[f];
 
-										for(let i=0; i<listAllData.length; i++){
+											for(let i=0; i<listAllData.length; i++){
 
-											//objet encours
-											let valueObjectTag = listAllData[i];
+												//objet encours
+												let valueObjectTag = listAllData[i];
 
-											//valeurs de ingredient de l'objet encours
-											let listIngredientTagCurrent = valueObjectTag.ingredients;
+												//valeurs de ingredient de l'objet encours
+												let listIngredientTagCurrent = valueObjectTag.ingredients;
 
-											if(listIngredientTagCurrent.length !== 0){
+												if(listIngredientTagCurrent.length !== 0){
 
-												//console.log("**** listIngredientTagCurrent existe")
-
-
-												//gestion de la liste des ingredients encours
-												for(let j=0; j<listIngredientTagCurrent.length; j++){
-
-													let objectIngredientTagCurrent = listIngredientTagCurrent[j].ingredient;
+													//console.log("**** listIngredientTagCurrent existe")
 
 
-													if(objectIngredientTagCurrent === valueTextContentCurrent){
+													//gestion de la liste des ingredients encours
+													for(let j=0; j<listIngredientTagCurrent.length; j++){
 
-														//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+														let objectIngredientTagCurrent = listIngredientTagCurrent[j].ingredient;
 
-														//ajout de l'objet encours dans la list
-														listAppareilsUstensilsObjectTag.push(valueObjectTag);
 
-														listIng.push(valueObjectTag);
+														if(objectIngredientTagCurrent === valueTextContentCurrent){
+
+															//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+
+															//ajout de l'objet encours dans la list
+															listAppareilsUstensilsObjectTag.push(valueObjectTag);
+
+															listIng.push(valueObjectTag);
+
+														}
 
 													}
 
-												}
-
 												
 
-											}
+												}
 
-											//valeurs de ustensil de l'objet encours
-											let listUstensilTagCurrent = valueObjectTag.ustensils;
+												//valeurs de ustensil de l'objet encours
+												let listUstensilTagCurrent = valueObjectTag.ustensils;
 
 
-											if(listUstensilTagCurrent.length !== 0){
+												if(listUstensilTagCurrent.length !== 0){
 
-												//console.log("**** listUstensilTagCurrent existe")
+													//console.log("**** listUstensilTagCurrent existe")
 
-												//gestion de la liste des ustensils encours
-												for(let j=0; j<listUstensilTagCurrent.length; j++){
+													//gestion de la liste des ustensils encours
+													for(let j=0; j<listUstensilTagCurrent.length; j++){
 
-													let ValueUstensilTagCurrent = listUstensilTagCurrent[j];
+														let ValueUstensilTagCurrent = listUstensilTagCurrent[j];
 
-													if(ValueUstensilTagCurrent === valueTextContentCurrent){
+														if(ValueUstensilTagCurrent === valueTextContentCurrent){
 
-														//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
+															//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
 
-														//ajout de l'objet encours dans la list
-														listAppareilsUstensilsObjectTag.push(valueObjectTag);
+															//ajout de l'objet encours dans la list
+															listAppareilsUstensilsObjectTag.push(valueObjectTag);
 
-														listUst.push(valueObjectTag);
+															listUst.push(valueObjectTag);
+														}
+
 													}
 
-												}
-
 												
 
+												}
 											}
+
 										}
 
-									}
-
-									console.log("****listAppareilsUstensilsObjectTag");
-									console.log(listAppareilsUstensilsObjectTag);
+										console.log("****listAppareilsUstensilsObjectTag");
+										console.log(listAppareilsUstensilsObjectTag);
 
 							
 
-									//suppression des doublons dans les liste d'objects en fonction de l'id
-									let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
-										index === array.findIndex((item2) => item2.id === item.id)
-									);
+										//suppression des doublons dans les liste d'objects en fonction de l'id
+										let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
+											index === array.findIndex((item2) => item2.id === item.id)
+										);
 
-									console.log("****NewUniqueList");
-									console.log(NewUniqueList);
+										console.log("****NewUniqueList");
+										console.log(NewUniqueList);
 
-									getDatasFunction( NewUniqueList);
+										getDatasFunction( NewUniqueList);
 
-								}
-								manageValueTexcontentTagFunction();
+									}
+									manageValueTexcontentTagFunction();
 								
 						
 
-								/////////////////////
+									/////////////////////
 
-							}else if(classLiTagCurrent === "listChoiceUstensils"){
+								}else if(classLiTagCurrent === "listChoiceUstensils"){
 
-								console.log("**bienvenue dans le tag listChoiceUstensils");
-
-
-								//fonction de gestion de mise à jour à la supression des tags
-								function manageValueTexcontentTagFunction(){
+									console.log("**bienvenue dans le tag listChoiceUstensils");
 
 
-									console.log(valueTexContentTagCurrent);
+									//fonction de gestion de mise à jour à la supression des tags
+									function manageValueTexcontentTagFunction(){
 
-									let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
-									let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
+
+										console.log(valueTexContentTagCurrent);
+
+										let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
+										let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
 								
-									let listValueTexContentTag = [valueTexContentTagIngredients, valueTexContentTagAppareils];
+										let listValueTexContentTag = [valueTexContentTagIngredients, valueTexContentTagAppareils];
 
-									let listValueTexContentTagFinal = [];
+										let listValueTexContentTagFinal = [];
 
-									for(let l=0; l<listValueTexContentTag.length; l++){
+										for(let l=0; l<listValueTexContentTag.length; l++){
 
-										let valueTexContentTag = listValueTexContentTag[l];
+											let valueTexContentTag = listValueTexContentTag[l];
 
-										if(valueTexContentTag.length !== 0 ){
+											if(valueTexContentTag.length !== 0 ){
 
-											// valueTexContentTag.textContent.trim()
-											listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
+												// valueTexContentTag.textContent.trim()
+												listValueTexContentTagFinal.push(valueTexContentTag.textContent.trim());
 											
 
 
+											}
 										}
-									}
 									
-									console.log("***listValueTexContentTagFinal");
-									console.log(listValueTexContentTagFinal);
+										console.log("***listValueTexContentTagFinal");
+										console.log(listValueTexContentTagFinal);
 									
-									let listAppareilsIngredientObjectTag = [];
+										let listAppareilsIngredientObjectTag = [];
 
-									let listIng = [];
-									let listUst = [];
+										let listIng = [];
+										let listUst = [];
 
-									//obtension des différentes liste d'objets correspondantes aux filtres restants
-									for(let f=0; f<listValueTexContentTagFinal.length; f++){
+										//obtension des différentes liste d'objets correspondantes aux filtres restants
+										for(let f=0; f<listValueTexContentTagFinal.length; f++){
 
-										let valueTextContentCurrent = listValueTexContentTagFinal[f];
+											let valueTextContentCurrent = listValueTexContentTagFinal[f];
 
-										for(let i=0; i<listAllData.length; i++){
+											for(let i=0; i<listAllData.length; i++){
 
-											//objet encours
-											let valueObjectTag = listAllData[i];
+												//objet encours
+												let valueObjectTag = listAllData[i];
 
-											//valeurs de ingredient de l'objet encours
-											let listIngredientTagCurrent = valueObjectTag.ingredients;
+												//valeurs de ingredient de l'objet encours
+												let listIngredientTagCurrent = valueObjectTag.ingredients;
 
-											if(listIngredientTagCurrent.length !== 0){
+												if(listIngredientTagCurrent.length !== 0){
 
-												//console.log("**** listIngredientTagCurrent existe")
-
-
-												//gestion de la liste des ingredients encours
-												for(let j=0; j<listIngredientTagCurrent.length; j++){
-
-													let objectIngredientTagCurrent = listIngredientTagCurrent[j].ingredient;
+													//console.log("**** listIngredientTagCurrent existe")
 
 
-													if(objectIngredientTagCurrent === valueTextContentCurrent){
+													//gestion de la liste des ingredients encours
+													for(let j=0; j<listIngredientTagCurrent.length; j++){
 
-														//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+														let objectIngredientTagCurrent = listIngredientTagCurrent[j].ingredient;
 
-														//ajout de l'objet encours dans la list
-														listAppareilsIngredientObjectTag.push(valueObjectTag);
 
-														listIng.push(valueObjectTag);
+														if(objectIngredientTagCurrent === valueTextContentCurrent){
+
+															//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+
+															//ajout de l'objet encours dans la list
+															listAppareilsIngredientObjectTag.push(valueObjectTag);
+
+															listIng.push(valueObjectTag);
+
+														}
 
 													}
 
+												
+
 												}
 
-												
-
-											}
-
-											//valeurs de ustensil de l'objet encours
-											let listAppareilsTagCurrent = valueObjectTag.appliance;
+												//valeurs de ustensil de l'objet encours
+												let listAppareilsTagCurrent = valueObjectTag.appliance;
 
 
-											if(listAppareilsTagCurrent.length === valueTextContentCurrent){
+												if(listAppareilsTagCurrent.length === valueTextContentCurrent){
 
-												//console.log("**** listUstensilTagCurrent existe")
+													//console.log("**** listUstensilTagCurrent existe")
 
-												//ajout de l'objet encours dans la list
-												listAppareilsIngredientObjectTag.push(valueObjectTag);
+													//ajout de l'objet encours dans la list
+													listAppareilsIngredientObjectTag.push(valueObjectTag);
 
-												listUst.push(valueObjectTag);
+													listUst.push(valueObjectTag);
 
 												
+												}
 											}
+
 										}
 
-									}
-
-									console.log("****listAppareilsIngredientObjectTag");
-									console.log(listAppareilsIngredientObjectTag);
+										console.log("****listAppareilsIngredientObjectTag");
+										console.log(listAppareilsIngredientObjectTag);
 
 							
 
-									//suppression des doublons dans les liste d'objects en fonction de l'id
-									let NewUniqueList = listAppareilsIngredientObjectTag.filter((item, index, array) =>
-										index === array.findIndex((item2) => item2.id === item.id)
-									);
+										//suppression des doublons dans les liste d'objects en fonction de l'id
+										let NewUniqueList = listAppareilsIngredientObjectTag.filter((item, index, array) =>
+											index === array.findIndex((item2) => item2.id === item.id)
+										);
 
-									console.log("****NewUniqueList");
-									console.log(NewUniqueList);
 
-									getDatasFunction( NewUniqueList);
+										console.log("****NewUniqueList");
+										console.log(NewUniqueList);
 
-								}
-								manageValueTexcontentTagFunction();
+										getDatasFunction( NewUniqueList);
+
+									}
+									manageValueTexcontentTagFunction();
 								
+								}
+
+
 							}
-
-
-						}
 						
 						
 		
+						}
 					}
-				}
 
 				
 
 
 				
 
-			});
-		}
-	}
-
-	/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
-	/*
-	function deleteSearchBarFilter(inputFilterElementCurrent, valInputFilter){
-
-		console.log("*****bienvenue à la deleteSearchBarFilter");
-
-		
-
-		let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
-
-		//récupération de tous les inputs des filtres
-		const inputsearchBarFilter = document.getElementsByClassName("btnDelete");
-
-		for(let s=0; s<listInputSearchBarFilter.length; s++){
-
-
-			let listInputSearchBarFilterValue = listInputSearchBarFilter[s];
-
-			for(let i=0; i<inputsearchBarFilter.length; i++){
-
-				let inputsearchBarFilterClass = inputsearchBarFilter[i].classList[3];
-				
-
-				let elementDeleteCurrent = inputsearchBarFilter[i];
-
-				if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
-
-					// console.log("*****bienvenue à la condition delete");
-					// console.log(elementDeleteCurrent);
-
-					
-					elementDeleteCurrent.addEventListener("click", ()=>{
-
-						console.log("*****bienvenue à la condition delete");
-						console.log(elementDeleteCurrent);
-
-						//inputFilterElementCurrent.addEventListener("input", ())
-						if(valInputFilter){
-
-							inputFilterElementCurrent.value = "";
-
-							evenSearchBarFilterFunction()
-
-						}
-						
-
-					})
-
-
-				}
+				});
 			}
 		}
-	}*/
+
+
+
+
+
+
+
+		//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+			
+	}
+	setListDataFilterFunction();
+
+					
+	////////////////////////////////////////////////
+
+	
+
+	
+
+	/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
 	
 	
 
