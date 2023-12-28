@@ -10,6 +10,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 	//récupération des données 
 	let listRicepsFilter = [];
+	let NewListResultSearchBar=[];
 	let listdatasPartiel;
 	let listDescription;
 	let listAllData;
@@ -196,46 +197,53 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 	console.log("*** test listChoiceLocalStorage")
 	console.log(listChoiceLocalStorage)
 
-	if( !uniqueList && listChoiceLocalStorage){ 
+	function showAllRicepsFunction(){
 
-		containerArticleRecette.innerHTML = "";
 
-		for(let i=0; i<listChoiceLocalStorage.length; i++){
-
-			let recetteCurrent = listChoiceLocalStorage[i];
 	
-			articleCreateFunction(recetteCurrent);
-	
-		}
+		if( !uniqueList && listChoiceLocalStorage){ 
 
-	}else if(uniqueList && listChoiceLocalStorage ){  ///////////////////////
+			containerArticleRecette.innerHTML = "";
 
-		console.log("*** condition uniqueList")
-		console.log(uniqueList)
+			for(let i=0; i<listChoiceLocalStorage.length; i++){
 
-		containerArticleRecette.innerHTML = "";
-
-		for(let i=0; i<uniqueList.length; i++){
-
-			let recetteCurrent = uniqueList[i];
-	
-			articleCreateFunction(recetteCurrent);
-	
-		}
-
-	}else{ ///////////////////////
-
-		containerArticleRecette.innerHTML = "";
-
-		for(let i=0; i<listAllData.length; i++){
-
-			let recetteCurrent = listAllData[i];
-	
-			articleCreateFunction(recetteCurrent);
-	
-		}
+				let recetteCurrent = listChoiceLocalStorage[i];
 		
+				articleCreateFunction(recetteCurrent);
+		
+			}
+
+		}else if(uniqueList && listChoiceLocalStorage ){  ///////////////////////
+
+			console.log("*** condition uniqueList")
+			console.log(uniqueList)
+
+			containerArticleRecette.innerHTML = "";
+
+			for(let i=0; i<uniqueList.length; i++){
+
+				let recetteCurrent = uniqueList[i];
+		
+				articleCreateFunction(recetteCurrent);
+		
+			}
+
+		}else{ ///////////////////////
+
+			containerArticleRecette.innerHTML = "";
+
+			for(let i=0; i<listAllData.length; i++){
+
+				let recetteCurrent = listAllData[i];
+		
+				articleCreateFunction(recetteCurrent);
+		
+			}
+			
+		}
 	}
+	showAllRicepsFunction();
+	
 
 	//récupération de la croix du champ de recherche principal
 	let btnDeleteSearchBarMain = document.querySelector(".btnDeleteSearchBarMain")
@@ -260,6 +268,8 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 		let ingredientCurrentFilter = [];
 
+		
+
 		let valInput = e.target.value;
 		//console.log(valInput);
 
@@ -274,86 +284,77 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 		}else{
 
+			
+
 			btnDeleteSearchBarMain.style.display = "none";
 		}
 
-		//stockage de valInput dans le local storage
+		//fonction de gestion de la searchbar principale
+		function manageSearchBarMainFunction(){
 
-		localStorage.setItem("valInput", valInput);
-		
-		//obtension des listes de recette qui correspondent à l'input de la recherche en fonction des catégories correspondantes
-		let listFilterNameSearchBar = listAllData.filter( item => item.name.toUpperCase().includes(`${valInput.toUpperCase()}`) || item.name.toLowerCase().includes(`${valInput.toLowerCase()}`));
-		let listFilterDescriptionSearchBar = listAllData.filter( item => item.description.toUpperCase().includes(`${valInput.toUpperCase()}`) || item.description.toLowerCase().includes(`${valInput.toLowerCase()}`) );
 
 		
-		// suppression de tous les éléments existants dans l'élément ou enfants
-		containerArticleRecette.innerHTML = "";
+			//stockage de valInput dans le local storage
 
-		
-		/****** gestion du filtre du titre de la recette ****/
-		for(let j=0; j< listAllData.length; j++){
-		
-			let recetteCurrent = listAllData[j];
-
-			if(listFilterNameSearchBar.length > 0 ){
-
-				console.log("**bienvenue à la condition listFilterNameSearchBar");
-
-				//vérification si l'input correspont à la description de la recette encours
-				if(  recetteCurrent.name.toUpperCase().includes(valInput.toUpperCase()) 
-					|| recetteCurrent.name.toLowerCase().includes(valInput.toLowerCase())
-				
-				
-				){  
-
-					//insersion des receptes dans la liste
-					listRicepsFilter.push(recetteCurrent);
-					articleCreateFunction(recetteCurrent);
-					
-					//affichage de la quantité des recettes
-					showNumberRiceptsFunction();
-				
-				
-				}
-				
-			}else if(listFilterDescriptionSearchBar.length > 0 ){
-
-				console.log("***bienvenue dans description")
-
-				//vérification si l'input correspont à la description de la recette encours
-				if( recetteCurrent.description.toUpperCase().includes(valInput.toUpperCase())
-					|| recetteCurrent.description.toLowerCase().includes(valInput.toLowerCase())
-				
-				){ 
-
-					//insersion des receptes dans la liste
-					listRicepsFilter.push(recetteCurrent)
-
-					articleCreateFunction(recetteCurrent);
-
-					//affichage de la quantité des recettes
-					showNumberRiceptsFunction();
-
-				}
-
-			}else if(listFilterDescriptionSearchBar.length === 0 && listFilterNameSearchBar.length === 0 ){
-
-
-				let ingredientObjectCurrent = recetteCurrent.ingredients;
+			localStorage.setItem("valInput", valInput);
 			
-				for( let i=0; i< ingredientObjectCurrent.length; i++){
+			//obtension des listes de recette qui correspondent à l'input de la recherche en fonction des catégories correspondantes
+			let listFilterNameSearchBar = listAllData.filter( item => item.name.toUpperCase().includes(`${valInput.toUpperCase()}`) || item.name.toLowerCase().includes(`${valInput.toLowerCase()}`));
+			let listFilterDescriptionSearchBar = listAllData.filter( item => item.description.toUpperCase().includes(`${valInput.toUpperCase()}`) || item.description.toLowerCase().includes(`${valInput.toLowerCase()}`) );
+			
+			
+			// suppression de tous les éléments existants dans l'élément ou enfants
+			containerArticleRecette.innerHTML = "";
 
-					let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
+			
+			/****** gestion du filtre du titre de la recette ****/
+			
+			
+			
+			for(let j=0; j< listAllData.length; j++){
+			
+				let recetteCurrent = listAllData[j];
+
+				
+
+				if(listFilterNameSearchBar.length > 0 ){
+
+					console.log("**bienvenue à la condition listFilterNameSearchBar");
 
 					//vérification si l'input correspont à la description de la recette encours
-					if( (ingredientObjectCurrent2.ingredient).includes(valInput) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
+					if(  recetteCurrent.name.toUpperCase().includes(valInput.toUpperCase()) 
+						|| recetteCurrent.name.toLowerCase().includes(valInput.toLowerCase())
+					
+					
+					){  
 
-						console.log("**** ingredient inclu dans la recherche")
+						//listRicepsFilter=[];
 
 						//insersion des receptes dans la liste
-						ingredientCurrentFilter.push( recetteCurrent); //ingredientObjectCurrent2
+						listRicepsFilter.push(recetteCurrent);
+						articleCreateFunction(recetteCurrent);
 						
-						listRicepsFilter = [...ingredientCurrentFilter];
+						//affichage de la quantité des recettes
+						showNumberRiceptsFunction();
+					
+					
+					}
+					
+				}else if(listFilterDescriptionSearchBar.length > 0 ){
+
+					console.log("***bienvenue dans description")
+
+					//vérification si l'input correspont à la description de la recette encours
+					if( recetteCurrent.description.toUpperCase().includes(valInput.toUpperCase())
+						|| recetteCurrent.description.toLowerCase().includes(valInput.toLowerCase())
+					
+					){ 
+
+						//listRicepsFilter=[];
+
+						//insersion des receptes dans la liste
+						listRicepsFilter.push(recetteCurrent)
+
 						articleCreateFunction(recetteCurrent);
 
 						//affichage de la quantité des recettes
@@ -361,28 +362,106 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 					}
 
+				}else if(listFilterDescriptionSearchBar.length === 0 && listFilterNameSearchBar.length === 0 ){
+
+
+					console.log("***les deux existent")
+
+					let ingredientObjectCurrent = recetteCurrent.ingredients;
+				
+					for( let i=0; i< ingredientObjectCurrent.length; i++){
+
+						let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
+
+						//vérification si l'input correspont à la description de la recette encours
+						if( (ingredientObjectCurrent2.ingredient).includes(valInput) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
+
+							console.log("**** ingredient inclu dans la recherche")
+
+							//insersion des receptes dans la liste
+							ingredientCurrentFilter.push( recetteCurrent); //ingredientObjectCurrent2
+							
+							//listRicepsFilter=[];
+
+							listRicepsFilter = [...ingredientCurrentFilter];
+							articleCreateFunction(recetteCurrent);
+
+							//affichage de la quantité des recettes
+							showNumberRiceptsFunction();
+
+						}
+
+
+					}
 
 				}
+				
 
 			}
 
+			///////////////////////////////
+
+			console.log("****listRicepsFilter avant")
+			console.log(listRicepsFilter)
+
+			//suppression des doublons dans les liste d'objects en fonction de l'id
+			let listDataSearchBarMain = listRicepsFilter.filter((item, index, array) =>
+				index === array.findIndex((item2) => item2.id === item.id)
+			);
+
+
+			listRicepsFilter=listDataSearchBarMain;
 		}
 
+		//exécution de la fonction si la searchbar a aumoins 3 caractères
+		if(valInput.length >= 3){
+
+			console.log("exécution de ma manageSearchBarMainFunction();")
+
+			manageSearchBarMainFunction();
+
+		}else{
+
+			console.log("bienvenue dans le else de manageSearchBarMainFunction() ")
+			
+			containerArticleRecette.innerHTML = "";
+
+			listRicepsFilter=[];
+
+			console.log("****listRicepsFilter dans")
+			console.log(listRicepsFilter)
+
+			//exécution de la fonction de l'affichage de toutes les recettes initiales
+			showAllRicepsFunction();
+
+			//exécution de la fonction de l'affichage du nombre de recettes initiales
+			showNumberRiceptsFunction();
+		}
 		
+
+
+
+		///////////////////////////////
+
+
+		
+
+		console.log("****listRicepsFilter après")
+		console.log(listRicepsFilter)
 
 		//stockage de listRicepsFilter dans le localstorage
 		// Convertion  listRicepsFilter en chaîne JSON
 		let listRicepsFilterStringify = JSON.stringify(listRicepsFilter);
 
 		// Stockage la chaîne JSON dans le local storage avec une clé
-		localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
+		//localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
 
 
 		// Récupération et conversion de listRicepsFilter la chaîne JSON du localStorage
-		let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
+		//let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
 
 		//transfert de la listRicepsFilterJSON vers la fonction ou le fichier filters.js
-		createFilterFunction(listRicepsFilterJSON);
+		//createFilterFunction(listRicepsFilterJSON);
 
 	});
 
