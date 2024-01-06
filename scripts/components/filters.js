@@ -99,7 +99,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	
 	ustencilsListFilter = ustencilsListFilter.sort();
 	ingredientsListFilter = ingredientsListFilter.sort();
-	applianceListFilter = applianceListFilter.sort()
+	applianceListFilter = applianceListFilter.sort();
 
 	console.log("*** listAllData");
 	console.log(listAllData);
@@ -157,7 +157,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
 
 					</div>
-					<ul    class="listeUlContainer filterForm2Container" id="${listTitleFiltersCurrent+"Container"}" >
+					<ul    class="listeUlContainer filterForm2Container ${"Class"+listTitleFiltersCurrent}" id="${listTitleFiltersCurrent+"Container"}" >
 							
 			
 					</ul>
@@ -443,6 +443,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					inputFilterElementCurrent.setAttribute("value" , `${valInputFilter}`);
 
 
+
 					setListDataFilterFunction(valInputFilter);
 
 					////////////////////////////////////////////
@@ -591,9 +592,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				ingredientsContainer.innerHTML = "";
 	
-				inputIngredients.setAttribute("value" , `${val}`);
+				inputIngredients.setAttribute("value" , `${val}`.toUpperCase());
 	
-				let inputIngredientsList = ingredientsListFilter.filter( item => item.includes(`${val}`));
+				let inputIngredientsList = ingredientsListFilter.filter( item => item.toUpperCase().includes(`${val}`.toUpperCase().trim()));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputIngredientsList", JSON.stringify(val));
@@ -692,12 +693,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	
 				let val = e.target.value;
 				
-				inputAppareils.setAttribute("value" , `${val}`);
+				inputAppareils.setAttribute("value" , `${val}`.toUpperCase());
 	
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				appareilsContainer.innerHTML = "";
 	
-				let inputAppareilsList = applianceListFilter.filter( item => item.includes(`${val.trim()}`));
+				let inputAppareilsList = applianceListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase().trim()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputAppareilsList", JSON.stringify(val));
@@ -794,12 +795,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				let val = e.target.value;
 				console.log(val);
 
-				inputUstensiles.setAttribute("value" , `${val}`);
+				inputUstensiles.setAttribute("value" , `${val}`.toUpperCase());
 	
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				ustensilesContainer.innerHTML = "";
 	
-				let inputUstensilesList = ustencilsListFilter.filter( item => item.includes(`${val.trim()}`));
+				let inputUstensilesList = ustencilsListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase().trim()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputUstensilesList", JSON.stringify(val));
@@ -951,9 +952,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				console.log("****keysLocalstorage est null");
 				console.log(keysLocalstorage);
 
-				 listChoiceAppareils = [];
-				 listChoiceIngredients = [];
-				 listChoiceUstensils = [];
+				listChoiceAppareils = [];
+				listChoiceIngredients = [];
+				listChoiceUstensils = [];
 
 			}
 

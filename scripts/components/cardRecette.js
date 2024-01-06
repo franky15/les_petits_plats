@@ -416,20 +416,16 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		//exécution de la fonction si la searchbar a aumoins 3 caractères
 		if(valInput.length >= 3){
 
-			console.log("exécution de ma manageSearchBarMainFunction();")
-
+			
 			manageSearchBarMainFunction();
 
 		}else{
 
-			console.log("bienvenue dans le else de manageSearchBarMainFunction() ")
 			
 			containerArticleRecette.innerHTML = "";
 
 			listRicepsFilter=[];
 
-			console.log("****listRicepsFilter dans")
-			console.log(listRicepsFilter)
 
 			//exécution de la fonction de l'affichage de toutes les recettes initiales
 			showAllRicepsFunction();
