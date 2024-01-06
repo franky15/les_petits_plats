@@ -454,14 +454,15 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		let listRicepsFilterStringify = JSON.stringify(listRicepsFilter);
 
 		// Stockage la chaîne JSON dans le local storage avec une clé
-		//localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
+		localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
 
 
 		// Récupération et conversion de listRicepsFilter la chaîne JSON du localStorage
-		//let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
+		let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
 
 		//transfert de la listRicepsFilterJSON vers la fonction ou le fichier filters.js
-		//createFilterFunction(listRicepsFilterJSON);
+		createFilterFunction(listRicepsFilterJSON);
+		//createFilterFunction(listRicepsFilter);
 
 	});
 
