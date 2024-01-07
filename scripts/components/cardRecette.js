@@ -314,97 +314,64 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			
 			/****** gestion du filtre du titre de la recette ****/
 			
-			
-			
-			for(let j=0; j< listAllData.length; j++){
-			
-				let recetteCurrent = listAllData[j];
+			////////////////////////////
 
+			
+			let listFilterIngredientsSearchBar = [];
 				
+				
+			for(let l=0;l<listAllData.length; l++ ){
 
-				if(listFilterNameSearchBar.length > 0 ){
+				let objectIngredientsCurrent = listAllData[l];
 
-					console.log("**bienvenue à la condition listFilterNameSearchBar");
+				let listIngredientsCurrent2 = listAllData[l].ingredients;
 
-					//vérification si l'input correspont à la description de la recette encours
-					if(  recetteCurrent.name.toUpperCase().includes(valInput.toUpperCase()) 
-						|| recetteCurrent.name.toLowerCase().includes(valInput.toLowerCase())
+
+				for( let i=0; i<listIngredientsCurrent2.length; i++){
+
+
+					let objectIngredientsCurrent2 = listIngredientsCurrent2[i].ingredient;
+
+					if(  objectIngredientsCurrent2.toUpperCase().includes(valInput.toUpperCase()) 
+						|| objectIngredientsCurrent2.toLowerCase().includes(valInput.toLowerCase())
 					
 					
-					){  
+					){
 
-						//listRicepsFilter=[];
-
-						//insersion des receptes dans la liste
-						listRicepsFilter.push(recetteCurrent);
-						articleCreateFunction(recetteCurrent);
 						
-						//affichage de la quantité des recettes
-						showNumberRiceptsFunction();
-					
-					
-					}
-					
-				}else if(listFilterDescriptionSearchBar.length > 0 ){
-
-					console.log("***bienvenue dans description")
-
-					//vérification si l'input correspont à la description de la recette encours
-					if( recetteCurrent.description.toUpperCase().includes(valInput.toUpperCase())
-						|| recetteCurrent.description.toLowerCase().includes(valInput.toLowerCase())
-					
-					){ 
-
-						//listRicepsFilter=[];
-
-						//insersion des receptes dans la liste
-						listRicepsFilter.push(recetteCurrent)
-
-						articleCreateFunction(recetteCurrent);
-
-						//affichage de la quantité des recettes
-						showNumberRiceptsFunction();
-
-					}
-
-				}else if(listFilterDescriptionSearchBar.length === 0 && listFilterNameSearchBar.length === 0 ){
-
-
-					console.log("***les deux existent")
-
-					let ingredientObjectCurrent = recetteCurrent.ingredients;
-				
-					for( let i=0; i< ingredientObjectCurrent.length; i++){
-
-						let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
-
-						//vérification si l'input correspont à la description de la recette encours
-						if( (ingredientObjectCurrent2.ingredient.replace(/[()]/g, "")).includes(valInput.replace(/[()]/g, "")) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
-
-							console.log("**** ingredient inclu dans la recherche")
-
-							//insersion des receptes dans la liste
-							ingredientCurrentFilter.push( recetteCurrent); //ingredientObjectCurrent2
-							
-							//listRicepsFilter=[];
-
-							listRicepsFilter = [...ingredientCurrentFilter];
-							articleCreateFunction(recetteCurrent);
-
-							//affichage de la quantité des recettes
-							showNumberRiceptsFunction();
-
-						}
-
-
+						listFilterIngredientsSearchBar.push(objectIngredientsCurrent)
 					}
 
 				}
-				
 
 			}
 
-			///////////////////////////////
+
+			//let listRicepsFilter=[];
+
+			let listResultSearchBar = [].concat(listFilterNameSearchBar).concat(listFilterDescriptionSearchBar).concat(listFilterIngredientsSearchBar)
+			
+			//supression des doublons
+			listResultSearchBar = [...new Set(listResultSearchBar)]
+
+			console.log("***listResultSearchBar")
+
+			console.log(listResultSearchBar)
+
+			listRicepsFilter=[];
+
+			listResultSearchBar.map( item => {
+
+				//insersion des receptes dans la liste
+				listRicepsFilter.push(item);
+				articleCreateFunction(item);
+				
+				//affichage de la quantité des recettes
+				showNumberRiceptsFunction();
+
+			});
+
+
 
 			console.log("****listRicepsFilter avant")
 			console.log(listRicepsFilter)
@@ -442,13 +409,6 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			//exécution de la fonction de l'affichage du nombre de recettes initiales
 			showNumberRiceptsFunction();
 		}
-		
-
-
-
-		///////////////////////////////
-
-
 		
 
 		console.log("****listRicepsFilter après")
