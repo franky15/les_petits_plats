@@ -18,6 +18,8 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	console.log("***listRicepsFilter dans filters");
 	console.log(listRicepsFilter);*/
 	
+	console.log("****listRicepsFilterJSON dans filters")
+	console.log(listRicepsFilterJSON)
 
 	//récupération des données 
 	
@@ -71,6 +73,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		let ustencils = listAllData.map( item => item.ustensils );
 		//let descriptionListFilter = listRicepsFilterJSON.map( item => item.description);
 
+		//fonction de suppression des parenthèses
+		const parenthese =(chaine) => chaine.replace(/[()]/g, "")
+
 		//suppresssion des doublons
 		ingredientsListFilter = [...new Set(ingredientsListFilter)];
 		applianceListFilter = [...new Set(applianceListFilter)];
@@ -96,10 +101,50 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 	}
+	// Fonction de comparaison avec prise en compte des accents
+	const comparerChaines = (a, b) => a.localeCompare(b, "fr", { sensitivity: "base" });
+
+	ustencilsListFilter = ustencilsListFilter.sort(comparerChaines);
+	ingredientsListFilter = ingredientsListFilter.sort(comparerChaines);
+	applianceListFilter = applianceListFilter.sort(comparerChaines);
+
+	////////////////////////////
+
+
+	//supression des parenthèses
+
+	let ingredientsListFilterTransform = [];
+
+	for(let l=0; l<ingredientsListFilter.length; l++){
+
+		let ingredientsCurrent = ingredientsListFilter[l];
+		
+		if(ingredientsCurrent.includes( "(") ){
+
+			console.log("***ingredientsCurrent")
 	
-	ustencilsListFilter = ustencilsListFilter.sort();
-	ingredientsListFilter = ingredientsListFilter.sort();
-	applianceListFilter = applianceListFilter.sort();
+			console.log(ingredientsCurrent.replace(/[()]/g, ""))
+	
+			//ingredientsListFilterTransform.push(ingredientsCurrent.replace(/[()]/g, ""))
+
+			ingredientsCurrent=ingredientsCurrent.replace(/[()]/g, "")
+		}
+
+		ingredientsListFilterTransform.push(ingredientsCurrent)
+		
+	}
+
+	ingredientsListFilter = ingredientsListFilterTransform;
+
+	console.log("****ingredientsListFilterTransform")
+	console.log(ingredientsListFilterTransform)
+	
+
+	
+
+
+
+	//////////////////////////////
 
 	console.log("*** listAllData");
 	console.log(listAllData);
@@ -157,7 +202,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							<span class="optionBar__icon"> <i class="fa-solid fa-magnifying-glass"></i> </span>
 
 					</div>
-					<ul    class="listeUlContainer filterForm2Container ${"Class"+listTitleFiltersCurrent}" id="${listTitleFiltersCurrent+"Container"}" >
+					<ul    class="listeUlContainer filterForm2Container" id="${listTitleFiltersCurrent+"Container"}" >
 							
 			
 					</ul>
@@ -383,6 +428,22 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 	function createLiFunction(liItemValue, ulItem, differentClassFilter){
 
+		//parenthese
+
+		/*
+		let liItemValueTransform = liItemValue;
+
+		if(liItemValue.includes( "(") ){
+
+			console.log("***liItemValue")
+
+			console.log(liItemValue.replace(/[()]/g, ""))
+
+			liItemValueTransform = liItemValue.replace(/[()]/g, "");
+		}*/
+		
+
+
 		let liItem =`
 							
 							
@@ -441,7 +502,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				
 					inputFilterElementCurrent.setAttribute("value" , `${valInputFilter}`);
-
 
 
 					setListDataFilterFunction(valInputFilter);
@@ -592,9 +652,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				ingredientsContainer.innerHTML = "";
 	
-				inputIngredients.setAttribute("value" , `${val}`.toUpperCase());
+				inputIngredients.setAttribute("value" , `${val}`);
 	
-				let inputIngredientsList = ingredientsListFilter.filter( item => item.toUpperCase().includes(`${val}`.toUpperCase().trim()));
+				let inputIngredientsList = ingredientsListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputIngredientsList", JSON.stringify(val));
@@ -693,12 +753,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	
 				let val = e.target.value;
 				
-				inputAppareils.setAttribute("value" , `${val}`.toUpperCase());
+				inputAppareils.setAttribute("value" , `${val}`);
 	
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				appareilsContainer.innerHTML = "";
 	
-				let inputAppareilsList = applianceListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase().trim()}`));
+				let inputAppareilsList = applianceListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputAppareilsList", JSON.stringify(val));
@@ -795,12 +855,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				let val = e.target.value;
 				console.log(val);
 
-				inputUstensiles.setAttribute("value" , `${val}`.toUpperCase());
+				inputUstensiles.setAttribute("value" , `${val}`);
 	
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				ustensilesContainer.innerHTML = "";
 	
-				let inputUstensilesList = ustencilsListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase().trim()}`));
+				let inputUstensilesList = ustencilsListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputUstensilesList", JSON.stringify(val));
@@ -952,9 +1012,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				console.log("****keysLocalstorage est null");
 				console.log(keysLocalstorage);
 
-				listChoiceAppareils = [];
-				listChoiceIngredients = [];
-				listChoiceUstensils = [];
+				 listChoiceAppareils = [];
+				 listChoiceIngredients = [];
+				 listChoiceUstensils = [];
 
 			}
 
@@ -1039,6 +1099,29 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				
 							//stockage de la valeur du li ou du btn dans le localstorage
 							// localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
+
+							/////////////////////////////
+
+							/*
+							console.log("**** btnTaIngredientsLi.textContent")
+							console.log(btnTaIngredientsLi.textContent)
+
+							let liItemValueTransform = liItemValue;
+
+							
+							if(liItemValue.includes( "(") ){
+
+								console.log("***liItemValue")
+
+								console.log(liItemValue.replace(/[()]/g, ""))
+
+								liItemValueTransform = liItemValue.replace(/[()]/g, "");
+							}
+							*/
+
+
+							//////////////////////////////
+
 							localStorage.setItem( "valClassBtnIngredientsLi", btnTaIngredientsLi.textContent);
 
 							//récupération des valeurs selectionnées du localstorage
@@ -1302,9 +1385,30 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					
 								// let differentClassFilter = btnCurrent.classList[2];
 										
+								/////////////////////////////
+
+								/*console.log("**** btnTaIngredientsLi.textContent")
+								console.log(btnCurrent.textContent)
+
+								let btnCurrentTransform = btnCurrent.textContent;
+
+								
+								if(btnCurrent.textContent.includes( "(") ){
+
+									console.log("***btnCurrent.textContent")
+
+									console.log(btnCurrent.textContent.replace(/[()]/g, ""))
+
+									btnCurrentTransform = btnCurrent.textContent.replace(/[()]/g, "");
+								}*/
+							
+
+
+							//////////////////////////////
+
 								//stockage de la valeur du li ou du btn dans le localstorage
 								//localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
-								localStorage.setItem( "valClassBtnIngredientsLi", btnCurrent.textContent);
+								localStorage.setItem( "valClassBtnIngredientsLi", btnCurrent.textContent); //btnCurrent.textContent
 
 								//récupération des valeurs selectionnées du localstorage
 								const valChoiceFilter = localStorage.getItem(differentClassFilter);
@@ -1585,7 +1689,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 					/////////////////////////:::
 
-					let btnTagAUstensilsListLi = document.getElementsByClassName("tagUstensiles");
+					let btnTagAUstensilsListLi = document.getElementsByClassName("tagAppareils");  //tagUstensiles
 
 					for(let b=0; b<btnTagAUstensilsListLi.length; b++){
 
@@ -2953,16 +3057,3 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	
 }
 export default createFilterFunction();
-
-
-
-
-
-
-
-
-
-
-
-
-

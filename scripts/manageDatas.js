@@ -36,6 +36,7 @@ async function getDatas(){
 		applianceListFilter = [...new Set(applianceListFilter)];
 		descriptionListFilter = [...new Set(descriptionListFilter)];
 		ustencils = [...new Set(ustencils)];
+
 		
 		let ustencilsList=[];
 	
@@ -49,39 +50,32 @@ async function getDatas(){
 
 		ustencilsListFilter = [].concat(...ustencilsList);
 
-		//retrait des doublons après la fusion des données
-		ustencilsListFilter = [...new Set(ustencilsListFilter)];
+		// Fonction de normalisation des chaînes ou de formatage des chaines de caractères 
+		const normaliserChaine = (chaine) => chaine.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+		
+		//let ustencilsListFilter1 = [...new Set(ustencilsListFilter)];
+		
+		//retrait des doublons après la fusion des données et application de la function normaliserChaine
+		//pour chaque élément
+		ustencilsListFilter = [...new Set(ustencilsListFilter.map(normaliserChaine))];
+
+		console.log("***** ustencilsListFilter")
+		console.log(ustencilsListFilter.sort())
+
+
+		/*for(let l=0; l<ustencilsListFilter.length; l++){
+
+			let ustencilsListFilterCurrent = ustencilsListFilter[l];
+
+			if(ustencilsListFilterCurrent)
+		}*/
 
 		//obtension de la grande liste de tous les mots clés utiliser sur la searchbar
 
 		// listAllKeyWordSearchBar = [].concat(ustencilsListFilter).concat(ingredientsListFilter).concat(applianceListFilter);
 		listAllKeyWordSearchBar = [].concat(titreListFilter).concat(ingredientsListFilter).concat(descriptionListFilter);
 
-		/*
-		//stockage des listes de mots clés dans le local storage
-
-		let listkeywords = [ { ingredientsListFilter : ingredientsListFilter },
-			{ applianceListFilter: applianceListFilter }, 
-			{ descriptionListFilter: descriptionListFilter }, 
-			{ ustencilsListFilter: ustencilsListFilter },
-			{ listAllKeyWordSearchBar: listAllKeyWordSearchBar}
-		];
 		
-		for(let l=0; l<listkeywords.length; l++){
-
-			let listkeywordsCurrent = listkeywords[l];
-
-			//récupératio de la valeur de la clé encours
-			let keyCurrent = Object.keys(listkeywordsCurrent);
-
-			// Convertion  listeFusionnee en chaîne JSON
-			let keyCurrentStringify = JSON.stringify(listkeywordsCurrent);
-
-			// Stockez la chaîne JSON dans le local storage avec une clé
-			localStorage.setItem( keyCurrent, keyCurrentStringify);
-
-		}
-		*/
 
 		//vidage du localstorage au chargement de la page
 		window.addEventListener("beforeunload", () => {
@@ -103,4 +97,3 @@ async function getDatas(){
 export default getDatas();
 
 //obtension des listes des mots clés
-
