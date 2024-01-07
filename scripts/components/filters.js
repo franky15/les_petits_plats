@@ -108,6 +108,44 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	ingredientsListFilter = ingredientsListFilter.sort(comparerChaines);
 	applianceListFilter = applianceListFilter.sort(comparerChaines);
 
+	////////////////////////////
+
+
+	//supression des parenthèses
+
+	let ingredientsListFilterTransform = [];
+
+	for(let l=0; l<ingredientsListFilter.length; l++){
+
+		let ingredientsCurrent = ingredientsListFilter[l];
+		
+		if(ingredientsCurrent.includes( "(") ){
+
+			console.log("***ingredientsCurrent")
+	
+			console.log(ingredientsCurrent.replace(/[()]/g, ""))
+	
+			//ingredientsListFilterTransform.push(ingredientsCurrent.replace(/[()]/g, ""))
+
+			ingredientsCurrent=ingredientsCurrent.replace(/[()]/g, "")
+		}
+
+		ingredientsListFilterTransform.push(ingredientsCurrent)
+		
+	}
+
+	ingredientsListFilter = ingredientsListFilterTransform;
+
+	console.log("****ingredientsListFilterTransform")
+	console.log(ingredientsListFilterTransform)
+	
+
+	
+
+
+
+	//////////////////////////////
+
 	console.log("*** listAllData");
 	console.log(listAllData);
 	console.log("*** ustencilsListFilter");
@@ -402,8 +440,8 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			console.log(liItemValue.replace(/[()]/g, ""))
 
 			liItemValueTransform = liItemValue.replace(/[()]/g, "");
-		}
-		*/
+		}*/
+		
 
 
 		let liItem =`
@@ -616,7 +654,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	
 				inputIngredients.setAttribute("value" , `${val}`);
 	
-				let inputIngredientsList = ingredientsListFilter.filter( item => item.includes(`${val}`));
+				let inputIngredientsList = ingredientsListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputIngredientsList", JSON.stringify(val));
@@ -720,7 +758,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				appareilsContainer.innerHTML = "";
 	
-				let inputAppareilsList = applianceListFilter.filter( item => item.includes(`${val.trim()}`));
+				let inputAppareilsList = applianceListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputAppareilsList", JSON.stringify(val));
@@ -822,7 +860,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				ustensilesContainer.innerHTML = "";
 	
-				let inputUstensilesList = ustencilsListFilter.filter( item => item.includes(`${val.trim()}`));
+				let inputUstensilesList = ustencilsListFilter.filter( item => item.toUpperCase().includes(`${val.toUpperCase()}`));
 									
 				//stockage de la liste dans le localstorage
 				localStorage.setItem("inputUstensilesList", JSON.stringify(val));

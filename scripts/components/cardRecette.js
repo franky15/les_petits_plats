@@ -133,10 +133,13 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 						let ingredientsCurrent = ingredientsCurrentList[k];
                         
+
+
 						ingredientsItem = `
 
                             <div class="ingredientContainer__child">
-                                <p class="ingredients"> ${ingredientsCurrent.ingredient} </p>
+                                <p class="ingredients"> ${ingredientsCurrent.ingredient.replace(/[()]/g, "")  }
+								  </p>
                                 <span class="ingredientsMesure">
                                  ${
                                     ingredientsCurrent.unit ?
@@ -163,7 +166,8 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 						ingredientsItem = `
 
                         <div class="ingredientContainer__child">
-                            <p class="ingredients"> ${ingredientsCurrent.ingredient} </p>
+							<p class="ingredients"> ${ingredientsCurrent.ingredient.replace(/[()]/g, "")  }
+							</p>
                             <span class="ingredientsMesure">
                                 ${
                                 ingredientsCurrent.unit ?
@@ -236,6 +240,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 				let recetteCurrent = listAllData[i];
 		
+
 				articleCreateFunction(recetteCurrent);
 		
 			}
@@ -374,7 +379,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 						let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
 
 						//vérification si l'input correspont à la description de la recette encours
-						if( (ingredientObjectCurrent2.ingredient).includes(valInput) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
+						if( (ingredientObjectCurrent2.ingredient.replace(/[()]/g, "")).includes(valInput.replace(/[()]/g, "")) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
 
 							console.log("**** ingredient inclu dans la recherche")
 

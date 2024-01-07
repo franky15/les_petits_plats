@@ -75,31 +75,7 @@ async function getDatas(){
 		// listAllKeyWordSearchBar = [].concat(ustencilsListFilter).concat(ingredientsListFilter).concat(applianceListFilter);
 		listAllKeyWordSearchBar = [].concat(titreListFilter).concat(ingredientsListFilter).concat(descriptionListFilter);
 
-		/*
-		//stockage des listes de mots clés dans le local storage
-
-		let listkeywords = [ { ingredientsListFilter : ingredientsListFilter },
-			{ applianceListFilter: applianceListFilter }, 
-			{ descriptionListFilter: descriptionListFilter }, 
-			{ ustencilsListFilter: ustencilsListFilter },
-			{ listAllKeyWordSearchBar: listAllKeyWordSearchBar}
-		];
 		
-		for(let l=0; l<listkeywords.length; l++){
-
-			let listkeywordsCurrent = listkeywords[l];
-
-			//récupératio de la valeur de la clé encours
-			let keyCurrent = Object.keys(listkeywordsCurrent);
-
-			// Convertion  listeFusionnee en chaîne JSON
-			let keyCurrentStringify = JSON.stringify(listkeywordsCurrent);
-
-			// Stockez la chaîne JSON dans le local storage avec une clé
-			localStorage.setItem( keyCurrent, keyCurrentStringify);
-
-		}
-		*/
 
 		//vidage du localstorage au chargement de la page
 		window.addEventListener("beforeunload", () => {
