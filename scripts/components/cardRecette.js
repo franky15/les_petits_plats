@@ -133,10 +133,13 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 						let ingredientsCurrent = ingredientsCurrentList[k];
                         
+
+
 						ingredientsItem = `
 
                             <div class="ingredientContainer__child">
-                                <p class="ingredients"> ${ingredientsCurrent.ingredient} </p>
+                                <p class="ingredients"> ${ingredientsCurrent.ingredient.replace(/[()]/g, "")  }
+								  </p>
                                 <span class="ingredientsMesure">
                                  ${
                                     ingredientsCurrent.unit ?
@@ -163,7 +166,8 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 						ingredientsItem = `
 
                         <div class="ingredientContainer__child">
-                            <p class="ingredients"> ${ingredientsCurrent.ingredient} </p>
+							<p class="ingredients"> ${ingredientsCurrent.ingredient.replace(/[()]/g, "")  }
+							</p>
                             <span class="ingredientsMesure">
                                 ${
                                 ingredientsCurrent.unit ?
@@ -236,6 +240,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 				let recetteCurrent = listAllData[i];
 		
+
 				articleCreateFunction(recetteCurrent);
 		
 			}
@@ -374,7 +379,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 						let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
 
 						//vérification si l'input correspont à la description de la recette encours
-						if( (ingredientObjectCurrent2.ingredient).includes(valInput) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
+						if( (ingredientObjectCurrent2.ingredient.replace(/[()]/g, "")).includes(valInput.replace(/[()]/g, "")) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
 
 							console.log("**** ingredient inclu dans la recherche")
 
@@ -416,16 +421,20 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		//exécution de la fonction si la searchbar a aumoins 3 caractères
 		if(valInput.length >= 3){
 
-			
+			console.log("exécution de ma manageSearchBarMainFunction();")
+
 			manageSearchBarMainFunction();
 
 		}else{
 
+			console.log("bienvenue dans le else de manageSearchBarMainFunction() ")
 			
 			containerArticleRecette.innerHTML = "";
 
 			listRicepsFilter=[];
 
+			console.log("****listRicepsFilter dans")
+			console.log(listRicepsFilter)
 
 			//exécution de la fonction de l'affichage de toutes les recettes initiales
 			showAllRicepsFunction();
@@ -450,14 +459,15 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		let listRicepsFilterStringify = JSON.stringify(listRicepsFilter);
 
 		// Stockage la chaîne JSON dans le local storage avec une clé
-		//localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
+		localStorage.setItem( "listRicepsFilter", listRicepsFilterStringify);
 
 
 		// Récupération et conversion de listRicepsFilter la chaîne JSON du localStorage
-		//let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
+		let listRicepsFilterJSON = JSON.parse(localStorage.getItem("listRicepsFilter"));
 
 		//transfert de la listRicepsFilterJSON vers la fonction ou le fichier filters.js
-		//createFilterFunction(listRicepsFilterJSON);
+		createFilterFunction(listRicepsFilterJSON);
+		//createFilterFunction(listRicepsFilter);
 
 	});
 
@@ -511,4 +521,3 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 }
 
 export default getDatasFunction(); 
-
