@@ -371,7 +371,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			////////////////////////////////
 
 			//fonction d'éxécution de la searchBar
-			
+
 			function executeSearchBar(){
 
 				listResultSearchBar.map( item => {
@@ -400,7 +400,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			// Calcule de  la durée d'exécution en millisecondes
 			const duration = endTime - startTime;
 
-			console.log("**** La fonction a mis ${duration} millisecondes pour s'exécuter");
+			console.log(`La fonction a mis ${duration} millisecondes pour s'exécuter`);
 
 			////////////////////////////////
 
