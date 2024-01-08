@@ -308,6 +308,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			let listFilterDescriptionSearchBar = listAllData.filter( item => item.description.toUpperCase().includes(`${valInput.toUpperCase()}`) || item.description.toLowerCase().includes(`${valInput.toLowerCase()}`) );
 			
 			
+
 			// suppression de tous les éléments existants dans l'élément ou enfants
 			containerArticleRecette.innerHTML = "";
 
@@ -352,29 +353,56 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			let listResultSearchBar = [].concat(listFilterNameSearchBar).concat(listFilterDescriptionSearchBar).concat(listFilterIngredientsSearchBar)
 			
 			//supression des doublons
-			listResultSearchBar = [...new Set(listResultSearchBar)]
+			listResultSearchBar = [...new Set(listResultSearchBar)];
 
-			console.log("***listResultSearchBar")
+			console.log("***listResultSearchBar");
 
-			console.log(listResultSearchBar)
+			console.log(listResultSearchBar);
 
 			listRicepsFilter=[];
 
-			listResultSearchBar.map( item => {
-
-				//insersion des receptes dans la liste
-				listRicepsFilter.push(item);
-				articleCreateFunction(item);
-				
-				//affichage de la quantité des recettes
-				showNumberRiceptsFunction();
-
-			});
+			////////////////////////////////
 
 
+			// Enregistrement du temps de début
+			const startTime = performance.now();
 
-			console.log("****listRicepsFilter avant")
-			console.log(listRicepsFilter)
+
+			////////////////////////////////
+
+			//fonction d'éxécution de la searchBar
+			
+			function executeSearchBar(){
+
+				listResultSearchBar.map( item => {
+
+					//insersion des receptes dans la liste
+					listRicepsFilter.push(item);
+					articleCreateFunction(item);
+					
+					//affichage de la quantité des recettes
+					showNumberRiceptsFunction();
+	
+				});
+
+			}
+			executeSearchBar();
+			
+
+
+			////////////////////////////////
+
+
+			// Enregistreement du temps de fin
+			const endTime = performance.now();
+
+
+			// Calcule de  la durée d'exécution en millisecondes
+			const duration = endTime - startTime;
+
+			console.log("**** La fonction a mis ${duration} millisecondes pour s'exécuter");
+
+			////////////////////////////////
 
 			//suppression des doublons dans les liste d'objects en fonction de l'id
 			let listDataSearchBarMain = listRicepsFilter.filter((item, index, array) =>
@@ -388,7 +416,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		//exécution de la fonction si la searchbar a aumoins 3 caractères
 		if(valInput.length >= 3){
 
-			console.log("exécution de ma manageSearchBarMainFunction();")
+			console.log("exécution de ma manageSearchBarMainFunction();");
 
 			manageSearchBarMainFunction();
 
@@ -400,8 +428,6 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 			listRicepsFilter=[];
 
-			console.log("****listRicepsFilter dans")
-			console.log(listRicepsFilter)
 
 			//exécution de la fonction de l'affichage de toutes les recettes initiales
 			showAllRicepsFunction();
@@ -410,9 +436,6 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			showNumberRiceptsFunction();
 		}
 		
-
-		console.log("****listRicepsFilter après")
-		console.log(listRicepsFilter)
 
 		//stockage de listRicepsFilter dans le localstorage
 		// Convertion  listRicepsFilter en chaîne JSON
