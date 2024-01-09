@@ -42,10 +42,6 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 	let tagIngredientsLocalStorage = localStorage.getItem("valClassBtnIngredientsLi");
 	
 	
-
-	console.log("***uniqueList dans cardRecettes")
-	console.log(uniqueList)
-
 	//récupération de containerArticleRecette
 	const containerArticleRecette = document.querySelector(".containerArticleRecette");
 	
@@ -195,11 +191,11 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 	
 	//affichage de toutes les recettes sur la page d'acceuil
 
-	console.log("*** test uniqueList")
+	/*console.log("*** test uniqueList")
 	console.log(uniqueList)
 
 	console.log("*** test listChoiceLocalStorage")
-	console.log(listChoiceLocalStorage)
+	console.log(listChoiceLocalStorage)*/
 
 	function showAllRicepsFunction(){
 
@@ -219,8 +215,6 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 		}else if(uniqueList && listChoiceLocalStorage ){  ///////////////////////
 
-			console.log("*** condition uniqueList")
-			console.log(uniqueList)
 
 			containerArticleRecette.innerHTML = "";
 
@@ -314,81 +308,64 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			
 			/****** gestion du filtre du titre de la recette ****/
 			
-			
-			
-			for(let j=0; j< listAllData.length; j++){
-			
-				let recetteCurrent = listAllData[j];
 
+			////////////////////////////////
+
+
+			// Enregistrement du temps de début
+			const startTime = performance.now();
+
+
+			////////////////////////////////
+
+			//fonction d'éxécution de la searchBar
+			
+			function executeSearchBar(){
+
+				for(let j=0; j< listAllData.length; j++){
 				
+					let recetteCurrent = listAllData[j];
 
-				if(listFilterNameSearchBar.length > 0 ){
-
-					console.log("**bienvenue à la condition listFilterNameSearchBar");
-
-					//vérification si l'input correspont à la description de la recette encours
-					if(  recetteCurrent.name.toUpperCase().includes(valInput.toUpperCase()) 
-						|| recetteCurrent.name.toLowerCase().includes(valInput.toLowerCase())
 					
-					
-					){  
 
-						//listRicepsFilter=[];
+					if(listFilterNameSearchBar.length > 0 ){
 
-						//insersion des receptes dans la liste
-						listRicepsFilter.push(recetteCurrent);
-						articleCreateFunction(recetteCurrent);
-						
-						//affichage de la quantité des recettes
-						showNumberRiceptsFunction();
-					
-					
-					}
-					
-				}else if(listFilterDescriptionSearchBar.length > 0 ){
-
-					console.log("***bienvenue dans description")
-
-					//vérification si l'input correspont à la description de la recette encours
-					if( recetteCurrent.description.toUpperCase().includes(valInput.toUpperCase())
-						|| recetteCurrent.description.toLowerCase().includes(valInput.toLowerCase())
-					
-					){ 
-
-						//listRicepsFilter=[];
-
-						//insersion des receptes dans la liste
-						listRicepsFilter.push(recetteCurrent)
-
-						articleCreateFunction(recetteCurrent);
-
-						//affichage de la quantité des recettes
-						showNumberRiceptsFunction();
-
-					}
-
-				}else if(listFilterDescriptionSearchBar.length === 0 && listFilterNameSearchBar.length === 0 ){
-
-
-					console.log("***les deux existent")
-
-					let ingredientObjectCurrent = recetteCurrent.ingredients;
-				
-					for( let i=0; i< ingredientObjectCurrent.length; i++){
-
-						let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
+						console.log("**bienvenue à la condition listFilterNameSearchBar");
 
 						//vérification si l'input correspont à la description de la recette encours
-						if( (ingredientObjectCurrent2.ingredient.replace(/[()]/g, "")).includes(valInput.replace(/[()]/g, "")) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
+						if(  recetteCurrent.name.toUpperCase().includes(valInput.toUpperCase()) 
+							|| recetteCurrent.name.toLowerCase().includes(valInput.toLowerCase())
+						
+						
+						){  
 
-							console.log("**** ingredient inclu dans la recherche")
-
-							//insersion des receptes dans la liste
-							ingredientCurrentFilter.push( recetteCurrent); //ingredientObjectCurrent2
-							
 							//listRicepsFilter=[];
 
-							listRicepsFilter = [...ingredientCurrentFilter];
+							//insersion des receptes dans la liste
+							listRicepsFilter.push(recetteCurrent);
+							articleCreateFunction(recetteCurrent);
+							
+							//affichage de la quantité des recettes
+							showNumberRiceptsFunction();
+						
+						
+						}
+						
+					}else if(listFilterDescriptionSearchBar.length > 0 ){
+
+						console.log("***bienvenue dans description")
+
+						//vérification si l'input correspont à la description de la recette encours
+						if( recetteCurrent.description.toUpperCase().includes(valInput.toUpperCase())
+							|| recetteCurrent.description.toLowerCase().includes(valInput.toLowerCase())
+						
+						){ 
+
+							//listRicepsFilter=[];
+
+							//insersion des receptes dans la liste
+							listRicepsFilter.push(recetteCurrent)
+
 							articleCreateFunction(recetteCurrent);
 
 							//affichage de la quantité des recettes
@@ -396,18 +373,58 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 						}
 
+					}else if(listFilterDescriptionSearchBar.length === 0 && listFilterNameSearchBar.length === 0 ){
+
+
+						let ingredientObjectCurrent = recetteCurrent.ingredients;
+					
+						for( let i=0; i< ingredientObjectCurrent.length; i++){
+
+							let ingredientObjectCurrent2 = ingredientObjectCurrent[i];
+
+							//vérification si l'input correspont à la description de la recette encours
+							if( (ingredientObjectCurrent2.ingredient.replace(/[()]/g, "")).includes(valInput.replace(/[()]/g, "")) ){  //(valInput).includes(ingredientObjectCurrent2.ingredient
+
+
+								//insersion des receptes dans la liste
+								ingredientCurrentFilter.push( recetteCurrent); //ingredientObjectCurrent2
+								
+								//listRicepsFilter=[];
+
+								listRicepsFilter = [...ingredientCurrentFilter];
+								articleCreateFunction(recetteCurrent);
+
+								//affichage de la quantité des recettes
+								showNumberRiceptsFunction();
+
+							}
+
+
+						}
 
 					}
+					
 
 				}
-				
 
 			}
+			executeSearchBar();
 
-			///////////////////////////////
 
-			console.log("****listRicepsFilter avant")
-			console.log(listRicepsFilter)
+			////////////////////////////////
+
+
+			// Enregistreement du temps de fin
+			const endTime = performance.now();
+
+
+			// Calcule de  la durée d'exécution en millisecondes
+			const duration = endTime - startTime;
+
+			console.log(`La fonction a mis ${duration} millisecondes pour s'exécuter`);
+
+			////////////////////////////////
+
 
 			//suppression des doublons dans les liste d'objects en fonction de l'id
 			let listDataSearchBarMain = listRicepsFilter.filter((item, index, array) =>
@@ -421,20 +438,14 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		//exécution de la fonction si la searchbar a aumoins 3 caractères
 		if(valInput.length >= 3){
 
-			console.log("exécution de ma manageSearchBarMainFunction();")
-
 			manageSearchBarMainFunction();
 
 		}else{
 
-			console.log("bienvenue dans le else de manageSearchBarMainFunction() ")
-			
 			containerArticleRecette.innerHTML = "";
 
 			listRicepsFilter=[];
 
-			console.log("****listRicepsFilter dans")
-			console.log(listRicepsFilter)
 
 			//exécution de la fonction de l'affichage de toutes les recettes initiales
 			showAllRicepsFunction();
@@ -449,10 +460,8 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 		///////////////////////////////
 
 
-		
-
-		console.log("****listRicepsFilter après")
-		console.log(listRicepsFilter)
+		// console.log("****listRicepsFilter après")
+		// console.log(listRicepsFilter)
 
 		//stockage de listRicepsFilter dans le localstorage
 		// Convertion  listRicepsFilter en chaîne JSON

@@ -28,10 +28,6 @@ async function getDatas(){
 		
 		let ustencils = listAllData.map( item => item.ustensils );
     
-		/* suppression des doublons avec [...new Set(list)]
-			[new Set(list)] création d'un nouveau set (ensemble de plusieurs listes) en supprimant les doublons
-			[...new Set(list)] fusion de ces listes là en une seule
-		*/
 		ingredientsListFilter = [...new Set(ingredientsListFilter)];
 		applianceListFilter = [...new Set(applianceListFilter)];
 		descriptionListFilter = [...new Set(descriptionListFilter)];
@@ -53,22 +49,9 @@ async function getDatas(){
 		// Fonction de normalisation des chaînes ou de formatage des chaines de caractères 
 		const normaliserChaine = (chaine) => chaine.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 		
-		//let ustencilsListFilter1 = [...new Set(ustencilsListFilter)];
-		
 		//retrait des doublons après la fusion des données et application de la function normaliserChaine
 		//pour chaque élément
 		ustencilsListFilter = [...new Set(ustencilsListFilter.map(normaliserChaine))];
-
-		console.log("***** ustencilsListFilter")
-		console.log(ustencilsListFilter.sort())
-
-
-		/*for(let l=0; l<ustencilsListFilter.length; l++){
-
-			let ustencilsListFilterCurrent = ustencilsListFilter[l];
-
-			if(ustencilsListFilterCurrent)
-		}*/
 
 		//obtension de la grande liste de tous les mots clés utiliser sur la searchbar
 

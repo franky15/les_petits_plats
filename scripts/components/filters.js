@@ -8,18 +8,9 @@ import { getDatasFunction } from "./cardRecette.js";
 //creation de la du filtre
 export async  function createFilterFunction(listRicepsFilterJSON){
 
-	/*****récupération de la liste du résultat de recherche du localstorage **/
-	// Récupération de listRicepsFilter la chaîne JSON du localStorage
-	/*let listRicepsFilterJSON = localStorage.getItem("listRicepsFilter");
 	
-	// Convertion de la chaîne listRicepsFilterJSON en liste JavaScript
-	//let listRicepsFilter = JSON.parse(listRicepsFilterJSON);
-	
-	console.log("***listRicepsFilter dans filters");
-	console.log(listRicepsFilter);*/
-	
-	console.log("****listRicepsFilterJSON dans filters")
-	console.log(listRicepsFilterJSON)
+	// console.log("****listRicepsFilterJSON dans filters")
+	// console.log(listRicepsFilterJSON)
 
 	//récupération des données 
 	
@@ -50,22 +41,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		console.error("Erreur dans la requête :", error);
 	}
 
-	/*
-	console.log("*** listAllData");
-	console.log(listAllData);
-	console.log("*** ustencilsListFilter");
-	console.log(ustencilsListFilter);
-	console.log("*** ingredientsListFilter");
-	console.log(ingredientsListFilter);
-	console.log("*** applianceListFilter");
-	console.log(applianceListFilter);*/
-
 	/********************* gestion des de la list issue de la barre de recherche principale ******************************* */
 	if(listRicepsFilterJSON){
 
-		/*console.log("***listRicepsFilterJSON dans filters");
-		console.log(listRicepsFilterJSON);
-		*/
 		//constitution des listes pour les filtres
 		let titreListFilter = listRicepsFilterJSON.map( item => item.name);
 		ingredientsListFilter = listRicepsFilterJSON.map( item => item.ingredients[0].ingredient);
@@ -121,31 +99,19 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 		if(ingredientsCurrent.includes( "(") ){
 
-			console.log("***ingredientsCurrent")
 	
-			console.log(ingredientsCurrent.replace(/[()]/g, ""))
-	
-			//ingredientsListFilterTransform.push(ingredientsCurrent.replace(/[()]/g, ""))
-
-			ingredientsCurrent=ingredientsCurrent.replace(/[()]/g, "")
+			ingredientsCurrent=ingredientsCurrent.replace(/[()]/g, "");
 		}
 
-		ingredientsListFilterTransform.push(ingredientsCurrent)
+		ingredientsListFilterTransform.push(ingredientsCurrent);
 		
 	}
 
 	ingredientsListFilter = ingredientsListFilterTransform;
 
-	console.log("****ingredientsListFilterTransform")
-	console.log(ingredientsListFilterTransform)
-	
-
-	
-
-
-
 	//////////////////////////////
 
+	/*
 	console.log("*** listAllData");
 	console.log(listAllData);
 	console.log("*** ustencilsListFilter");
@@ -153,7 +119,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	console.log("*** ingredientsListFilter");
 	console.log(ingredientsListFilter);
 	console.log("*** applianceListFilter");
-	console.log(applianceListFilter);
+	console.log(applianceListFilter);*/
 
 	// Stockage dans le localStorage
 	localStorage.setItem("ingredientsListFilter", JSON.stringify(ingredientsListFilter));
@@ -216,19 +182,10 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
         `;
 
-		//filtersContainer.innerHTML += filter;btnArrow
-
 		btnArrow.innerHTML += filter;
-		// const listeUlContainer = document.querySelector(".listeUlContainer");
-		// listeUlContainer.innerHTML = filter;
+		
 	};
-	//createFilterItemFunction();
-
-	// //liste des titres des boutons
-	// let listTitleFilters =[ "Ingredients", "Appareils", "Ustensiles" ];
 	
-	
-
 	//fonction d'itération du filtre
 	const iterationFilter = () => {
 
@@ -248,14 +205,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 	};
 	iterationFilter();
 
-	//const listeUlContainer = document.getElementsByClassName("listeUlContainer")
-	//console.log(listeUlContainer)
-
-
-
 	//insersion des nouvelles classes dans les boutons
 	const listBtnRecette = document.getElementsByClassName("recettesBtn");
-	// console.log(listBtnRecette);
+
 
 	for(let b=0; b<listBtnRecette.length; b++){
 
@@ -281,19 +233,16 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 
 	/////////////////////////////////////
-	//const listBtnRecette = document.getElementsByClassName("recettesBtn");
-		
+	
 	//récupération des filtres
 	const filterForm2 = document.getElementsByClassName("filterForm2");
-	// console.log(filterForm2); 
-
+	
 	//récupération des filtres
 	const listArrowDown = document.getElementsByClassName("arrowDown");
 
 	const listArrowUp = document.getElementsByClassName("arrowUp");
 
-	//console.log(listArrowDown);
-
+	
 	//liste des valeurs des arrows
 	let listArrowDownFilters = [ "arrowDownIngredients", "arrowDownAppareils", "arrowDownUstensiles" ];
 	let listArrowUpFilters = [ "arrowUpIngredients", "arrowUpAppareils", "arrowUpUstensiles" ];
@@ -318,10 +267,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				//récupération de id de l'élément en cours
 				let classBtn = document.querySelector(`${"."+valueSecondClass}`);
 
-				// console.log("***classBtn")
-				// console.log(classBtn)
-
-				/////////////////////////////
 				
 				//récupération des searchbar desfiltres 
 				//let input = document.querySelector(`${".input"+listTitleFiltersCurrent}`);
@@ -360,7 +305,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							if(valeurStyleFilterDisplay === "none"){ //vrai
 
 
-								console.log("**** bienvenue dans le if du display");
 
 								filterFormCureent.style.display = "block";
 
@@ -377,13 +321,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								//stockage de la liste dans le localstorage
 								localStorage.setItem("classBtnValue", JSON.stringify(classBtn.classList[1]));
 
-								//////////////////
-								//deleteSearchBarFilter();
-								//////////////////
 
 							}else{
 
-								console.log("**** bienvenue dans le else du display");
 
 								filterFormCureent.style.display = "none";
 								//récupération et gestion de arrow correspondant au bouton
@@ -394,9 +334,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								//récupération et gestion de arrow correspondant au bouton
 								const arrowDown = document.querySelector(`${ ".arrowUp"+valueIdFiltre}`);
 								arrowDown.style.display = "none";
-								//////////////////
-								//deleteSearchBarFilter();
-								//////////////////
+								
 
 							}
 						}
@@ -406,7 +344,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 						
 						
-					});// de classBtn
+					});
 
 
 				}
@@ -489,12 +427,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 			let inputFilterElementValueCurrent = listInputFilterElement[s].classList[1];
 
-			// console.log("***inputFilterElementValueCurrent");
-			// console.log(inputFilterElementValueCurrent);
-
 			if(InputlistValueCurrent === inputFilterElementValueCurrent.trim()){
-
-				//console.log("***bienvenue sur l'input");
 
 				inputFilterElementCurrent.addEventListener("input", (e)=>{
 
@@ -511,10 +444,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					//gestion de l'affichage de la croix dans le filtre
 					function deleteValueSearchBarFilterFunction(){
 
-						console.log("*****bienvenue à la deleteValueSearchBarFilterFunction");
-				
-						
-				
 						let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
 				
 						//récupération de tous les inputs des filtres
@@ -535,9 +464,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 							if(valueClassbtenInput === valueClassbtenXDelete && valInputFilter){
 				
-								console.log("*****bienvenue à la condition delete");
-								//console.log(elementDeleteCurrent);
-
 								elementDeleteCurrent.style.display = "block";
 									
 				
@@ -584,8 +510,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 			if(!inputIngredients.value){
 
-				//console.log("*** bienvenue dans Ingratients");
-										
+								
 				for(let i=0; i<ingredientsListFilter.length; i++){
 		
 		
@@ -601,8 +526,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 			if(!inputUstensiles.value){
 		
-				//console.log("*** bienvenue dans Ustensiles");
-		
+				
 				for(let i=0; i<ustencilsListFilter.length; i++){
 		
 		
@@ -617,8 +541,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 										
 		
 			if(!inputAppareils.value){
-		
-				//console.log("*** bienvenue dans Appareils");
 		
 				for(let i=0; i<applianceListFilter.length; i++){
 		
@@ -646,9 +568,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			inputIngredients.addEventListener("input", (e)=>{
 
 				let val = e.target.value;
-									
-				console.log(val);
-	
+				
 				// suppression de tous les éléments existants dans l'élément ou enfants
 				ingredientsContainer.innerHTML = "";
 	
@@ -678,10 +598,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				function deleteSearchBarFilter(){
 
-					console.log("*****bienvenue à la deleteSearchBarFilter");
-
-		
-
+					
 					let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
 
 					//récupération de toutes les croix des filtres
@@ -704,8 +621,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 								elementDeleteCurrent.addEventListener("click", ()=>{
 
-									console.log("*****bienvenue à la l'evennement delete");
-									console.log(elementDeleteCurrent);
 
 									inputIngredients.value = "";
 									inputIngredients.removeAttribute("value");
@@ -736,13 +651,9 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					}
 				}
 				deleteSearchBarFilter();
-				//btnFilterChoiceFunction();
-
-				////////////////////////////////////////////
-
-				//////////////////////
+				
 				btnFilterChoiceFunction();
-				//////////////////////
+			
 	
 	
 			});
@@ -781,10 +692,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				function deleteSearchBarFilter(){
 
-					console.log("*****bienvenue à la deleteSearchBarFilter");
-
-		
-
 					let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
 
 					//récupération de toutes les croix des filtres
@@ -807,10 +714,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 								elementDeleteCurrent.addEventListener("click", ()=>{
 
-									console.log("*****bienvenue à la l'evennement delete");
-									console.log(elementDeleteCurrent);
-
-									//masquage de la croix 
+						
 
 									elementDeleteCurrent.style.display="none";
 									
@@ -853,7 +757,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			inputUstensiles.addEventListener("input", (e)=>{
 	
 				let val = e.target.value;
-				console.log(val);
+				
 
 				inputUstensiles.setAttribute("value" , `${val}`);
 	
@@ -887,10 +791,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				function deleteSearchBarFilter(inputFilterElementCurrent, valInputFilter){
 
-					console.log("*****bienvenue à la deleteSearchBarFilter");
-
-		
-
+				
 					let listInputSearchBarFilter = ["btnDeleteIngredients", "btnDeleteAppareils", "btnDeleteUstensiles"];
 
 					//récupération de toutes les croix des filtres
@@ -912,9 +813,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							if(inputsearchBarFilterClass === listInputSearchBarFilterValue){
 
 								elementDeleteCurrent.addEventListener("click", ()=>{
-
-									console.log("*****bienvenue à la l'evennement delete");
-									console.log(elementDeleteCurrent);
 
 									//masquage de la croix 
 									elementDeleteCurrent.style.display="none";
@@ -946,20 +844,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					}
 				}
 				deleteSearchBarFilter();
-				//btnFilterChoiceFunction();
-
-				////////////////////////////////////////////
+		
 	
 	
 			});
 
 		}
 		evenSearchBarFilterFunction();
-
-		//}); // de classBtn
-
-
-
 
 		//gestion des evennements au click sur  un choix de li ou 
 							
@@ -974,69 +865,28 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		//gestion des filtres lorsqu'on choisit un élément de la list
 		function btnFilterChoiceFunction(listChoiceAppareils2,listChoiceIngredients2, listChoiceUstensils2 ){
 
-			console.log("*** bienvenue dans la fonction btnFilterChoiceFunction");
-			
-			/*if(listChoiceAppareils2 ){
-
-				listChoiceAppareils=listChoiceAppareils2;
-
-				console.log("bien listChoiceAppareils")
-				console.log( listChoiceAppareils)
-			}
-
-			if(listChoiceIngredients2){
-
-				listChoiceIngredients=listChoiceIngredients2;
-
-				console.log("bien listChoiceIngredients")
-				console.log( listChoiceIngredients)
-			}
-
-			if(listChoiceUstensils2){
-
-				listChoiceUstensils=listChoiceUstensils2;
-
-				console.log("bien listChoiceUstensils")
-				console.log( listChoiceUstensils)
-
-			}*/
 
 			// Récupérer toutes les clés du localStorage   
 			const keysLocalstorage = Object.keys(localStorage);
 
-			console.log("****keysLocalstorage");
-			console.log(keysLocalstorage);
 
 			if(keysLocalstorage.length === 0){
 
-				console.log("****keysLocalstorage est null");
-				console.log(keysLocalstorage);
 
-				 listChoiceAppareils = [];
-				 listChoiceIngredients = [];
-				 listChoiceUstensils = [];
+				listChoiceAppareils = [];
+				listChoiceIngredients = [];
+				listChoiceUstensils = [];
 
 			}
-
-			console.log("bien listChoiceIngredients");
-			console.log( listChoiceIngredients);
-			
 
 			//fonction de mise à jour de la liste du filtre ingredient
 			function ingredientsChoiceFunction(){
 
-				
-
-				console.log("bien ingredientsChoiceFunction");
-				console.log("bien listChoiceIngredients");
-				console.log( listChoiceIngredients);
-				
-
 				//if(keysLocalstorage.length !==0 ){
 
-				if(listChoiceAppareils.length !==0 ){   // && keysLocalstorage.length !==0 
+				if(listChoiceAppareils.length !==0 ){   
 
-					console.log("bienvenue listChoiceAppareils.length !==0");
+					
 
 					let listAppareilsConcat = [];
 
@@ -1056,8 +906,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							listAppareilsConcat.push(ingredientsValue2);
 
-							//création du li 
-							// createLiFunction(ingredientsValue2, ingredientsContainer, differentClassFilter);
+							
 
 						}
 			
@@ -1091,33 +940,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 						btnTaIngredientsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-							console.log("** bienvenue dans  tagIgredients condition 1");
+							
 				
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
 				
-							//stockage de la valeur du li ou du btn dans le localstorage
-							// localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
-
-							/////////////////////////////
-
-							/*
-							console.log("**** btnTaIngredientsLi.textContent")
-							console.log(btnTaIngredientsLi.textContent)
-
-							let liItemValueTransform = liItemValue;
-
-							
-							if(liItemValue.includes( "(") ){
-
-								console.log("***liItemValue")
-
-								console.log(liItemValue.replace(/[()]/g, ""))
-
-								liItemValueTransform = liItemValue.replace(/[()]/g, "");
-							}
-							*/
+						
 
 
 							//////////////////////////////
@@ -1144,7 +973,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 										if(valClassBtnLi.replace(/\s+/g, "").toUpperCase() === listappareilObjectCurrent.replace(/\s+/g, "").toUpperCase() ){
 					
-											console.log("*** bienvenue dans le if appareilVal replace  de ingredients");
+											
 					
 											listChoiceIngredients=[];
 											listChoiceIngredients.push(objectAppareil);
@@ -1198,11 +1027,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				}else  if(listChoiceUstensils.length !== 0  ){
 
-					console.log("** bienvenue dans  tagAppareils condition 1");
-
-					console.log("bien ingredientsChoiceFunction");
-					console.log("bien listChoiceUstensils");
-					console.log( listChoiceUstensils);
+					
 
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
@@ -1261,9 +1086,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 						btnTagIngredientsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-							console.log("** bienvenue dans  tagAppareils condition 1");
-				
-							
+						
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagIngredientsLiId.substring(9,tagIngredientsLiId.length);
@@ -1292,7 +1115,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 										if(valClassBtnLi.toUpperCase() === ingredientsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
 				
-											console.log("*** bienvenue dans le if appareils replace ");
+											
 				
 											listChoiceIngredients.push(objectIngredientsCurrent);
 				
@@ -1349,7 +1172,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				} else{  //état initial des valeurs du filtre
 
-					console.log("**** bienvenue à l'état initial du filtre ou de la  ingredientsChoiceFunction");
+					
 
 					/////////////////////////////
 					
@@ -1378,33 +1201,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							btnCurrent.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-								console.log("** bienvenue dans  tagIngredients");
+								
 
 								//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 								let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 					
-								// let differentClassFilter = btnCurrent.classList[2];
-										
-								/////////////////////////////
-
-								/*console.log("**** btnTaIngredientsLi.textContent")
-								console.log(btnCurrent.textContent)
-
-								let btnCurrentTransform = btnCurrent.textContent;
-
 								
-								if(btnCurrent.textContent.includes( "(") ){
-
-									console.log("***btnCurrent.textContent")
-
-									console.log(btnCurrent.textContent.replace(/[()]/g, ""))
-
-									btnCurrentTransform = btnCurrent.textContent.replace(/[()]/g, "");
-								}*/
-							
-
-
-							//////////////////////////////
 
 								//stockage de la valeur du li ou du btn dans le localstorage
 								//localStorage.setItem( "valClassBtnIngredientsLi", JSON.stringify(valClassBtnLi));
@@ -1431,10 +1233,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 											let valObjectIngredients = objectAllDataCurrent[valFilterTestCurrent][o].ingredient;
 
-									
-											// console.log("***valObjectIngredients");
-											// console.log(valObjectIngredients);
-
+					
 											if(valObjectIngredients){
 
 										
@@ -1509,14 +1308,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				if(listChoiceIngredients.length !== 0  ){  //&& keysLocalstorage.length !==0
 
-					console.log("** bienvenue dans  tagAppareils condition 1");
-
-						
-
-					//let differentClassFilter = btnCurrent.classList[2];
-
-						
-
+			
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
 					let listAppareilsConcat = [];
@@ -1526,7 +1318,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 					appareilsContainer.innerHTML= "";
 
 
-
 					for(let i=0; i< listChoiceIngredients.length; i++){ 
 					
 					
@@ -1534,9 +1325,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 									
 						listAppareilsConcat.push(appareilsValue2);
 
-						//création du li 
-						//createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
-								
+						
 								
 					}
 
@@ -1567,9 +1356,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 						btnTagAppareilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-							console.log("** bienvenue dans  tagAppareils condition 1");
-
-								
+			
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagAppareilsLiId.substring(9,tagAppareilsLiId.length);
@@ -1616,11 +1403,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								}
 							}
 
-							//////////////////////////
-								
-							//fermeture de la list
-							//showHidenElementFunction();
-								
 							
 							//masquage de la fleche du haut arrowDownIngredients
 							let arrowUpAppareils = document.querySelector(".arrowUpAppareils");
@@ -1646,7 +1428,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				}else if(listChoiceUstensils.length !== 0  ){  //&& keysLocalstorage.length !==0
 
-					console.log("** bienvenue dans  tagAppareils condition 1");
+					
 
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
@@ -1666,10 +1448,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 									
 						listAppareilsConcat.push(appareilsValue2);
 
-						//création du li 
-						//createLiFunction(appareilsValue2, appareilsContainer, differentClassFilter);
-								
-								
+						
 					}
 
 						
@@ -1700,11 +1479,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				
 						btnTagUstensilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-							console.log("** bienvenue dans  tagAppareils condition 1");
-				
-								
-							// console.log("*** mon btnCurrent");
-							// console.log(btnCurrent);
+							
 				
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
@@ -1738,7 +1513,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 									if(valClassBtnLi.toUpperCase() === appareilsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
 				
-										console.log("*** bienvenue dans le if appareils replace ");
+										
 				
 										//listChoiceAppareils=[];
 										listChoiceAppareils.push(listChoiceUstensilsCurrent);
@@ -1812,8 +1587,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						//récupération du bouton spécifique ou encours
 						let btnCurrent = document.getElementById(`${BtnFilterCurrentValue}`);
 
-						// console.log("*** mon btnCurrent");
-						// console.log(btnCurrent);
 
 						let differentClassFilter = btnCurrent.classList[2];
 
@@ -1823,8 +1596,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 							
 
 							btnCurrent.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
-
-								console.log("** bienvenue dans  tagAppareils");
 
 								
 								//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
@@ -1946,9 +1717,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							listUstensilsConcat.push(ustensilsValue2);
 
-							//création du li 
-							//createLiFunction(ustensilsValue2, ustensilesContainer, differentClassFilter);
-
+							
 						}
 
 
@@ -1984,7 +1753,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 						btnTaUstenilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-							console.log("** bienvenue dans  tagIgredients condition 1");
+							
 								
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							//let valClassBtnUstensilsLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
@@ -2019,10 +1788,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 										if(valClassBtnLi.replace(/\s+/g, "").toUpperCase() === ustensilsValueCurrent.replace(/\s+/g, "").toUpperCase() ){
 					
-											console.log("*** bienvenue dans le if appareilVal replace  de ingredients");
-					
-											// console.log("***objectAllDataCurrent");
-											// console.log(objectAllDataCurrent);
+											
 					
 											listChoiceUstensils=[];
 											listChoiceUstensils.push(objectAppareil);
@@ -2074,8 +1840,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 				}else if(listChoiceIngredients.length !== 0  ){  //&& keysLocalstorage.length !==0
 
-					console.log("** bienvenue dans  tagAppareils condition 1");
-
+					
 						
 					//suppression des doublons et mise à jour des li
 					//retrait des doublons 
@@ -2138,8 +1903,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 						btnTUstensilsLi.addEventListener("click", ()=>{  //.replace(/\s+/g, "")
 
-							console.log("** bienvenue dans  tagUstensiles condition 1");
-								
+							
 							//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 							// let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 							let valClassBtnLi = tagUstensilsLiId.substring(9,tagUstensilsLiId.length);
@@ -2174,8 +1938,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			
 										if(valClassBtnLi.toUpperCase() === ustensilsCurrent.replace(/\s+/g, "").toUpperCase() ){
 				
-											console.log("*** bienvenue dans le if ustensils replace ");
-				
+											
 											//listChoiceAppareils=[];
 											listChoiceUstensils.push(objectIngredients);
 				
@@ -2240,9 +2003,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						//récupération du bouton spécifique ou encours
 						let btnCurrent = document.getElementById(`${BtnFilterCurrentValue}`);
 
-						/*console.log("*** mon btnCurrent");
-						console.log(btnCurrent);*/
-
 						let differentClassFilter = btnCurrent.classList[2];
 
 						//vérification si on est sur le bon filtres
@@ -2251,11 +2011,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							btnCurrent.addEventListener("click", ()=>{  
 
-								console.log("** bienvenue dans  tagUstensiles");
-			
-						
-						
-			
 								//récupération du contenue de la chaine du caractère 9 jusqu'au dernier
 								let valClassBtnLi = BtnFilterCurrentValue.substring(9,BtnFilterCurrentValue.length);
 								
@@ -2283,11 +2038,11 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 										if(valObjectUstensils ){    //&& !listChoiceIngredientsLocalstorage
 		
-											console.log("listChoiceIngredients n'existe dans cette condition");
+											
 														
 											if(valClassBtnLi.toUpperCase() === valObjectUstensils.replace(/\s+/g, "").toUpperCase() ){
 		
-												console.log("*** bienvenue dans le if ustensils replace 1 ");
+												
 		
 												listChoiceUstensils.push(objectAllDataCurrent);
 										
@@ -2341,7 +2096,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		btnFilterChoiceFunction();
 
 
-		//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 		/********************* gestion des tags ******************************* */
 	
@@ -2349,7 +2103,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		const ulTagIngredients = document.querySelector(".ulTagIngredients");
 		const ulTagAppareils = document.querySelector(".ulTagAppareils");
 		const ulTagUstensils = document.querySelector(".ulTagUstensils");
-		//console.log(keywordsTaglistFilter);
+	
     
 		//fonction de création des tags des filtres
 		const keywordsTagFilterFunction = (tagTexContent, tagContainer, listChoiceClass) => {
@@ -2378,7 +2132,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 		function showTagFunction(){
 
-			console.log("Bienvenue dans showTagFunction()");
+			
 			//récupération des valeurs des tags du localstorage
 
 			let tagIngredientsLocalStorage = localStorage.getItem("valClassBtnIngredientsLi");
@@ -2432,11 +2186,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				let listChoiceLocalStorage = JSON.parse(localStorage.getItem("listChoice"));
 				let listChoiceUstensilsLocalStorage = JSON.parse(localStorage.getItem("listChoiceUstensils"));
 			
-				console.log("***listChoiceLocalStorage");
-				console.log(listChoiceLocalStorage);
-
-				console.log("***listChoiceUstensilsLocalStorage");
-				console.log(listChoiceUstensilsLocalStorage);
 
 				//éxécussion de la articleCreateFunction venant de cardRecette.js
 			
@@ -2444,8 +2193,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 			}
 
 		}
-		//showTagFunction();
-
+		
 		//gestion des fermetures des tags
 
 		function deleteTagFunction(){
@@ -2498,12 +2246,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 				
 							//fusion des deux listes pour obtenir une nouvelle liste lors de la suppression du tag
 							
-							console.log("***listChoiceLocalStorage");
-							console.log(listChoiceLocalStorage);
-
-							console.log("***listChoiceTagLocalStorage");
-							console.log(listChoiceTagLocalStorage);
-
 							//récupération des ul ou container des tags
 							let ulTagIngredients = document.querySelector(".ulTagIngredients");
 							let ulTagAppareils = document.querySelector(".ulTagAppareils");
@@ -2515,16 +2257,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						
 							if(ulTagIngredients.childNodes.length <=1  && ulTagAppareils.childNodes.length <=1 && ulTagUstensils.childNodes.length <=1  ){
 
-								console.log("*** tous premier enfant n'existe pas");
-
-								//transfert de uniqueList vers getDatasFunction 
-
-								// Supprimer tout le contenu du localStorage
-								//localStorage.clear();
-								//getDatasFunction( listAllData);
-
-
-								//////////////////////////
+								
 
 								//recréation des li ou élément des filtres
 
@@ -2540,11 +2273,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 			
 
-		
-									console.log(ingredientsListFilter);
-									console.log(applianceListFilter);
-									console.log(ustencilsListFilter );
-									//console.log("*** bienvenue dans Ingratients");
 										
 									ingredientsContainer.innerHTML="";
 
@@ -2559,10 +2287,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		
 									}
 			
-										
-		
-									//console.log("*** bienvenue dans Ustensiles");
-		
+									
 									ustensilesContainer.innerHTML="";
 
 									for(let i=0; i<ustencilsListFilter.length; i++){
@@ -2577,8 +2302,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 									}
 			
 					
-									//console.log("*** bienvenue dans Appareils");
-		
 									appareilsContainer.innerHTML="";
 
 									for(let i=0; i<applianceListFilter.length; i++){
@@ -2615,9 +2338,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 							}else{
 
-								console.log("****bienvenue dans le else de la fermeture des tags");
-								//console.log("**uniqueList");
-								//console.log(uniqueList);
+								
 
 								//supression de la liste du local storage  qui correspond au tag qu'on supprime
 								localStorage.removeItem(`${"listChoice"+valListTitleFiltersCurrent}`);
@@ -2632,16 +2353,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								//////////////////////////
 								if(classLiTagCurrent === "listChoiceIngredients"){
 
-									console.log("**bienvenue dans le tag listChoiceIngredients");
-
-									/////////////////////
-
 								
 									//fonction de gestion de mise à jour à la supression des tags
 									function manageValueTexcontentTagFunction(){
 
 
-										console.log(valueTexContentTagCurrent);
+										
 
 										let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
 										let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
@@ -2664,8 +2381,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 											}
 										}
 									
-										console.log("***listValueTexContentTagFinal");
-										console.log(listValueTexContentTagFinal);
+										
 									
 										let listAppareilsUstensilsObjectTag = [];
 
@@ -2687,8 +2403,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 												if(listAppareilsTagCurrent === valueTextContentCurrent){
 
-													//console.log("**** listIngredientTagCurrent existe")
-
+				
 													//ajout de l'objet encours dans la list
 													listAppareilsUstensilsObjectTag.push(valueObjectTag);
 
@@ -2703,7 +2418,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 												if(listUstensilTagCurrent.length !== 0){
 
-													//console.log("**** listUstensilTagCurrent existe")
+													
 
 													//gestion de la liste des ustensils encours
 													for(let j=0; j<listUstensilTagCurrent.length; j++){
@@ -2712,7 +2427,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 														if(ValueUstensilTagCurrent === valueTextContentCurrent){
 
-															//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
+															
 
 															//ajout de l'objet encours dans la list
 															listAppareilsUstensilsObjectTag.push(valueObjectTag);
@@ -2729,18 +2444,13 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 										}
 
-										console.log("****listAppareilsUstensilsObjectTag");
-										console.log(listAppareilsUstensilsObjectTag);
-
-							
-
+										
 										//suppression des doublons dans les liste d'objects en fonction de l'id
 										let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
 											index === array.findIndex((item2) => item2.id === item.id)
 										);
 
-										console.log("****NewUniqueList");
-										console.log(NewUniqueList);
+										
 
 										getDatasFunction( NewUniqueList);
 
@@ -2756,18 +2466,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 								
 								}else if(classLiTagCurrent === "listChoiceAppareils"){
 
-									console.log("**bienvenue dans le tag listChoiceAppareils");
-
-								
-
-									/////////////////////
+									
 
 								
 									//fonction de gestion de mise à jour à la supression des tags
 									function manageValueTexcontentTagFunction(){
 
-
-										console.log(valueTexContentTagCurrent);
 
 										let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
 										let valueTexContentTagUstensils = document.querySelector(".listChoiceUstensils") ?? [];
@@ -2790,8 +2494,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 											}
 										}
 									
-										console.log("***listValueTexContentTagFinal");
-										console.log(listValueTexContentTagFinal);
+										
 									
 										let listAppareilsUstensilsObjectTag = [];
 
@@ -2813,9 +2516,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 												if(listIngredientTagCurrent.length !== 0){
 
-													//console.log("**** listIngredientTagCurrent existe")
-
-
+						
 													//gestion de la liste des ingredients encours
 													for(let j=0; j<listIngredientTagCurrent.length; j++){
 
@@ -2824,7 +2525,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 														if(objectIngredientTagCurrent === valueTextContentCurrent){
 
-															//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+															
 
 															//ajout de l'objet encours dans la list
 															listAppareilsUstensilsObjectTag.push(valueObjectTag);
@@ -2845,7 +2546,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 												if(listUstensilTagCurrent.length !== 0){
 
-													//console.log("**** listUstensilTagCurrent existe")
+													
 
 													//gestion de la liste des ustensils encours
 													for(let j=0; j<listUstensilTagCurrent.length; j++){
@@ -2854,7 +2555,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 														if(ValueUstensilTagCurrent === valueTextContentCurrent){
 
-															//console.log("****condition  ValueUstensilTagCurrent === valueTextContentCurrent");
+															
 
 															//ajout de l'objet encours dans la list
 															listAppareilsUstensilsObjectTag.push(valueObjectTag);
@@ -2871,18 +2572,14 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 										}
 
-										console.log("****listAppareilsUstensilsObjectTag");
-										console.log(listAppareilsUstensilsObjectTag);
-
-							
+										
 
 										//suppression des doublons dans les liste d'objects en fonction de l'id
 										let NewUniqueList = listAppareilsUstensilsObjectTag.filter((item, index, array) =>
 											index === array.findIndex((item2) => item2.id === item.id)
 										);
 
-										console.log("****NewUniqueList");
-										console.log(NewUniqueList);
+										
 
 										getDatasFunction( NewUniqueList);
 
@@ -2895,14 +2592,12 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 								}else if(classLiTagCurrent === "listChoiceUstensils"){
 
-									console.log("**bienvenue dans le tag listChoiceUstensils");
-
-
+									
 									//fonction de gestion de mise à jour à la supression des tags
 									function manageValueTexcontentTagFunction(){
 
 
-										console.log(valueTexContentTagCurrent);
+										
 
 										let valueTexContentTagIngredients = document.querySelector(".listChoiceIngredients") ?? [];
 										let valueTexContentTagAppareils = document.querySelector(".listChoiceAppareils") ?? [];
@@ -2925,8 +2620,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 											}
 										}
 									
-										console.log("***listValueTexContentTagFinal");
-										console.log(listValueTexContentTagFinal);
+									
 									
 										let listAppareilsIngredientObjectTag = [];
 
@@ -2948,7 +2642,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 												if(listIngredientTagCurrent.length !== 0){
 
-													//console.log("**** listIngredientTagCurrent existe")
+													
 
 
 													//gestion de la liste des ingredients encours
@@ -2959,7 +2653,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 														if(objectIngredientTagCurrent === valueTextContentCurrent){
 
-															//console.log("****condition  objectIngredientTagCurrent === valueTextContentCurrent");
+															
 
 															//ajout de l'objet encours dans la list
 															listAppareilsIngredientObjectTag.push(valueObjectTag);
@@ -2980,7 +2674,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 												if(listAppareilsTagCurrent.length === valueTextContentCurrent){
 
-													//console.log("**** listUstensilTagCurrent existe")
+													
 
 													//ajout de l'objet encours dans la list
 													listAppareilsIngredientObjectTag.push(valueObjectTag);
@@ -2993,9 +2687,6 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 
 										}
 
-										console.log("****listAppareilsIngredientObjectTag");
-										console.log(listAppareilsIngredientObjectTag);
-
 							
 
 										//suppression des doublons dans les liste d'objects en fonction de l'id
@@ -3004,8 +2695,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 										);
 
 
-										console.log("****NewUniqueList");
-										console.log(NewUniqueList);
+										
 
 										getDatasFunction( NewUniqueList);
 
@@ -3022,38 +2712,17 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 						}
 					}
 
-				
-
-
-				
-
+		
 				});
 			}
 		}
 
 
-
-
-
-
-
-		//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-			
+	
 	}
 	setListDataFilterFunction();
 
-					
-	////////////////////////////////////////////////
-
 	
-
-	
-
-	/********************* 	//gestion de la suppresion du contenu de la search bar des filtres ******************************* */
-	
-	
-
-
 	
 }
 export default createFilterFunction();
