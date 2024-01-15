@@ -195,12 +195,6 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 	
 	//affichage de toutes les recettes sur la page d'acceuil
 
-	console.log("*** test uniqueList")
-	console.log(uniqueList)
-
-	console.log("*** test listChoiceLocalStorage")
-	console.log(listChoiceLocalStorage)
-
 	function showAllRicepsFunction(){
 
 
@@ -219,9 +213,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 
 		}else if(uniqueList && listChoiceLocalStorage ){  ///////////////////////
 
-			console.log("*** condition uniqueList")
-			console.log(uniqueList)
-
+			
 			containerArticleRecette.innerHTML = "";
 
 			for(let i=0; i<uniqueList.length; i++){
@@ -355,10 +347,7 @@ export async function getDatasFunction(listChoiceLocalStorage, uniqueList) {
 			//supression des doublons
 			listResultSearchBar = [...new Set(listResultSearchBar)];
 
-			console.log("***listResultSearchBar");
-
-			console.log(listResultSearchBar);
-
+			
 			listRicepsFilter=[];
 
 			////////////////////////////////
