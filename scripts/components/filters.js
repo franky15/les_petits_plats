@@ -385,7 +385,7 @@ export async  function createFilterFunction(listRicepsFilterJSON){
 		let liItem =`
 							
 							
-			<li data-${"btnFilter"+liItemValue.replace(/\s+/g, "")}=${"btnFilter"+liItemValue.replace(/\s+/g, "")} class="optionLi ${liItemValue}" style="display: block;" role='option'>  
+			<li  class="optionLi ${liItemValue}" style="display: block;" >  
 		
 				<button   class="btnFilter ${"btnFilter"+liItemValue.replace(/\s+/g, "")} ${differentClassFilter}" id="${"btnFilter"+liItemValue.replace(/\s+/g, "")}">
 
